@@ -26,9 +26,9 @@ function subscribeUser() {
   .then(function(subscription) {
     console.log('User is subscribed.');
 
-    // JSON.stringify(subscription);
+    console.log(JSON.stringify(subscription));
 
-    updateSubscriptionOnServer(subscription);
+    //updateSubscriptionOnServer(subscription);
 
     isSubscribed = true;
 
