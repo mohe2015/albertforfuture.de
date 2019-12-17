@@ -1,4 +1,5 @@
 if ('serviceWorker' in navigator) {
+  console.log("service worker supported")
   navigator.serviceWorker.register('./sw.js', {scope: '/'})
   .then((reg) => {
     console.log('Registration succeeded. Scope is ' + reg.scope);
@@ -9,4 +10,8 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('beforeinstallprompt', (e) => {
     e.prompt();
   });
+
+  if ('PushManager' in window) {
+    console.log("push supported")
+  }
 }
