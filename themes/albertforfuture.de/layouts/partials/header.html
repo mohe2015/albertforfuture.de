@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="de">
+	<head>
+		<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title> {{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }} </title>
+
+		<!--<style>{{ readFile "themes/albertforfuture.de/static/css/main.css" | safeCSS }}</style>-->
+
+		<link href="{{ .Site.BaseURL }}css/main.css" rel="stylesheet" type="text/css">
+
+		{{ if .RSSLink }}<link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />{{ end }}
+
+	</head>
+	<body>
+
+<nav>
+  <input type="checkbox" id="nav-check">
+  <div class="nav-header">
+    <div class="nav-title">
+      <a href="{{ .Site.BaseURL }}"><img src="{{ .Site.BaseURL }}icon.webp" alt="Albert for Future Logo" class="logo"></a>
+    </div>
+  </div>
+  <div class="nav-btn">
+    <label for="nav-check">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </div>
+
+  <div class="nav-links">
+		{{ $currentPage := . }}
+		{{ range .Site.Menus.main }}
+		<a class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}" href="{{ .URL }}" title="{{ .Title }}">
+			{{- .Name -}}
+		</a>
+		{{ end }}
+  </div>
+</nav>
+
+<main>

@@ -1,0 +1,22 @@
+{{ partial "header.html" . }}
+
+<h1>Albert for Future</h1>
+
+{{ $paginator := .Paginate (where .Data.Pages "Type" "article") }}
+{{ range .Paginator.Pages }}
+  <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+
+  <p>
+    <small>{{ .Date.Format "02.01.2006" }}</small>
+  </p>
+
+  {{ .Summary }}
+
+  <p>
+    <a class="readmore" href="{{ .RelPermalink }}">Weiterlesen</a>
+  </p>
+{{ end }}
+
+{{ partial "page-navigation.html" . }}
+
+{{ partial "footer.html" . }}

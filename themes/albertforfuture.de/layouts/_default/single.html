@@ -1,0 +1,9 @@
+{{ partial "header.html" . }}
+
+{{ if eq .Type "page" }}
+    {{ partial "page.html" . }}
+{{ else }}
+    {{ partial "article.html" . }}
+{{ end }}
+
+{{ partial "footer.html" . }}

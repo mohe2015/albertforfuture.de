@@ -1,0 +1,9 @@
+baseURL = "https://mohe2015.github.io/albertforfuture.de/"
+languageCode = "de-DE"
+title = "Albert for Future"
+theme = "albertforfuture.de"
+Paginate = 3
+sectionPagesMenu = "main"
+pluralizeListTitles = false
+publishDir = "docs"
+canonifyURLs = true
