@@ -6,6 +6,7 @@ if ('serviceWorker' in navigator) {
     console.log('Registration failed with ' + error);
   });
 
+
   window.addEventListener('beforeinstallprompt', (e) => {
     e.prompt();
   });

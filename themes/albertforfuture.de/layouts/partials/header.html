@@ -6,9 +6,9 @@
 
 		<title> {{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }} </title>
 
-		<!--<style>{{ readFile "themes/albertforfuture.de/static/css/main.css" | safeCSS }}</style>-->
+		<!--<style>{{ readFile "themes/albertforfuture.de/static/main.css" | safeCSS }}</style>-->
 
-		<link href="{{ .Site.BaseURL }}css/main.css" rel="stylesheet" type="text/css">
+		<link href="{{ .Site.BaseURL }}main.css" rel="stylesheet" type="text/css">
 
 		{{ if .RSSLink }}<link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />{{ end }}
 

@@ -72,7 +72,7 @@ nav > #nav-check {
     height: 3rem;
     padding: 0.5rem;
   }
-  nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+  nav > .nav-btn > label:hover,.nav #nav-check:checked ~ .nav-btn > label {
     background-color: rgba(0, 0, 0, 0.3);
   }
   nav > .nav-btn > label > span {
@@ -128,6 +128,6 @@ footer {
   text-align: center;
 }
 
-footer a {
+a {
   color: black;
 }
