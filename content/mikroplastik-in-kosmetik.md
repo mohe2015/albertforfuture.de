@@ -135,6 +135,5 @@ produziert und man demnach auch hier doppelt Gutes tut.
 
 Am wichtigsten: Informiert euch und packt es an!
 
-------------------------------------------------------------------------
 
 Luca Lehmann
