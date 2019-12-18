@@ -6,7 +6,9 @@
 
 		<title> {{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }} </title>
 
-		<style>{{ readFile "themes/albertforfuture.de/static/main.css" | safeCSS }}</style>
+
+{{ $style := resources.Get "main.css" | resources.ToCSS | resources.Minify }}
+<style>{{ $style.Content | safeCSS }}</style>
 
 		{{ if .RSSLink }}<link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />{{ end }}
 
