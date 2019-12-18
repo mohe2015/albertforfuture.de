@@ -42,7 +42,7 @@ function subscribeUser() {
 
 if ('serviceWorker' in navigator) {
   console.log("service worker supported")
-  navigator.serviceWorker.register('./sw.js', {scope: '/'})
+  navigator.serviceWorker.register('/sw.js', {scope: '/'})
   .then((reg) => {
     window.serviceWorkerRegistration = reg;
 
