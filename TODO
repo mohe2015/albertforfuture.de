@@ -1,2 +1,3 @@
 DATENSCHUTZERKLÄRUNG
 service worker - update pages (do that by updating service worker?)
+even faster page loads https://developer.mozilla.org/en-US/docs/Web/API/History_API

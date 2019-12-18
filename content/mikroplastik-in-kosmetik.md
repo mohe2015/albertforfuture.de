@@ -17,9 +17,9 @@ Was ist Mikroplastik?
 
 Unter Mikroplastik versteht man Plastik-Partikel, die 5 mm und kleiner
 sind bzw. feste und unlösliche Polymere (Kunststoffe). Hierbei wird
-nochmal zwischen primärem und sekundärem Mikroplastik unterschieden:
+nochmal zwischen primärem und sekundärem Mikroplastik unterschieden:\
 **Primäres Mikroplastik** wird gezielt von Industrien für Kosmetika
-hergestellt z. B. für Peelings
+hergestellt z. B. für Peelings\
 **Sekundäres Mikroplastik** entsteht bei der Zersetzung von Plastikmüll
 in der Umwelt. Durch Sonne, Wasser und Wind zerfallen große Plastikteile
 in ihre Ursprungsformen, den Plastikpellets zurück.
