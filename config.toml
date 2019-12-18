@@ -1,4 +1,4 @@
-baseURL = "http://5.230.28.92/"
+baseURL = "https://beta.albertforfuture.de/"
 languageCode = "de-DE"
 title = "Albert for Future"
 theme = "albertforfuture.de"
