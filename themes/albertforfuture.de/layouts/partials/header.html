@@ -6,13 +6,9 @@
 
 		<title> {{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }} </title>
 
-		<!--<style>{{ readFile "themes/albertforfuture.de/static/main.css" | safeCSS }}</style>-->
-
-		<link href="{{ .Site.BaseURL }}main.css" rel="stylesheet" type="text/css">
+		<style>{{ readFile "themes/albertforfuture.de/static/main.css" | safeCSS }}</style>
 
 		{{ if .RSSLink }}<link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />{{ end }}
-
-		<link rel="manifest" href="/manifest.json">
 
 		<link rel="shortcut icon" type="image/webp" href="{{ .Site.BaseURL }}icon.webp">
 
