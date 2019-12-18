@@ -5,5 +5,4 @@ theme = "albertforfuture.de"
 Paginate = 3
 sectionPagesMenu = "main"
 pluralizeListTitles = false
-publishDir = "docs"
 canonifyURLs = true
