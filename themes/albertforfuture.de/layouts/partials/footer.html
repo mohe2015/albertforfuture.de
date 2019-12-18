@@ -6,7 +6,9 @@
 	<a href="{{ .Site.BaseURL }}impressum">Impressum</a>
 </footer>
 
-	<script defer src="{{ .Site.BaseURL }}index.js"></script>
+<script>
+	{{ readFile "/themes/albertforfuture.de/resources/index.js" | safeJS }}
+</script>
 
 	</body>
 </html>
