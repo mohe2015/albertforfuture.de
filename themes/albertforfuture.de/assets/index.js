@@ -76,3 +76,46 @@ if ('serviceWorker' in navigator) {
     console.log("push supported")
   }
 }
+
+function status(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(new Error(response.statusText))
+  }
+}
+
+function text(response) {
+  return response.text()
+}
+
+window.addEventListener('popstate', (event) => {
+  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+});
+
+if (window.fetch && window.history && history.pushState) {
+  // TODO check external link
+  document.addEventListener("click", function(event) {
+    event.preventDefault();
+    if (event.target && event.target.nodeName == 'A') {
+      fetch(event.target.href)
+        .then(status)
+        .then(text)
+        .then(function(html) {
+           var parser = new DOMParser();
+           var doc = parser.parseFromString(html, 'text/html');
+
+           var body = doc.querySelector('body');
+
+           var documentBody = document.querySelector('body');
+           documentBody.parentNode.replaceChild(body, documentBody);
+
+           document.title = doc.querySelector('title').innerText;
+
+           history.pushState(null, null, event.target.href);
+        }).catch(function(error) {
+           console.log('Request failed', error);
+        });
+     }
+  });
+}
