@@ -96,9 +96,15 @@ window.addEventListener('popstate', (event) => {
 if (window.fetch && window.history && history.pushState) {
   // TODO check external link
   document.addEventListener("click", function(event) {
-    event.preventDefault();
-    if (event.target && event.target.nodeName == 'A') {
-      fetch(event.target.href)
+    var target = event.target;
+
+    while (target && target.nodeName !== 'A') {
+        target = target.parentNode;
+    }
+
+    if (target) {
+      event.preventDefault();
+      fetch(target.href)
         .then(status)
         .then(text)
         .then(function(html) {
@@ -112,10 +118,10 @@ if (window.fetch && window.history && history.pushState) {
 
            document.title = doc.querySelector('title').innerText;
 
-           history.pushState(null, null, event.target.href);
+           history.pushState(null, null, target.href);
         }).catch(function(error) {
            console.log('Request failed', error);
         });
      }
-  });
+  }, true);
 }
