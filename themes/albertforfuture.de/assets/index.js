@@ -90,11 +90,25 @@ function text(response) {
 }
 
 window.addEventListener('popstate', (event) => {
-  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+  fetch(location.href)
+    .then(status)
+    .then(text)
+    .then(function(html) {
+       var parser = new DOMParser();
+       var doc = parser.parseFromString(html, 'text/html');
+
+       var body = doc.querySelector('body');
+
+       var documentBody = document.querySelector('body');
+       documentBody.parentNode.replaceChild(body, documentBody);
+
+       document.title = doc.querySelector('title').innerText;
+    }).catch(function(error) {
+       console.log('Request failed', error);
+    });
 });
 
 if (window.fetch && window.history && history.pushState) {
-  // TODO check external link
   document.addEventListener("click", function(event) {
     var target = event.target;
 
@@ -102,7 +116,7 @@ if (window.fetch && window.history && history.pushState) {
         target = target.parentNode;
     }
 
-    if (target) {
+    if (target && target.host == window.location.host) {
       event.preventDefault();
       fetch(target.href)
         .then(status)
@@ -123,5 +137,5 @@ if (window.fetch && window.history && history.pushState) {
            console.log('Request failed', error);
         });
      }
-  }, true);
+  });
 }
