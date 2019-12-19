@@ -1,17 +1,17 @@
 {{ partial "header.html" . }}
 
 {{ range .Pages }}
-        <h2>{{ .Title }}</h2>
+  <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
 
-        <p>
-            <small>{{ .Date.Format "02.01.2006" }}</small>
-        </p>
+  <p>
+    <small>{{ .Date.Format "02.01.2006" }}</small>
+  </p>
 
-        {{ .Summary }}
+  {{ .Summary }}
 
-        <p>
-            <a class="readmore" href="{{ .RelPermalink }}">Weiterlesen</a>
-        </p>
+  <p>
+    <a class="readmore" href="{{ .RelPermalink }}">Weiterlesen</a>
+  </p>
 {{ end }}
 
 {{ partial "footer.html" . }}

@@ -1,9 +1,7 @@
 DATENSCHUTZERKLÄRUNG
-service worker - update pages (do that by updating service worker?) / cache then update
-even faster page loads https://developer.mozilla.org/en-US/docs/Web/API/History_API
-home link as clicking the icon is not very intuitive
 highlight current pages
-/protokoll headers should be clickable like on index.html
+merge list.html and index.html
+
+service worker - update pages (do that by updating service worker?) / cache then update
 load raw page content using service worker
-startseite link
 download all pages in background / not on install?
