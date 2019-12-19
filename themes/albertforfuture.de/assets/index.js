@@ -104,7 +104,7 @@ window.addEventListener('popstate', (event) => {
 
        document.title = doc.querySelector('title').innerText;
     }).catch(function(error) {
-       console.log('Request failed', error);
+       alert('Request failed ' + error);
     });
 });
 
@@ -134,7 +134,7 @@ if (window.fetch && window.history && history.pushState) {
 
            history.pushState(null, null, target.href);
         }).catch(function(error) {
-           console.log('Request failed', error);
+          alert('Request failed ' + error);
         });
      }
   });

@@ -2,6 +2,8 @@ DATENSCHUTZERKLÄRUNG
 highlight current pages
 merge list.html and index.html
 
-service worker - update pages (do that by updating service worker?) / cache then update
+pushState LOADING INDICATOR
+
+service worker - update pages (do that by updating service worker?) / cache then updateDo
 load raw page content using service worker
 download all pages in background / not on install?
