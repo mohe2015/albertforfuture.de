@@ -11,11 +11,16 @@
       "src": "/512.webp",
       "type": "image/webp",
       "sizes": "512x512"
+    },
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "612x612"
     }
   ],
   "start_url": "/",
   "background_color": "#6dbd1c",
-  "display": "browser",
+  "display": "minimal-ui",
   "scope": "/",
   "theme_color": "#6dbd1c"
 }
