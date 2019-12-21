@@ -1,6 +1,5 @@
 DATENSCHUTZERKLÄRUNG
 highlight current pages
-merge list.html and index.html
 
 service worker - update pages (do that by updating service worker?) / cache then update
 load raw page content using service worker
