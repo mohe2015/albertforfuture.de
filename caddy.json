@@ -31,7 +31,8 @@
 								]
 							}
 						}
-					]
+					],
+					"experimental_http3": true
 				}
 			}
 		},
