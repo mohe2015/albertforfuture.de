@@ -90,6 +90,7 @@ function text(response) {
 }
 
 window.addEventListener('popstate', (event) => {
+  document.getElementById('loader').classList.remove('hide');
   fetch(location.href)
     .then(status)
     .then(text)
@@ -103,7 +104,9 @@ window.addEventListener('popstate', (event) => {
        documentBody.parentNode.replaceChild(body, documentBody);
 
        document.title = doc.querySelector('title').innerText;
+       document.getElementById('loader').classList.add('hide');
     }).catch(function(error) {
+       document.getElementById('loader').classList.add('hide');
        alert('Request failed ' + error);
     });
 });
@@ -118,6 +121,7 @@ if (window.fetch && window.history && history.pushState) {
 
     if (target && target.host == window.location.host) {
       event.preventDefault();
+      document.getElementById('loader').classList.remove('hide');
       fetch(target.href)
         .then(status)
         .then(text)
@@ -133,7 +137,9 @@ if (window.fetch && window.history && history.pushState) {
            document.title = doc.querySelector('title').innerText;
 
            history.pushState(null, null, target.href);
+           document.getElementById('loader').classList.add('hide');
         }).catch(function(error) {
+          document.getElementById('loader').classList.add('hide');
           alert('Request failed ' + error);
         });
      }
