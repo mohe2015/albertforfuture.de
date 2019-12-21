@@ -1,5 +1,47 @@
 DATENSCHUTZERKLÄRUNG
 
-service worker - update pages (do that by updating service worker?) / cache then update
-load raw page content using service worker
-download all pages in background / not on install?
+
+
+TODO don't inline the scripts etc as thats a waste of bandwidth, use http2 push
+and a permanent url
+
+without service worker and without history api:
++every page gets cached for n hours
++pages get loaded by browser
+
+without service worker and with history api:
+every page gets loaded by js, otherwise same
+
+with service worker and without history api:
+service worker fetches pages and caches them forever using an etag database
+if serviceworker gets updated it gets a new database and provides new files
+service worker is cached for like a few hours
+downloads pages in background (as there are currently only a few)
+
+with service worker and with history api:
+same but it doesn't need a full refresh
+
+
+TODO custom 404.html (only for html requests)
+
+
+TODO service worker search?
+
+
+TODO delete outdated chaches
+
+
+TODO use /raw links without the script and link tags as a new script or stylesheet would invalidate all other pages
+TODO or don't use raw links and the service worker just updates index.html (its shell) and replaces the shell on all other pages. -> good idea
+
+TODO check if BROWSER cache contains a normal url if possible
+TODO then the navbar needs to be updated client side
+
+
+TODO https://stackoverflow.com/a/55543550 downlaod in background
+TODO https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker download on user interaction
+
+TODO broadcast updates to pages
+
+
+TODO notify user if available offline
