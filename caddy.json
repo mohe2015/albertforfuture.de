@@ -1,0 +1,49 @@
+{
+	"apps": {
+		"http": {
+			"servers": {
+				"myserver": {
+					"listen": [
+						":443"
+					],
+					"routes": [
+						{
+							"match": [
+								{
+									"host": [
+										"localhost"
+									]
+								}
+							],
+							"handle": [
+								{
+									"handler": "file_server",
+									"root": "/home/moritz/Dokumente/Websites/albertforfuture.de/public"
+								}
+							]
+						}
+					],
+					"tls_connection_policies": [
+						{
+							"match": {
+								"sni": [
+									"localhost"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"tls": {
+			"certificates": {
+				"load_files": [
+					{
+						"certificate": "../localhost.pem",
+						"key": "../localhost-key.pem"
+					}
+				]
+			}
+		}
+	}
+}
