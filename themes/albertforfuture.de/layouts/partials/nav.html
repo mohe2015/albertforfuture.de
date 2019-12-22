@@ -2,6 +2,7 @@
   <input type="checkbox" id="nav-check">
   <div class="nav-header">
     <div class="nav-title">
+      {{ $icon_webp := resources.Get "icon.webp" | fingerprint }}
       <a href="{{ .Site.BaseURL }}"><img src="{{ $icon_webp.Permalink }}" alt="Albert for Future Logo" class="logo"></a>
     </div>
   </div>
