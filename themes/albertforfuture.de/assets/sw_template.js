@@ -22,8 +22,9 @@ self.addEventListener('activate', event => {
 });
 
 function renderTemplate (template, data) {
-  // TODO fixme title
-  return template.replace("{shell}", data);
+  return template
+    .replace("{title}", /<h1>(.*)<\/h1>/.exec(data)[1])
+    .replace("{shell}", data);
 }
 
 // TODO custom 404 page

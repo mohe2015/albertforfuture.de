@@ -1,4 +1,4 @@
 ---
-title: Shell
+title: {title}
 ---
 {shell}

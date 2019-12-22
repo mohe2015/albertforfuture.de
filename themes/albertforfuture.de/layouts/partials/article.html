@@ -1,4 +1,4 @@
-<h1>{{ .Title }}</h1>
+<h1>{{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }}</h1>
 
 <p>
     <small>{{ .Date.Format "02.01.2006" }}</small>
