@@ -1,7 +1,5 @@
 DATENSCHUTZERKLÄRUNG
 
-nginx config /sw.js and push urls
-
 without service worker and without history api:
 +every page gets cached for n hours
 +pages get loaded by browser
@@ -21,7 +19,7 @@ same but it doesn't need a full refresh
 
 TODO service worker search?
 
-TODO delete outdated chaches
+TODO delete outdated caches
 
 TODO https://stackoverflow.com/a/55543550 download in background
 TODO https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker download on user interaction
@@ -32,5 +30,3 @@ TODO notify user if available offline
 
 TODO push notifications for new articles
 TODO notification bell not in dropdown
-
-https://gohugo.io/hugo-pipes/resource-from-template/
