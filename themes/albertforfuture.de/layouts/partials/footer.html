@@ -6,8 +6,13 @@
 	<a href="{{ .Site.BaseURL }}impressum/">Impressum</a>
 </footer>
 
-{{ $js := resources.Get "index.js" | minify | fingerprint }}
-<script src="{{ $js.Permalink }}"></script>
+{{ $serviceWorkerTemplate := resources.Get "sw_template.js" }}
+{{ $serviceWorker := $serviceWorkerTemplate | resources.ExecuteAsTemplate "sw.js" . | fingerprint }}
+<script src="{{ $serviceWorker.Permalink }}"></script>
+
+{{ $indexTemplate := resources.Get "index_template.js" }}
+{{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" . "serviceWorker" $serviceWorker) | fingerprint }}
+<script src="{{ $index.Permalink }}"></script>
 
 	</body>
 </html>

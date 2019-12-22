@@ -19,7 +19,8 @@
 		{{ $icon_png := resources.Get "icon.png" | fingerprint }}
 		<link rel="apple-touch-icon" href="{{ $icon_png.Permalink }}">
 
-		{{ $manifest := resources.Get "manifest.json" | fingerprint }}
+		{{ $manifestTemplate := resources.Get "manifest_template.json" }}
+		{{ $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | fingerprint }}
 		<link rel="manifest" href="{{ $manifest.Permalink }}">
 	</head>
 	<body>

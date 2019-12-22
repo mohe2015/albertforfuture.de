@@ -3,24 +3,24 @@
   "name": "Albert for Future",
   "icons": [
     {
-      "src": "/192.webp",
+      "src": "{{ (resources.Get "192.webp" | fingerprint).Permalink }}",
       "type": "image/webp",
       "sizes": "192x192"
     },
     {
-      "src": "/512.webp",
+      "src": "{{ (resources.Get "512.webp" | fingerprint).Permalink }}",
       "type": "image/webp",
       "sizes": "512x512"
     },
     {
-      "src": "/logo.png",
+      "src": "{{ (resources.Get "logo.png" | fingerprint).Permalink }}",
       "type": "image/png",
       "sizes": "612x612"
     }
   ],
-  "start_url": "/",
+  "start_url": "{{ .Site.BaseURL }}",
   "background_color": "#6dbd1c",
   "display": "minimal-ui",
-  "scope": "/",
+  "scope": "{{ .Site.BaseURL }}",
   "theme_color": "#6dbd1c"
 }

@@ -4,7 +4,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('v1').then((cache) => {
       return cache.addAll([
-        '/'
+        '{{ .Site.BaseURL }}'
       ]);
     })
   );
@@ -37,8 +37,8 @@ self.addEventListener('push', function(event) {
   const title = 'Push Codelab';
   const options = {
     body: 'Yay it works.',
-    icon: 'images/icon.png',
-    badge: 'images/badge.png'
+    icon: '{{ (resources.Get "192.webp" | fingerprint).Permalink }}',
+    badge: '{{ (resources.Get "192.webp" | fingerprint).Permalink }}'
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
