@@ -1,3 +1,5 @@
+include /home/moritz/Dokumente/Websites/albertforfuture.de/public/nginx_map.conf;
+
 server {
 
 	listen 443 ssl default_server http2;
@@ -21,11 +23,7 @@ server {
 	add_header Cache-Control public always;
 	http2_push_preload on;
 
-	location ~ \.(html)$ {
-		add_header Set-Cookie "session=1";
-		add_header Link $resources;
-		expires 6h;
-	}
+	include /home/moritz/Dokumente/Websites/albertforfuture.de/public/nginx.conf;
 
 	location ~ \.(ico|gif|jpe?g|png|svg|js|css|webp|xml|rss)$ {
 		expires max;
@@ -34,11 +32,6 @@ server {
 	location = /sw.js {
 		expires 6h;
 	}
-}
-
-map $http_cookie $resources {
-    "~*session=1" "";
-    default "</style.css>; as=style; rel=preload, </image1.jpg>; as=image; rel=preload, </image2.jpg>; as=image; rel=preload";
 }
 
 server {
