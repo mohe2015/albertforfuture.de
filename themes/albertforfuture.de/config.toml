@@ -3,10 +3,9 @@
   [outputFormats.RawHTML]
     name = "RawHTML"
     mediaType = "text/html"
-    baseName = "raw"
     isPlainText = false
     rel = "alternate"
     isHTML = true
     noUgly = true
     permalinkable = true
-    path = "raw"
+    path = "/raw"
