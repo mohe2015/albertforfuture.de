@@ -1,0 +1,33 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Website von Albert for Future">
+  <meta name="theme-color" content="#6dbd1c"/>
+
+  <title>{{ block "title" . }}{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}{{ end }}</title>
+
+  {{ $style := resources.Get "main.css" | toCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}">
+
+  {{ if .RSSLink }}
+  <link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
+  {{ end }}
+
+  {{ $icon_webp := resources.Get "icon.webp" | fingerprint }}
+  <link rel="shortcut icon" type="image/webp" href="{{ $icon_webp.Permalink }}">
+
+  {{ $icon_png := resources.Get "icon.png" | fingerprint }}
+  <link rel="apple-touch-icon" href="{{ $icon_png.Permalink }}">
+
+  {{ $manifestTemplate := resources.Get "manifest_template.json" }}
+  {{ $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | fingerprint }}
+  <link rel="manifest" href="{{ $manifest.Permalink }}">
+
+  {{- $nginxMapTemplate := resources.Get "nginx_map_template.conf" -}}
+  {{- $nginxMap := $nginxMapTemplate | resources.ExecuteAsTemplate "nginx_map.conf" (dict "context" . "style" $style) -}}
+  {{- substr $nginxMap.Permalink 0 0 -}}
+
+  {{- $nginxTemplate := resources.Get "nginx_template.conf" -}}
+  {{- $nginx := $nginxTemplate | resources.ExecuteAsTemplate "nginx.conf" (dict "context" . "style" $style) -}}
+  {{- substr $nginx.Permalink 0 0 -}}
+</head>

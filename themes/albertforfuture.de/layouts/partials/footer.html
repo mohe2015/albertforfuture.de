@@ -1,18 +1,5 @@
-</main>
-
 <footer>
 	<a href="{{ .Site.BaseURL }}datenschutzerklaerung/">Datenschutzerklärung</a>
 	|
 	<a href="{{ .Site.BaseURL }}impressum/">Impressum</a>
 </footer>
-
-{{ $serviceWorkerTemplate := resources.Get "sw_template.js" }}
-{{ $serviceWorker := $serviceWorkerTemplate | resources.ExecuteAsTemplate "sw.js" . }}
-<script src="{{ $serviceWorker.Permalink }}"></script>
-
-{{ $indexTemplate := resources.Get "index_template.js" }}
-{{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" . "serviceWorker" $serviceWorker) | fingerprint }}
-<script src="{{ $index.Permalink }}"></script>
-
-	</body>
-</html>
