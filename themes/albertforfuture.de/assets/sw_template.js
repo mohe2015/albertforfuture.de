@@ -10,7 +10,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('v1').then((cache) => {
       return cache.addAll([
-        '{{ .Site.BaseURL }}/shell/?v=cafebabe' // todo only download if changed
+        '{{ .Site.BaseURL }}shell/?v={{ sha256 (.Site.GetPage "/shell").Plain }}'
       ]);
     })
   );
