@@ -1,3 +1,5 @@
+<h1>{{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }}</h1>
+
 {{ range .Pages }}
 {{ partial "preview.html" . }}
 {{ end }}
