@@ -1,21 +1,21 @@
 DATENSCHUTZERKLÄRUNG
 
-without service worker and without history api:
++without service worker and without history api:
 +every page gets cached for n hours
 +pages get loaded by browser
 
-without service worker and with history api:
++without service worker and with history api:
 +every page gets loaded by js, otherwise same
 
 with service worker and without history api:
 service worker fetches pages and caches them forever using an etag database
 if serviceworker gets updated it gets a new database and provides new files
-service worker is cached for like a few hours
++service worker is cached for like a few hours
 TODO use /raw links without the script and link tags as a new script or stylesheet would invalidate all other pages
 TODO or don't use /raw links and the service worker just updates index.html (its shell) and replaces the shell on all other pages. -> good idea
 
-with service worker and with history api:
-same but it doesn't need a full refresh
++with service worker and with history api:
++same but it doesn't need a full refresh
 
 TODO service worker search?
 
