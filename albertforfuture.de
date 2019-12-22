@@ -1,0 +1,50 @@
+server {
+
+	listen 443 ssl default_server http2;
+	listen [::]:443 ssl default_server http2;
+
+	ssl_certificate /home/moritz/Dokumente/Websites/localhost.pem;
+	ssl_certificate_key /home/moritz/Dokumente/Websites/localhost-key.pem;
+
+	root /home/moritz/Dokumente/Websites/albertforfuture.de/public/;
+
+	index index.html;
+
+	server_name beta.albertforfuture.de;
+
+        error_page 404 /404.html;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+	add_header Cache-Control public always;
+	http2_push_preload on;
+
+	location ~ \.(html)$ {
+		add_header Set-Cookie "session=1";
+		add_header Link $resources;
+		expires 6h;
+	}
+
+	location ~ \.(ico|gif|jpe?g|png|svg|js|css|webp|xml|rss)$ {
+		expires max;
+	}
+
+	location = /sw.js {
+		expires 6h;
+	}
+}
+
+map $http_cookie $resources {
+    "~*session=1" "";
+    default "</style.css>; as=style; rel=preload, </image1.jpg>; as=image; rel=preload, </image2.jpg>; as=image; rel=preload";
+}
+
+server {
+	return 301 https://$host$request_uri;
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	server_name _;
+	return 404;
+}
