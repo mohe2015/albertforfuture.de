@@ -6,3 +6,9 @@ Paginate = 3
 sectionPagesMenu = "main"
 pluralizeListTitles = false
 canonifyURLs = true
+
+
+[outputs]
+  home = ["HTML", "RSS", "RawHTML"]
+  section = ["HTML", "RSS", "RawHTML"]
+  taxonomy = ["HTML", "RSS", "RawHTML"]
