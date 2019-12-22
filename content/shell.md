@@ -1,3 +1,4 @@
 ---
 title: Shell
 ---
+{shell}

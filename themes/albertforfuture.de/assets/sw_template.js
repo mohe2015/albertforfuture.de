@@ -21,21 +21,53 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
+function renderTemplate (template, data) {
+  // TODO fixme title
+  return template.replace("{shell}", data);
+}
+
 // TODO custom 404 page
 self.addEventListener('fetch', (event) => {
   var pathname = new URL(event.request.url).pathname;
-  console.log('fetch ', pathname);
-  console.log('fetch ', dict[pathname]);
-  event.respondWith(
-    caches.match(event.request).then((resp) => {
-      return resp || fetch(event.request).then((response) => {
-        return caches.open('v1').then((cache) => {
-          cache.put(event.request, response.clone());
-          return response;
+  if (dict[pathname]) {
+    event.respondWith(
+      // cache then network
+      Promise.all([
+        caches.match('{{ .Site.BaseURL }}shell/?v={{ sha256 (.Site.GetPage "/shell").Plain }}').then(function(response) {
+          return response.text();
+        }),
+        caches.match(dict[pathname]).then((resp) => {
+          return (resp || fetch(dict[pathname]).then((response) => {
+            return caches.open('v1').then((cache) => {
+              cache.put(dict[pathname], response.clone());
+              return response;
+            });
+          })).text();
+        })
+      ]).then(function(responses) {
+        var template = responses[0];
+        var data = responses[1];
+
+        return new Response(renderTemplate(template, data), {
+          headers: {
+            'Content-Type': 'text/html'
+          }
         });
-      });
-    })
-  );
+      })
+    );
+  } else {
+    event.respondWith(
+      // cache then network
+      caches.match(event.request).then((resp) => {
+        return resp || fetch(event.request).then((response) => {
+          return caches.open('v1').then((cache) => {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        });
+      })
+    );
+  }
 });
 
 
