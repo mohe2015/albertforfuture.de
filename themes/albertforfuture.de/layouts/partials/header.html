@@ -8,14 +8,19 @@
 
 		<title> {{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }} </title>
 
-		{{ $style := resources.Get "main.css" | resources.ToCSS | resources.Minify }}
-		<style>{{ $style.Content | safeCSS }}</style>
+		{{ $style := resources.Get "main.css" | toCSS | minify | fingerprint }}
+		<link rel="stylesheet" href="{{ $style.Permalink }}">
 
 		{{ if .RSSLink }}<link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />{{ end }}
 
-		<link rel="shortcut icon" type="image/webp" href="data:image/webp;base64,{{ readFile "resources/icon.webp" | base64Encode }}">
-		<link rel="apple-touch-icon" href="/icon.png">
-		<link rel="manifest" href="/manifest.json">
+		{{ $icon_webp := resources.Get "icon.webp" | fingerprint }}
+		<link rel="shortcut icon" type="image/webp" href="{{ $icon_webp.Permalink }}">
+
+		{{ $icon_png := resources.Get "icon.png" | fingerprint }}
+		<link rel="apple-touch-icon" href="{{ $icon_png.Permalink }}">
+
+		{{ $manifest := resources.Get "manifest.json" | fingerprint }}
+		<link rel="manifest" href="{{ $manifest.Permalink }}">
 	</head>
 	<body>
 
@@ -27,7 +32,7 @@
   <input type="checkbox" id="nav-check">
   <div class="nav-header">
     <div class="nav-title">
-      <a href="{{ .Site.BaseURL }}"><img src="data:image/webp;base64,{{ readFile "resources/icon.webp" | base64Encode }}" alt="Albert for Future Logo" class="logo"></a>
+      <a href="{{ .Site.BaseURL }}"><img src="{{ $icon_webp.Permalink }}" alt="Albert for Future Logo" class="logo"></a>
     </div>
   </div>
   <div class="nav-btn">
