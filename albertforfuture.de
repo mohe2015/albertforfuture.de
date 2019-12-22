@@ -31,6 +31,10 @@ server {
 		expires max;
 	}
 
+	location ^~ /shell/ {
+		expires max;
+	}
+
 	include /home/moritz/Dokumente/Websites/albertforfuture.de/public/nginx.conf;
 
 	location ~ \.(ico|gif|jpe?g|png|svg|js|css|webp|xml|rss|json)$ {

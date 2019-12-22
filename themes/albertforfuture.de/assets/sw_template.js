@@ -1,5 +1,5 @@
 var dict = {
-{{ range .Site.RegularPages }}
+{{ range .Site.Pages }}
   "{{ .RelPermalink }}": "{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}",
 {{ end }}
 }
@@ -10,7 +10,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('v1').then((cache) => {
       return cache.addAll([
-        '{{ .Site.BaseURL }}'
+        '{{ .Site.BaseURL }}/shell/?v=cafebabe' // todo only download if changed
       ]);
     })
   );
@@ -21,8 +21,11 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
+// TODO custom 404 page
 self.addEventListener('fetch', (event) => {
-  console.log('fetch');
+  var pathname = new URL(event.request.url).pathname;
+  console.log('fetch ', pathname);
+  console.log('fetch ', dict[pathname]);
   event.respondWith(
     caches.match(event.request).then((resp) => {
       return resp || fetch(event.request).then((response) => {

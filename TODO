@@ -35,3 +35,5 @@ TODO notify user if available offline
 
 TODO push notifications for new articles
 TODO notification bell not in dropdown
+
+TODO https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/ persistent storage
