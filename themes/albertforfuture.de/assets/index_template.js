@@ -59,7 +59,7 @@ if ('serviceWorker' in navigator) {
       console.log(subscription);
     });
 
-    subscribeUser();
+    //subscribeUser();
 
     // TODO show notification bell
 
@@ -69,7 +69,7 @@ if ('serviceWorker' in navigator) {
   });
 
   window.addEventListener('beforeinstallprompt', (e) => {
-    e.prompt();
+    //e.prompt(); store e somewhere, use on user interaction
   });
 
   if ('PushManager' in window) {
