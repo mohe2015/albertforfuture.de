@@ -1,3 +1,9 @@
+var dict = {
+{{ range .Site.RegularPages }}
+  "{{ .RelPermalink }}": "{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}",
+{{ end }}
+}
+
 self.addEventListener('install', (event) => {
   console.log('install');
   self.skipWaiting();
