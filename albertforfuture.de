@@ -14,7 +14,7 @@ server {
 
 	server_name beta.albertforfuture.de;
 
-  error_page 404 /404.html;
+        error_page 404 /404.html;
 
 	location / {
 		try_files $uri $uri/ =404;
@@ -23,14 +23,18 @@ server {
 	add_header Cache-Control public always;
 	http2_push_preload on;
 
+	location = /sw.js {
+		expires 6h;
+	}
+
+	location ~ rawhtml\.html$ {
+		expires max;
+	}
+
 	include /home/moritz/Dokumente/Websites/albertforfuture.de/public/nginx.conf;
 
 	location ~ \.(ico|gif|jpe?g|png|svg|js|css|webp|xml|rss|json)$ {
 		expires max;
-	}
-
-	location = /sw.js {
-		expires 6h;
 	}
 }
 
