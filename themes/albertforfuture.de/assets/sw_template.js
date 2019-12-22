@@ -38,13 +38,18 @@ self.addEventListener('fetch', (event) => {
           return response.text();
         }),
         caches.match(dict[pathname]).then((resp) => {
-          return (resp || fetch(dict[pathname]).then((response) => {
+          console.log("resp", resp);
+          console.log("dict[pathname]", dict[pathname]);
+          console.log(resp || "3");
+          return resp || fetch(dict[pathname]).then((response) => {
+            console.log("response", response);
             return caches.open('v1').then((cache) => {
+              console.log("cache", cache);
               cache.put(dict[pathname], response.clone());
               return response;
             });
-          })).text();
-        })
+          });
+        }).then(e => e.text())
       ]).then(function(responses) {
         var template = responses[0];
         var data = responses[1];
