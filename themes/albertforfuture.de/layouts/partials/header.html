@@ -25,6 +25,11 @@
 	</head>
 	<body>
 
+{{ $nginxTemplate := resources.Get "nginx_template.conf" }}
+{{ $nginx := $nginxTemplate | resources.ExecuteAsTemplate "nginx.conf" (dict "context" . "style" $style) }}
+{{ $nginx.Permalink }}
+
+
 	<div id="loader" class="blocker hide">
 		<div class="loader"></div>
  	</div>
