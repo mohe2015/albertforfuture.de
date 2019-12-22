@@ -1,4 +1,4 @@
 web-push/target
 public
 *.pem
-resources/_gen
+**/_gen
