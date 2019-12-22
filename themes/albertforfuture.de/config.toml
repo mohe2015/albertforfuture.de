@@ -1,11 +1,5 @@
-
 [outputFormats]
   [outputFormats.RawHTML]
     name = "RawHTML"
+    baseName = "rawhtml"
     mediaType = "text/html"
-    isPlainText = false
-    rel = "alternate"
-    isHTML = true
-    noUgly = true
-    permalinkable = true
-    path = "/raw"

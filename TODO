@@ -1,5 +1,10 @@
 DATENSCHUTZERKLÄRUNG
 
+TODO use base templates https://gohugo.io/templates/base/
+TODO do it right tm
+
+https://gohugo.io/templates/lists/
+
 +without service worker and without history api:
 +every page gets cached for n hours
 +pages get loaded by browser

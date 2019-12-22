@@ -7,8 +7,9 @@ sectionPagesMenu = "main"
 pluralizeListTitles = false
 canonifyURLs = true
 
-
 [outputs]
+  page = ["HTML", "RawHTML"]
   home = ["HTML", "RSS", "RawHTML"]
   section = ["HTML", "RSS", "RawHTML"]
+  taxonomyTerm = ["HTML", "RawHTML"]
   taxonomy = ["HTML", "RSS", "RawHTML"]
