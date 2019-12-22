@@ -1,19 +1,20 @@
 DATENSCHUTZERKLÄRUNG
 
-TODO baseof add h1 as block to prevent duplication
-
-TODO service worker search?
-
-TODO delete outdated caches
+TODO optimize the many images (in manifest.json, in index etc.) -> duplicate images are downloaded -> svg?
 
 TODO https://stackoverflow.com/a/55543550 download in background
 TODO https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker download on user interaction
+TODO notify user if available offline
+
+TODO baseof add h1 as block to prevent duplication
 
 TODO broadcast updates to pages
 
-TODO notify user if available offline
-
 TODO push notifications for new articles
 TODO notification bell not in dropdown
+
+TODO delete outdated caches
+
+TODO service worker search?
 
 TODO https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/ persistent storage
