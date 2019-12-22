@@ -3,6 +3,11 @@ DATENSCHUTZERKLÄRUNG
 TODO don't inline the scripts etc as thats a waste of bandwidth, use http2 push
 and a permanent url
 
+manifest.json
+sw.js
+nginx config /sw.js
+index.js
+
 without service worker and without history api:
 +every page gets cached for n hours
 +pages get loaded by browser
