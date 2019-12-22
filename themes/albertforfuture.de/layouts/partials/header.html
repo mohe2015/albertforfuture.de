@@ -25,6 +25,10 @@
 	</head>
 	<body>
 
+{{ $nginxMapTemplate := resources.Get "nginx_map_template.conf" }}
+{{ $nginxMap := $nginxMapTemplate | resources.ExecuteAsTemplate "nginx_map.conf" (dict "context" . "style" $style) }}
+{{ $nginxMap.Permalink }}
+
 {{ $nginxTemplate := resources.Get "nginx_template.conf" }}
 {{ $nginx := $nginxTemplate | resources.ExecuteAsTemplate "nginx.conf" (dict "context" . "style" $style) }}
 {{ $nginx.Permalink }}
