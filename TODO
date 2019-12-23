@@ -1,9 +1,5 @@
 DATENSCHUTZERKLÄRUNG
 
-Service worker install store image, CSS, index , sw.js, manifest
-
-
-
 Push state go to top of page
 And remember old positions
 Maybe even remember old content so you don't need to refetch it
