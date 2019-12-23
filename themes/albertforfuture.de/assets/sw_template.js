@@ -10,7 +10,22 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('v1').then((cache) => {
       return cache.addAll([
-        '{{ .Site.BaseURL }}shell/?v={{ sha256 (.Site.GetPage "/shell").Plain }}',
+        {{ (resources.Get "main.css" | toCSS | minify | fingerprint).RelPermalink }},
+        '{{ (resources.Get "logo.svg" | fingerprint).RelPermalink }}',
+
+        {{- $serviceWorkerTemplate := resources.Get "sw_template.js" -}}
+        {{- $serviceWorker := $serviceWorkerTemplate | resources.ExecuteAsTemplate "sw.js" . -}}
+        '{{- $serviceWorker.RelPermalink -}}',
+
+        {{- $indexTemplate := resources.Get "index_template.js" -}}
+        {{- $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" . "serviceWorker" $serviceWorker) | fingerprint -}}
+        '{{- $index.RelPermalink -}}',
+
+        {{- $manifestTemplate := resources.Get "manifest_template.json" -}}
+        {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | fingerprint -}}
+        '{{- $manifest.RelPermalink -}}',
+
+        '/shell/?v={{ sha256 (.Site.GetPage "/shell").Plain }}',
         '{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}{{ end }}'
       ]);
     })

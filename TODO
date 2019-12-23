@@ -1,5 +1,15 @@
 DATENSCHUTZERKLÄRUNG
 
+Service worker install store image, CSS, index , sw.js, manifest
+
+
+
+Push state go to top of page
+And remember old positions
+Maybe even remember old content so you don't need to refetch it
+
+
+
 TODO https://stackoverflow.com/a/55543550 download in background
 TODO https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker download on user interaction
 TODO notify user if available offline
@@ -18,16 +28,9 @@ TODO https://developers.google.com/web/fundamentals/instant-and-offline/offline-
 Maybe use json format or so and update fewer parts of the page
 Maybe pushstate can do it almost without service worker?
 
-Push state go to top of page
-And remember old positions
-Maybe even remember old content so you don't need to refetch it
-
 minimal-ui isn't really needed on phones except for sharing and maybe going forward and refreshing as the back button also works
 
-Service worker install store image, CSS, index , sw.js, manifest
-Maybe push almost everything
 Webpagespeed.org downloads sw.is twice and uses two connections?
-Defer JavaScript for higher performance?
 Brotli?
 Other webserver?
 Http3?
