@@ -89,29 +89,34 @@ function text(response) {
   return response.text()
 }
 
-window.addEventListener('popstate', (event) => {
-  document.getElementById('loader').classList.remove('hide');
-  fetch(location.href)
-    .then(status)
-    .then(text)
-    .then(function(html) {
-       var parser = new DOMParser();
-       var doc = parser.parseFromString(html, 'text/html');
+/*
+if (false && window.fetch && window.history && history.pushState) {
+  window.addEventListener('popstate', (event) => {
+    document.getElementById('loader').classList.remove('hide');
+    fetch(location.href)
+      .then(status)
+      .then(text)
+      .then(function(html) {
+         var parser = new DOMParser();
+         var doc = parser.parseFromString(html, 'text/html');
 
-       var body = doc.querySelector('body');
+         var body = doc.querySelector('body');
 
-       var documentBody = document.querySelector('body');
-       documentBody.parentNode.replaceChild(body, documentBody);
+         var documentBody = document.querySelector('body');
+         documentBody.parentNode.replaceChild(body, documentBody);
 
-       document.title = doc.querySelector('title').innerText;
-       document.getElementById('loader').classList.add('hide');
-    }).catch(function(error) {
-       document.getElementById('loader').classList.add('hide');
-       alert('Request failed ' + error);
-    });
-});
+         document.title = doc.querySelector('title').innerText;
+         document.getElementById('loader').classList.add('hide');
+      }).catch(function(error) {
+         document.getElementById('loader').classList.add('hide');
+         alert('Request failed ' + error);
+      });
+  });
 
-if (window.fetch && window.history && history.pushState) {
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual';
+  }
+
   document.addEventListener("click", function(event) {
     var target = event.target;
 
@@ -136,7 +141,7 @@ if (window.fetch && window.history && history.pushState) {
 
            document.title = doc.querySelector('title').innerText;
 
-           history.pushState(null, null, target.href);
+           history.pushState({scrollPos: 1337}, null, target.href);
            document.getElementById('loader').classList.add('hide');
         }).catch(function(error) {
           document.getElementById('loader').classList.add('hide');
@@ -145,3 +150,4 @@ if (window.fetch && window.history && history.pushState) {
      }
   });
 }
+*/
