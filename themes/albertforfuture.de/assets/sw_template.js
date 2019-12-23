@@ -13,12 +13,10 @@ self.addEventListener('install', (event) => {
         {{ (resources.Get "main.css" | toCSS | minify | fingerprint).RelPermalink }},
         '{{ (resources.Get "logo.svg" | fingerprint).RelPermalink }}',
 
-        {{- $serviceWorkerTemplate := resources.Get "sw_template.js" -}}
-        {{- $serviceWorker := $serviceWorkerTemplate | resources.ExecuteAsTemplate "sw.js" . -}}
-        '{{- $serviceWorker.RelPermalink -}}',
+        '/sw.js',
 
         {{- $indexTemplate := resources.Get "index_template.js" -}}
-        {{- $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" . "serviceWorker" $serviceWorker) | fingerprint -}}
+        {{- $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | fingerprint -}}
         '{{- $index.RelPermalink -}}',
 
         {{- $manifestTemplate := resources.Get "manifest_template.json" -}}

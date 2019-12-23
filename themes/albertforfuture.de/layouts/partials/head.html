@@ -22,13 +22,13 @@
   {{ $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | fingerprint }}
   <link rel="manifest" href="{{ $manifest.Permalink }}">
 
+  {{- $indexTemplate := resources.Get "index_template.js" -}}
+  {{- $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | fingerprint -}}
+  {{- substr $index.Permalink 0 0 -}}
+
   {{- $serviceWorkerTemplate := resources.Get "sw_template.js" -}}
   {{- $serviceWorker := $serviceWorkerTemplate | resources.ExecuteAsTemplate "sw.js" . -}}
   {{- substr $serviceWorker.Permalink 0 0 -}}
-
-  {{- $indexTemplate := resources.Get "index_template.js" -}}
-  {{- $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" . "serviceWorker" $serviceWorker) | fingerprint -}}
-  {{- substr $index.Permalink 0 0 -}}
 
   {{- $nginxMapTemplate := resources.Get "nginx_map_template.conf" -}}
   {{- $nginxMap := $nginxMapTemplate | resources.ExecuteAsTemplate "nginx_map.conf" (dict "context" . "style" $style "logo" $logo_svg "javascript" $index "serviceWorker" $serviceWorker "manifest" $manifest) -}}
