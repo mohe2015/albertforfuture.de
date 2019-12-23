@@ -1,7 +1,5 @@
 DATENSCHUTZERKLÄRUNG
 
-TODO FIXME + in cookie is interpreted as regex
-
 TODO https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker download on user interaction
 TODO notify user if available offline
 
