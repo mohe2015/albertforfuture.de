@@ -1,7 +1,5 @@
 DATENSCHUTZERKLÄRUNG
 
-TODO show loading indicator only after a few milliseconds or simply JUST FADE IT IN
-
 TODO optimize the many images (in manifest.json, in index etc.) -> duplicate images are downloaded -> svg?
 
 TODO https://stackoverflow.com/a/55543550 download in background
@@ -43,3 +41,4 @@ Use tools to measure performance
 Optimize CSS: grid?, will-change, contain, transform, ...
 
 If no network connection show better error message. If connected again (event), auto refresj
+TODO if only history api but no service worker show better error message?

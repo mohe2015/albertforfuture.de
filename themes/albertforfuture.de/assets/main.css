@@ -146,9 +146,6 @@ a {
   color: black;
 }
 
-.hide {
-  display: none;
-}
 
 
 .loader {
@@ -171,7 +168,12 @@ a {
   100% { transform: rotate(360deg); }
 }
 
-.blocker {
+#loader.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#loader {
   position: fixed;
   z-index: 9000;
   top: 0;
@@ -181,4 +183,7 @@ a {
   cursor: wait;
   background: rgba(0,0,0,0.5);
   user-select: none;
+  transition: opacity 1s ease-in-out;
+  visibility: visible;
+  opacity: 1;
 }
