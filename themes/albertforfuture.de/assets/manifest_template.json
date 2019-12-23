@@ -3,19 +3,9 @@
   "name": "Albert for Future",
   "icons": [
     {
-      "src": "{{ (resources.Get "192.webp" | fingerprint).Permalink }}",
-      "type": "image/webp",
-      "sizes": "192x192"
-    },
-    {
-      "src": "{{ (resources.Get "512.webp" | fingerprint).Permalink }}",
-      "type": "image/webp",
+      "src": "{{ (resources.Get "logo.svg" | fingerprint).Permalink }}",
+      "type": "image/svg+xml",
       "sizes": "512x512"
-    },
-    {
-      "src": "{{ (resources.Get "logo.png" | fingerprint).Permalink }}",
-      "type": "image/png",
-      "sizes": "612x612"
     }
   ],
   "start_url": "{{ .Site.BaseURL }}",

@@ -13,11 +13,10 @@
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
   {{ end -}}
 
-  {{ $icon_webp := resources.Get "icon.webp" | fingerprint }}
-  <link rel="shortcut icon" type="image/webp" href="{{ $icon_webp.Permalink }}">
+  {{ $logo_svg := resources.Get "logo.svg" | fingerprint }}
+  <link rel="shortcut icon" type="image/svg+xml" href="{{ $logo_svg.Permalink }}">
 
-  {{ $icon_png := resources.Get "icon.png" | fingerprint }}
-  <link rel="apple-touch-icon" href="{{ $icon_png.Permalink }}">
+  <link rel="apple-touch-icon" href="{{ $logo_svg.Permalink }}">
 
   {{ $manifestTemplate := resources.Get "manifest_template.json" }}
   {{ $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | fingerprint }}

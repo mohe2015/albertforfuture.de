@@ -91,8 +91,7 @@ self.addEventListener('push', function(event) {
   const title = 'Push Codelab';
   const options = {
     body: 'Yay it works.',
-    icon: '{{ (resources.Get "192.webp" | fingerprint).Permalink }}',
-    badge: '{{ (resources.Get "192.webp" | fingerprint).Permalink }}'
+    icon: '{{ (resources.Get "logo.svg" | fingerprint).Permalink }}',
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
