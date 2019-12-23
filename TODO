@@ -6,8 +6,6 @@ TODO https://stackoverflow.com/a/55543550 download in background
 TODO https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker download on user interaction
 TODO notify user if available offline
 
-TODO baseof add h1 as block to prevent duplication
-
 TODO broadcast updates to pages
 
 TODO push notifications for new articles
@@ -18,8 +16,6 @@ TODO delete outdated caches
 TODO service worker search?
 
 TODO https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/ persistent storage
-
-TODO printing
 
 Maybe optimize service worker by storing build pages in cache. But then you need to care about updates. First, use browser tools to measure performance
 Maybe use json format or so and update fewer parts of the page
@@ -42,3 +38,6 @@ Optimize CSS: grid?, will-change, contain, transform, ...
 
 If no network connection show better error message. If connected again (event), auto refresj
 TODO if only history api but no service worker show better error message?
+
+
+TODO mobile first css
