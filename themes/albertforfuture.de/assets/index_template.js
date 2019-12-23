@@ -40,11 +40,38 @@ function subscribeUser() {
   });
 }
 
+function downloadAllArticles() {
+  window.caches.open('v1').then(function(cache) {
+      cache.addAll([
+        {{- range .context.Site.Pages -}}
+          "{{- .RelPermalink -}}",
+        {{- end -}}
+      ]);
+  }).then(event => {
+    alert("Offline verfügbar!");
+  }).catch(error => {
+    alert("Fehler beim Offline gehen!");
+  })
+}
+
 if ('serviceWorker' in navigator) {
   console.log("service worker supported")
   navigator.serviceWorker.register('/sw.js', {scope: '{{ .context.Site.BaseURL }}'})
   .then((reg) => {
     window.serviceWorkerRegistration = reg;
+
+    if (reg.installing) {
+      reg.installing.addEventListener('statechange', function() {
+        console.log('[controllerchange][statechange] ' +
+          'A "statechange" has occured: ', this.state
+        );
+        if (this.state === 'activated') {
+          downloadAllArticles();
+          document.getElementById('offlineNotification').classList.remove('hidden');
+        }
+      });
+    }
+
 
     window.serviceWorkerRegistration.pushManager.getSubscription()
     .then(function (subscription) {

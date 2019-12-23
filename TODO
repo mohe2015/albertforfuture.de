@@ -1,6 +1,7 @@
 DATENSCHUTZERKLÄRUNG
 
-TODO https://stackoverflow.com/a/55543550 download in background
+https://serviceworke.rs/offline-status_index_doc.html
+
 TODO https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker download on user interaction
 TODO notify user if available offline
 
