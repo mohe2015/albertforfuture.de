@@ -1,7 +1,5 @@
 DATENSCHUTZERKLÄRUNG
 
-TODO network error offline graceful fallback (error page?)
-
 TODO show loading indicator only after a few milliseconds or simply JUST FADE IT IN
 
 TODO optimize the many images (in manifest.json, in index etc.) -> duplicate images are downloaded -> svg?
@@ -25,8 +23,6 @@ TODO https://developers.google.com/web/fundamentals/instant-and-offline/offline-
 
 TODO printing
 
-TODO fix warning
-
 Maybe optimize service worker by storing build pages in cache. But then you need to care about updates. First, use browser tools to measure performance
 Maybe use json format or so and update fewer parts of the page
 Maybe pushstate can do it almost without service worker?
@@ -45,4 +41,5 @@ Http3?
 Custom web server? Keep everything in memory?
 Use tools to measure performance
 Optimize CSS: grid?, will-change, contain, transform, ...
+
 If no network connection show better error message. If connected again (event), auto refresj

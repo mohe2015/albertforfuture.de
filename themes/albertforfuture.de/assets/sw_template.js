@@ -10,7 +10,8 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('v1').then((cache) => {
       return cache.addAll([
-        '{{ .Site.BaseURL }}shell/?v={{ sha256 (.Site.GetPage "/shell").Plain }}'
+        '{{ .Site.BaseURL }}shell/?v={{ sha256 (.Site.GetPage "/shell").Plain }}',
+        '{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}{{ end }}'
       ]);
     })
   );
@@ -48,6 +49,10 @@ self.addEventListener('fetch', (event) => {
             return caches.open('v1').then((cache) => {
               console.log("cache", cache);
               cache.put(dict[pathname], response.clone());
+              return response;
+            });
+          }).catch((error) => {
+            return caches.match('{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}{{ end }}').then(function(response) {
               return response;
             });
           });
