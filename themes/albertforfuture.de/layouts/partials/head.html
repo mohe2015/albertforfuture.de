@@ -31,7 +31,7 @@
   {{- substr $index.Permalink 0 0 -}}
 
   {{- $nginxMapTemplate := resources.Get "nginx_map_template.conf" -}}
-  {{- $nginxMap := $nginxMapTemplate | resources.ExecuteAsTemplate "nginx_map.conf" (dict "context" . "style" $style "logo" $logo_svg "javascript" $index) -}}
+  {{- $nginxMap := $nginxMapTemplate | resources.ExecuteAsTemplate "nginx_map.conf" (dict "context" . "style" $style "logo" $logo_svg "javascript" $index "serviceWorker" $serviceWorker "manifest" $manifest) -}}
   {{- substr $nginxMap.Permalink 0 0 -}}
 
   {{- $nginxTemplate := resources.Get "nginx_template.conf" -}}
