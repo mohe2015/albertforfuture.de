@@ -210,6 +210,10 @@ img {
 
   @page { orphans: 2; widows: 2; }
 
+  ul, ol {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
   h1, h2, h3, h4, h5, h6, strong {
     page-break-after: avoid;
     page-break-inside: avoid;
@@ -227,7 +231,7 @@ img {
   h1::after, h2::after {
     content: "";
     display: block;
-    height: 100px;
-    margin-bottom: -100px;
+    height: 50px;
+    margin-bottom: -50px;
   }
 }
