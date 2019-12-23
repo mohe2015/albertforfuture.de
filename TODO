@@ -1,21 +1,4 @@
 DATENSCHUTZERKLÄRUNG
 
-TODO https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker download on user interaction
-TODO notify user if available offline
-
-TODO broadcast updates to pages
-
 TODO push notifications for new articles
 TODO notification bell not in dropdown
-
-TODO service worker search?
-
-Maybe use json format or so and update fewer parts of the page
-
-minimal-ui isn't really needed on phones except for sharing and maybe going forward and refreshing as the back button also works
-
-If no network connection show better error message. If connected again (event), auto refresh
-
-TODO mobile first css
-
-History API disabled as the scrolling is REALLY buggy and it's probably not really worth it
