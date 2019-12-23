@@ -23,10 +23,10 @@
   <link rel="manifest" href="{{ $manifest.Permalink }}">
 
   {{- $nginxMapTemplate := resources.Get "nginx_map_template.conf" -}}
-  {{- $nginxMap := $nginxMapTemplate | resources.ExecuteAsTemplate "nginx_map.conf" (dict "context" . "style" $style) -}}
+  {{- $nginxMap := $nginxMapTemplate | resources.ExecuteAsTemplate "nginx_map.conf" (dict "context" . "style" $style "logo" $logo_svg) -}}
   {{- substr $nginxMap.Permalink 0 0 -}}
 
   {{- $nginxTemplate := resources.Get "nginx_template.conf" -}}
-  {{- $nginx := $nginxTemplate | resources.ExecuteAsTemplate "nginx.conf" (dict "context" . "style" $style) -}}
+  {{- $nginx := $nginxTemplate | resources.ExecuteAsTemplate "nginx.conf" . -}}
   {{- substr $nginx.Permalink 0 0 -}}
 </head>
