@@ -48,9 +48,13 @@ function downloadAllArticles() {
         {{- end -}}
       ]);
   }).then(event => {
-    alert("Offline verfügbar!");
+    // TODO if it didn't work the first time, try again sometime later?
+    var snackbar = document.getElementById('snackbar');
+    snackbar.innerText = "Die Seite ist offline verfügbar!";
+    snackbar.classList.add('show');
+    setTimeout(function(){ snackbar.classList.remove('show'); }, 3000);
   }).catch(error => {
-    alert("Fehler beim Offline gehen!");
+    console.log("Fehler beim Offline gehen!");
   })
 }
 
@@ -67,11 +71,9 @@ if ('serviceWorker' in navigator) {
         );
         if (this.state === 'activated') {
           downloadAllArticles();
-          document.getElementById('offlineNotification').classList.remove('hidden');
         }
       });
     }
-
 
     window.serviceWorkerRegistration.pushManager.getSubscription()
     .then(function (subscription) {
