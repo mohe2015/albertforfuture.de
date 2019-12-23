@@ -9,9 +9,9 @@
   {{ $style := resources.Get "main.css" | toCSS | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
 
-  {{ if .RSSLink }}
-  <link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
-  {{ end }}
+  {{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{ end -}}
 
   {{ $icon_webp := resources.Get "icon.webp" | fingerprint }}
   <link rel="shortcut icon" type="image/webp" href="{{ $icon_webp.Permalink }}">
