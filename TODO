@@ -1,7 +1,5 @@
 DATENSCHUTZERKLÄRUNG
 
-TODO optimize the many images (in manifest.json, in index etc.) -> duplicate images are downloaded -> svg?
-
 TODO push more resources
 
 TODO https://stackoverflow.com/a/55543550 download in background
