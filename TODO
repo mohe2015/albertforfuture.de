@@ -1,5 +1,9 @@
 DATENSCHUTZERKLÄRUNG
 
+TODO network error offline graceful fallback (error page?)
+
+TODO show loading indicator only after a few milliseconds or simply JUST FADE IT IN
+
 TODO optimize the many images (in manifest.json, in index etc.) -> duplicate images are downloaded -> svg?
 
 TODO https://stackoverflow.com/a/55543550 download in background
@@ -18,3 +22,26 @@ TODO delete outdated caches
 TODO service worker search?
 
 TODO https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/ persistent storage
+
+TODO printing
+
+[01:04, 12/23/2019] Moritz: Maybe optimize service worker by storing build pages in cache. But then you need to care about updates. First, use browser tools to measure performance
+[01:07, 12/23/2019] Moritz: Maybe use json format or so and update fewer parts of the page
+[01:07, 12/23/2019] Moritz: Maybe pushstate can do it almost without service worker?
+[01:07, 12/23/2019] Moritz: Push state go to top of page
+[01:08, 12/23/2019] Moritz: And remember old positions
+[01:08, 12/23/2019] Moritz: Maybe even remember old content so you don't need to refetch it
+[01:11, 12/23/2019] Moritz: minimal-ui isn't really needed on phones except for sharing and maybe going forward and refreshing as the back button also works
+[02:40, 12/23/2019] Moritz: Preload image
+[02:40, 12/23/2019] Moritz: Service worker install store image, CSS, index , sw.js, manifest
+[02:41, 12/23/2019] Moritz: Maybe push almost everything
+[02:44, 12/23/2019] Moritz: Webpagespeed.org downloads sw.is twice and uses two connections?
+[02:52, 12/23/2019] Moritz: Defer JavaScript for higher performance?
+[02:53, 12/23/2019] Moritz: Brotli?
+[02:53, 12/23/2019] Moritz: Other webserver?
+[02:53, 12/23/2019] Moritz: Http3?
+[02:53, 12/23/2019] Moritz: Custom web server? Keep everything in memory?
+[03:19, 12/23/2019] Moritz: Use tools to measure performance
+[03:19, 12/23/2019] Moritz: Optimize CSS: grid?, will-change, contain, transform, ...
+[12:10, 12/23/2019] Moritz: If no network connection show better error message. If connected again (event), auto refresj
+[13:20, 12/23/2019] Moritz: Short name AfF
