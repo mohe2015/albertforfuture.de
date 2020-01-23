@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}de{{ end }}">
+<html class="h-100" lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}de{{ end }}">
     {{- partial "head.html" . -}}
-    <body>
+    <body class="d-flex flex-column h-100">
       {{ block "nav" . }}
         {{ partial "nav.html" . }}
       {{ end }}
       {{ block "header" . }}
         {{- partial "header.html" . -}}
       {{ end }}
-      <main>
+      <main role="main" class="flex-shrink-0">
         <div class="container">
-          {{- block "main" . }}{{- end }}
+            {{- block "main" . }}{{- end }}
         </div>
       </main>
       {{ block "footer" . }}
