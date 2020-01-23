@@ -1,4 +1,4 @@
-<h1>{{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }}</h1>
+<h1 class="text-center">{{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }}</h1>
 
 {{ $paginator := .Paginate (where .Data.Pages "Type" "article") }}
 {{ range .Paginator.Pages }}
