@@ -1,5 +1,8 @@
 var dict = {
 {{ range .Site.Pages }}
+   {{ if .Paginator }}
+    {{ .Paginator.TotalPages }}
+   {{ end }}
   "{{ .RelPermalink }}": "{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}",
 {{ end }}
 }

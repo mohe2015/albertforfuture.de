@@ -1,2 +1,2 @@
-hugo --minify --baseURL https://localhost/
-hugo server --minify --baseURL http://localhost/
+hugo --baseURL http://localhost/
+hugo server --baseURL http://localhost/
