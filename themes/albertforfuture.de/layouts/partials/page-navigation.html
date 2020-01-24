@@ -5,15 +5,15 @@
     <ul class="pagination justify-content-center">
 
       <li class="page-item{{ if not .Paginator.HasPrev }} disabled{{ end }}">
-        <a class="page-link" tabindex="-1"{{ if .Paginator.HasPrev }} href="{{ .RelPermalink }}page/{{ .Paginator.Prev.PageNumber }}" aria-disabled="true"{{ end }}>Zurück</a>
+        <a class="page-link" tabindex="-1"{{ if .Paginator.HasPrev }} href="{{ .RelPermalink }}page/{{ .Paginator.Prev.PageNumber }}/" aria-disabled="true"{{ end }}>Zurück</a>
       </li>
 
       {{ range .Paginator.Pagers }}
-        <li class="page-item{{ if eq . $paginator }} active{{ end }}"><a class="page-link" href="{{ $page.RelPermalink }}page/{{ .PageNumber }}">{{ .PageNumber }}</a></li>
+        <li class="page-item{{ if eq . $paginator }} active{{ end }}"><a class="page-link" href="{{ $page.RelPermalink }}{{ if not (eq 1 .PageNumber) }}page/{{ .PageNumber }}/{{ end }}">{{ .PageNumber }}</a></li>
       {{ end }}
 
       <li class="page-item{{ if not .Paginator.HasNext }} disabled{{ end }}">
-        <a class="page-link" tabindex="-1"{{ if .Paginator.HasNext }} href="{{ .RelPermalink }}page/{{ .Paginator.Next.PageNumber }}" aria-disabled="true"{{ end }}>Vor</a>
+        <a class="page-link" tabindex="-1"{{ if .Paginator.HasNext }} href="{{ .RelPermalink }}page/{{ .Paginator.Next.PageNumber }}/" aria-disabled="true"{{ end }}>Vor</a>
       </li>
     </ul>
   </nav>

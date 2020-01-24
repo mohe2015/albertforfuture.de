@@ -1,6 +1,21 @@
 DATENSCHUTZERKLÄRUNG
 
+combine index.css and bootstrap.css
+
+maybe make navbar able to open without javascript?
+
+combine index.js and bootstrap.js
+
+minify css
+
+only include necessarry js
+
+maybe don't use rawhtml as the normal pages shouldn't be way bigger
+
 FIXME closing toast clicks on underlying link
+
+grep FIXME
+grep TODO
 
 TODO push notifications for new articles
 TODO notification bell not in dropdown

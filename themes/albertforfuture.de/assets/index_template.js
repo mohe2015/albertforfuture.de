@@ -169,7 +169,10 @@ if (true && window.fetch && window.history && history.pushState) {
 
            document.title = doc.querySelector('title').innerText;
 
+           // TODO FIXME scroll Pos
            history.pushState({scrollPos: 1337}, null, target.href);
+
+           // TODO FIXME redirect sites contain no content!!!!
            document.getElementById('loader').classList.remove('show');
         }).catch(function(error) {
           document.getElementById('loader').classList.remove('show');
