@@ -1,15 +1,21 @@
 <h1 class="text-center">{{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }}</h1>
 
-<h6 class="card-subtitle mb-2 text-muted">{{ .Date.Format "02.01.2006" }}</h6>
+<h6 class="card-subtitle mb-2 text-muted">{{ .Date.Format "02.01.2006" }}
 
-{{ .Content }}
+{{ if isset .Params "categories" }}
+{{ $baseURL := .Site.BaseURL }}
+    {{ range .Params.categories }}
+        <a href="{{ $baseURL }}categories/{{ . | urlize }}/"><span class="badge bg-primary">{{ . }}</span></a>
+    {{ end }}
+{{ end }}
 
-<!-- Tags -->
 {{ if isset .Params "tags" }}
     {{ $baseURL := .Site.BaseURL }}
-    <ul class="tags">
         {{ range .Params.tags }}
-        <li> <a href="{{ $baseURL }}tags/{{ . | urlize }}/">#{{ . }}</a> </li>
+            <a href="{{ $baseURL }}tags/{{ . | urlize }}/"><span class="badge bg-secondary">{{ . }}</span></a>
         {{ end }}
-    </ul>
 {{ end }}
+
+</h6>
+
+{{ .Content }}
