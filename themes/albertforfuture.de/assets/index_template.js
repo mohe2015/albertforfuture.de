@@ -47,7 +47,11 @@ function downloadAllArticles() {
       ]);
   }).then(event => {
     // TODO if it didn't work the first time, try again sometime later?
+    document.getElementById('toast-offline').classList.remove('d-none');
     new bootstrap.Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
+    document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
+      document.getElementById('toast-offline').remove();
+    })
   }).catch(error => {
     console.log("Fehler beim Offline gehen!");
   })
