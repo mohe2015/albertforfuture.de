@@ -1,15 +1,4 @@
 DATENSCHUTZERKLÄRUNG
 
-TODO SNACKBAR
-
-TODO LOADER
-
-/page/2 is not cached
-
 TODO push notifications for new articles
 TODO notification bell not in dropdown
-
-A cookie associated with a cross-site resource at http://google.com/ was set without the `SameSite` attribute. A future release of Chrome will only deliver cookies with cross-site requests if they are set with `SameSite=None` and `Secure`. You can review cookies in developer tools under Application>Storage>Cookies and see more details at https://www.chromestatus.com/feature/5088147346030592 and https://www.chromestatus.com/feature/5633521622188032.
-chrome-search://local-ntp/local-ntp.html:1 A cookie associated with a resource at http://google.com/ was set with `SameSite=None` but without `Secure`. A future release of Chrome will only deliver cookies marked `SameSite=None` if they are also marked `Secure`. You can review cookies in developer tools under Application>Storage>Cookies and see more details at https://www.chromestatus.com/feature/5633521622188032.
-[Deprecation] HTML Imports is deprecated and will be removed in M80, around February 2020. Please use ES modules instead. See https://www.chromestatus.com/features/5144752345317376 and https://developers.google.com/web/updates/2019/07/web-components-time-to-upgrade for more details.
-5The resource <URL> was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.

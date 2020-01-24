@@ -47,10 +47,7 @@ function downloadAllArticles() {
       ]);
   }).then(event => {
     // TODO if it didn't work the first time, try again sometime later?
-    var snackbar = document.getElementById('snackbar');
-    snackbar.innerText = "Die Seite ist offline verfügbar!";
-    snackbar.classList.add('show');
-    setTimeout(function(){ snackbar.classList.remove('show'); }, 3000);
+    new bootstrap.Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
   }).catch(error => {
     console.log("Fehler beim Offline gehen!");
   })
@@ -177,4 +174,3 @@ if (true && window.fetch && window.history && history.pushState) {
      }
   });
 }
-

@@ -10,8 +10,11 @@
   </div>
 </main>
 {{ block "footer" . }}
-    {{- partial "footer.html" . -}}
-  {{ end }}
+  {{- partial "footer.html" . -}}
+{{ end }}
+{{ block "toasts" . }}
+  {{- partial "toasts.html" . -}}
+{{ end }}
 {{ block "scripts" . }}
   {{- partial "scripts.html" . -}}
 {{ end }}
