@@ -1,9 +1,11 @@
 var dict = {
 {{ range .Site.Pages }}
-   {{ if .Paginator }}
-    {{ .Paginator.TotalPages }}
-   {{ end }}
-  "{{ .RelPermalink }}": "{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}",
+  {{ $page := . }}
+  {{ if .Paginator }}
+    {{ range .Paginator.Pagers }}
+    "{{ .URL }}": "{{ .URL }}rawhtml.html?{{ sha256 $page.Plain }}  {{ with $.Site.GetPage (string .URL) }}{{ with .OutputFormats.Get "RawHTML" -}}{{ .RelPermalink }}{{ end }}?{{ sha256 .Plain }}{{ end }}",
+    {{ end }}
+  {{ end }}
 {{ end }}
 }
 
