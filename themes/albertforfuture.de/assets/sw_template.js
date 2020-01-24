@@ -45,7 +45,7 @@ self.addEventListener('activate', event => {
 function renderTemplate (template, data) {
   return template
     .replace(/<body[^>]*>((.|[\n\r])*)<\/body>/im, data)
-    .replace("(title)", /<h1>(.*)<\/h1>/.exec(data)[1]);
+    .replace("(title)", /<h1.*?>(.*)<\/h1>/.exec(data)[1]);
 }
 
 // TODO custom 404 page
