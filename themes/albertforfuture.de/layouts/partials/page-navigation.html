@@ -5,7 +5,7 @@
     <ul class="pagination justify-content-center">
 
       <li class="page-item{{ if not .Paginator.HasPrev }} disabled{{ end }}">
-        <a class="page-link" tabindex="-1"{{ if .Paginator.HasPrev }} href="{{ .RelPermalink }}page/{{ .Paginator.Prev.PageNumber }}/" aria-disabled="true"{{ end }}>Zurück</a>
+        <a class="page-link" tabindex="-1"{{ if .Paginator.HasPrev }} href="{{ .RelPermalink }}{{ if not (eq 1 .Paginator.Prev.PageNumber) }}page/{{ .Paginator.Prev.PageNumber }}/{{ end }}" aria-disabled="true"{{ end }}>Zurück</a>
       </li>
 
       {{ range .Paginator.Pagers }}
@@ -13,7 +13,7 @@
       {{ end }}
 
       <li class="page-item{{ if not .Paginator.HasNext }} disabled{{ end }}">
-        <a class="page-link" tabindex="-1"{{ if .Paginator.HasNext }} href="{{ .RelPermalink }}page/{{ .Paginator.Next.PageNumber }}/" aria-disabled="true"{{ end }}>Vor</a>
+        <a class="page-link" tabindex="-1"{{ if .Paginator.HasNext }} href="{{ .RelPermalink }}{{ if not (eq 1 .Paginator.Next.PageNumber) }}page/{{ .Paginator.Next.PageNumber }}/{{ end }}" aria-disabled="true"{{ end }}>Vor</a>
       </li>
     </ul>
   </nav>
