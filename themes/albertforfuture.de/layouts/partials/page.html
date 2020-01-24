@@ -1,3 +1,17 @@
 <h1 class="text-center">{{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }}</h1>
 
+{{ if isset .Params "categories" }}
+{{ $baseURL := .Site.BaseURL }}
+    {{ range .Params.categories }}
+        <a href="{{ $baseURL }}categories/{{ . | urlize }}/"><span class="badge bg-primary">{{ . }}</span></a>
+    {{ end }}
+{{ end }}
+
+{{ if isset .Params "tags" }}
+    {{ $baseURL := .Site.BaseURL }}
+        {{ range .Params.tags }}
+            <a href="{{ $baseURL }}tags/{{ . | urlize }}/"><span class="badge bg-secondary">{{ . }}</span></a>
+        {{ end }}
+{{ end }}
+
 {{ .Content }}
