@@ -118,10 +118,10 @@ function text(response) {
   return response.text()
 }
 
-/*
-if (false && window.fetch && window.history && history.pushState) {
+
+if (true && window.fetch && window.history && history.pushState) {
   window.addEventListener('popstate', (event) => {
-    document.getElementById('loader').classList.remove('hide');
+    document.getElementById('loader').classList.add('show');
     fetch(location.href)
       .then(status)
       .then(text)
@@ -135,9 +135,9 @@ if (false && window.fetch && window.history && history.pushState) {
          documentBody.parentNode.replaceChild(body, documentBody);
 
          document.title = doc.querySelector('title').innerText;
-         document.getElementById('loader').classList.add('hide');
+         document.getElementById('loader').classList.remove('show');
       }).catch(function(error) {
-         document.getElementById('loader').classList.add('hide');
+         document.getElementById('loader').classList.remove('show');
          alert('Request failed ' + error);
       });
   });
@@ -155,7 +155,7 @@ if (false && window.fetch && window.history && history.pushState) {
 
     if (target && target.host == window.location.host) {
       event.preventDefault();
-      document.getElementById('loader').classList.remove('hide');
+      document.getElementById('loader').classList.add('show');
       fetch(target.href)
         .then(status)
         .then(text)
@@ -171,12 +171,12 @@ if (false && window.fetch && window.history && history.pushState) {
            document.title = doc.querySelector('title').innerText;
 
            history.pushState({scrollPos: 1337}, null, target.href);
-           document.getElementById('loader').classList.add('hide');
+           document.getElementById('loader').classList.remove('show');
         }).catch(function(error) {
-          document.getElementById('loader').classList.add('hide');
+          document.getElementById('loader').classList.remove('show');
           alert('Request failed ' + error);
         });
      }
   });
 }
-*/
+
