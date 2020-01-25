@@ -1,11 +1,27 @@
-<h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+<div class="card border-secondary">
+  <div class="card-body">
+    <h5 class="card-title">{{ .Title }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ .Date.Format "02.01.2006" }}
 
-<p>
-  <small>{{ .Date.Format "02.01.2006" }}</small>
-</p>
+      {{ if isset .Params "categories" }}
+      {{ $baseURL := .Site.BaseURL }}
+          {{ range .Params.categories }}
+              <a href="{{ $baseURL }}categories/{{ . | urlize }}/"><span class="badge bg-primary">{{ . }}</span></a>
+          {{ end }}
+      {{ end }}
+      
+      {{ if isset .Params "tags" }}
+          {{ $baseURL := .Site.BaseURL }}
+              {{ range .Params.tags }}
+                  <a href="{{ $baseURL }}tags/{{ . | urlize }}/"><span class="badge bg-secondary">{{ . }}</span></a>
+              {{ end }}
+      {{ end }}
+      
+    </h6>
 
-{{ .Summary }}
+    <p class="card-text">{{ .Summary }}</p>
+    <a href="{{ .RelPermalink }}" class="stretched-link">Weiterlesen</a>
+  </div>
+</div>
 
-<p>
-  <a class="readmore" href="{{ .RelPermalink }}">Weiterlesen</a>
-</p>
+<br>

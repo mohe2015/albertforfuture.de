@@ -3,6 +3,8 @@ title: "Greta Thunbergs Rede"
 date: 2019-12-13T20:24:37+01:00
 draft: false
 type: article
+categories: ["Politik"]
+tags: ["Greta Thunberg"]
 ---
 Hier die Rede von Greta Thunberg beim UN-Klimagipfel im Wortlaut:
 (23.09.2019)

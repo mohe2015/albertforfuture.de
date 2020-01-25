@@ -2,6 +2,8 @@
 title: "Impressum"
 draft: false
 type: page
+categories: []
+tags: []
 ---
 Angaben gemäß § 5 TMG
 ---------------------

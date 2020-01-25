@@ -3,6 +3,8 @@ title: "Wie gefährlich ist Plastik im Meer?"
 date: 2019-12-13T20:24:37+01:00
 draft: false
 type: article
+categories: ["Plastik"]
+tags: ["Meer"]
 ---
 
 **Aktuell**

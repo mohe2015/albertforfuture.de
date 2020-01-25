@@ -1,9 +1,13 @@
 var dict = {
 {{ range .Site.Pages }}
-   {{ if .Paginator }}
-    {{ .Paginator.TotalPages }}
-   {{ end }}
-  "{{ .RelPermalink }}": "{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}",
+  {{ $page := . }}
+  {{ if .Paginator }}
+    {{ range .Paginator.Pagers }}
+      "{{ .URL }}": "{{ .URL }}rawhtml.html?{{ sha256 $page.Plain }}",
+    {{ end }}
+  {{ else }}
+    "{{ .RelPermalink }}": "{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}",
+  {{ end }}
 {{ end }}
 }
 
@@ -39,11 +43,9 @@ self.addEventListener('activate', event => {
 });
 
 function renderTemplate (template, data) {
-  console.log(template);
-  console.log(data);
   return template
     .replace(/<body[^>]*>((.|[\n\r])*)<\/body>/im, data)
-    .replace("(title)", /<h1>(.*)<\/h1>/.exec(data)[1]);
+    .replace("(title)", /<h1.*?>(.*)<\/h1>/.exec(data)[1]);
 }
 
 // TODO custom 404 page
@@ -57,13 +59,8 @@ self.addEventListener('fetch', (event) => {
           return response.text();
         }),
         caches.match(dict[pathname]).then((resp) => {
-          console.log("resp", resp);
-          console.log("dict[pathname]", dict[pathname]);
-          console.log(resp || "3");
           return resp || fetch(dict[pathname]).then((response) => {
-            console.log("response", response);
             return caches.open('v1').then((cache) => {
-              console.log("cache", cache);
               cache.put(dict[pathname], response.clone());
               return response;
             });
@@ -101,7 +98,6 @@ self.addEventListener('fetch', (event) => {
 
 
 self.addEventListener('push', function(event) {
-  console.log('[Service Worker] Push Received.');
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
   const title = 'Push Codelab';

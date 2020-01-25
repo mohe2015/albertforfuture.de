@@ -2,6 +2,8 @@
 title: "Datenschutzerklärung"
 draft: false
 type: page
+categories: []
+tags: []
 ---
 
 ## 1. Datenschutz auf einen Blick

@@ -3,6 +3,8 @@ title: "Mikroplastik in Kosmetik"
 date: 2019-12-13T20:24:37+01:00
 draft: false
 type: article
+categories: ["Plastik"]
+tags: ["Kosmetik"]
 ---
 Nachdem ich vor kurzem den Film „A plastic ocean“ auf Netflix gesehen
 habe, fing ich an mich mehr und mehr mit dem Thema Plastik und
