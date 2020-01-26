@@ -30,8 +30,8 @@ self.addEventListener('install', (event) => {
         {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | fingerprint -}}
         '{{- $manifest.RelPermalink -}}',
 
-        '/shell/?v={{ sha256 (.Site.GetPage "/shell").Plain }}',
-        '{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}{{ end }}'
+        '/shell/?v=v2{{ sha256 (.Site.GetPage "/shell").Plain }}', // TODO FIXME this needs to be changed when updating stylesheets
+        '{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?v2{{ sha256 .Plain }}{{ end }}'
       ]);
     })
   );
@@ -55,7 +55,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       // cache then network
       Promise.all([
-        caches.match('{{ .Site.BaseURL }}shell/?v={{ sha256 (.Site.GetPage "/shell").Plain }}').then(function(response) {
+        caches.match('{{ .Site.BaseURL }}shell/?v=v2{{ sha256 (.Site.GetPage "/shell").Plain }}').then(function(response) {
           return response.text();
         }),
         caches.match(dict[pathname]).then((resp) => {
@@ -65,7 +65,7 @@ self.addEventListener('fetch', (event) => {
               return response;
             });
           }).catch((error) => {
-            return caches.match('{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}{{ end }}').then(function(response) {
+            return caches.match('{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?v2{{ sha256 .Plain }}{{ end }}').then(function(response) {
               return response;
             });
           });
