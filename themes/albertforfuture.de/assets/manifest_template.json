@@ -14,8 +14,8 @@
     }
   ],
   "start_url": "{{ .Site.BaseURL }}",
-  "background_color": "#6dbd1c",
+  "background_color": "#4c6d46",
   "display": "minimal-ui",
   "scope": "{{ .Site.BaseURL }}",
-  "theme_color": "#6dbd1c"
+  "theme_color": "#4c6d46"
 }
