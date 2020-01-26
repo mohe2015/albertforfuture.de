@@ -55,7 +55,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       // cache then network
       Promise.all([
-        caches.match('{{ .Site.BaseURL }}shell/?v=v6{{ sha256 (.Site.GetPage "/shell").Plain }}').then(function(response) {
+        caches.match('/shell/?v=v6{{ sha256 (.Site.GetPage "/shell").Plain }}').then(function(response) {
           return response.text();
         }),
         caches.match(dict[pathname]).then((resp) => {

@@ -30,7 +30,7 @@ reduzieren.
 **EU**
 ------
 
-EU-weitlanden bis zu 500.000Tonnen Plastikmüll in den Ozeanen. Die
+EU-weit landen bis zu 500.000 Tonnen Plastikmüll in den Ozeanen. Die
 EU-Kommission möchte daher mit einem Verbot für bestimmte Einwegprodukte
 gegen die Plastikflut vorgehen.
 
