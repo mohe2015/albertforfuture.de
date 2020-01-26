@@ -6,7 +6,7 @@
 
   <title>{{ block "title" . }}{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}{{ end }}</title>
 
-  {{ $style := resources.Get "custom.scss" | toCSS | minify | fingerprint }}
+  {{ $style := resources.Get "custom.scss" | toCSS | fingerprint }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
 
   {{ with .OutputFormats.Get "rss" -}}
