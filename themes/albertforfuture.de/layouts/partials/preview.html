@@ -1,6 +1,6 @@
 <div class="mb-4">
   <h2>{{ .Title }}</h2>
-  <h5 class="mb-2 text-muted">{{ .Date.Format "02.01.2006" }}
+  <h6 class="mb-2 text-muted">{{ .Date.Format "02.01.2006" }}
 
     {{ if isset .Params "categories" }}
     {{ $baseURL := .Site.BaseURL }}
@@ -16,7 +16,7 @@
             {{ end }}
     {{ end }}
     
-  </h5>
+  </h6>
   <p>{{ .Summary }}</p>
   <a href="{{ .RelPermalink }}">Weiterlesen</a>
 </div>
