@@ -45,9 +45,17 @@ function downloadAllArticles() {
   }
   window.caches.open('v6').then(function(cache) {
       cache.addAll([
+
         {{- range .context.Site.Pages -}}
-          "{{- .RelPermalink -}}",
-        {{- end -}}
+          {{ $page := . }}
+          {{ if .Paginator }}
+            {{ range .Paginator.Pagers }}
+              "{{- .URL -}}",
+            {{ end }}
+          {{ else }}
+            "{{- .RelPermalink -}}",
+          {{ end }}
+        {{ end }}
       ]);
   }).then(event => {
     localStorage.setItem('offline', 'v6');

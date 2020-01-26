@@ -1,5 +1,5 @@
-{{ if eq .Type "page" }}
-    {{ partial "page.html" . }}
-{{ else }}
+{{ if eq .Type "article" }}
     {{ partial "article.html" . }}
+{{ else }}
+    {{ partial "page.html" . }}
 {{ end }}
