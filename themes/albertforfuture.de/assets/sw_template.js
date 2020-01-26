@@ -17,7 +17,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('v1').then((cache) => {
       return cache.addAll([
-        '{{ (resources.Get "main.css" | toCSS | minify | fingerprint).RelPermalink }}',
+        '{{ (resources.Get "custom.scss" | toCSS | minify | fingerprint).RelPermalink }}',
         '{{ (resources.Get "logo.svg" | fingerprint).RelPermalink }}',
 
         '/sw.js',
