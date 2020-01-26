@@ -8,8 +8,7 @@
 // Configuration
 
 $spacer: 1rem;
-$font-size-base: 1.25rem;
-
+$font-size-base: 1rem;
 
 $theme-colors: (
   "custom-navbar-green": #4c6d46,
@@ -26,7 +25,7 @@ $primary:       $blue !default;
 $pagination-color: $primary;
 $pagination-hover-color: $primary;
 
-$navbar-padding-y: $spacer * 1;
+$navbar-padding-y: $spacer;
 $navbar-padding-x: $spacer;
 $navbar-brand-font-size: $font-size-base * 2;
 
