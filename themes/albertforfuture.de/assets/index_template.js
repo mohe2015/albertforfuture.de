@@ -43,9 +43,9 @@ function downloadAllArticles() {
     console.log("articles already downloaded");
     return;
   }
-  window.caches.open('v6').then(function(cache) {
+  setTimeout(function() {
+    window.caches.open('v6').then(function(cache) {
       cache.addAll([
-
         {{- range .context.Site.Pages -}}
           {{ $page := . }}
           {{ if .Paginator }}
@@ -57,16 +57,17 @@ function downloadAllArticles() {
           {{ end }}
         {{ end }}
       ]);
-  }).then(event => {
-    localStorage.setItem('offline', 'v6');
-    document.getElementById('toast-offline').classList.remove('d-none');
-    new bootstrap.Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
-    document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
-      document.getElementById('toast-offline').remove();
-    })
-  }).catch(error => {
-    console.log("Fehler beim Offline gehen!");
-  })
+    }).then(event => {
+      localStorage.setItem('offline', 'v6');
+      document.getElementById('toast-offline').classList.remove('d-none');
+      new bootstrap.Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
+      document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
+        document.getElementById('toast-offline').remove();
+      })
+    }).catch(error => {
+      console.log("Fehler beim Offline gehen!");
+    });
+  }, 10000);
 }
 
 if ('serviceWorker' in navigator) {

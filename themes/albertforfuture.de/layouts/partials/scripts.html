@@ -1,6 +1,7 @@
 {{ $bootstrapScript := resources.Get "bootstrap/dist/js/bootstrap.js" | fingerprint }}
-<script src="{{ $bootstrapScript.Permalink }}"></script>
 
 {{ $indexTemplate := resources.Get "index_template.js" }}
 {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | fingerprint }}
-<script src="{{ $index.Permalink }}"></script>
+
+{{ $js := slice $bootstrapScript $index | resources.Concat "bundle.js" | fingerprint }}
+<script src="{{ $js.Permalink }}"></script>
