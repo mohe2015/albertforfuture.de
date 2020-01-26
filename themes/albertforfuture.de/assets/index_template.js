@@ -138,6 +138,11 @@ function text(response) {
 
 
 if (true && window.fetch && window.history && history.pushState) {
+  window.addEventListener('scroll', function(e) {
+    console.log("scroll", window.scrollY)
+    history.replaceState({scrollY: window.scrollY}, null, null)
+  });
+  
   window.addEventListener('popstate', (event) => {
     document.getElementById('loader').classList.add('show');
     fetch(location.href)
@@ -151,18 +156,18 @@ if (true && window.fetch && window.history && history.pushState) {
 
          var documentBody = document.querySelector('body');
          documentBody.parentNode.replaceChild(body, documentBody);
+         
+         console.log("window.scrollTo", event.state.scrollY)
+         window.scrollTo(0, event.state.scrollY);
 
          document.title = doc.querySelector('title').innerText;
+
          document.getElementById('loader').classList.remove('show');
       }).catch(function(error) {
          document.getElementById('loader').classList.remove('show');
          alert('Request failed ' + error);
       });
   });
-
-  if ('scrollRestoration' in window.history) {
-    window.history.scrollRestoration = 'manual';
-  }
 
   document.addEventListener("click", function(event) {
     var target = event.target;
@@ -188,8 +193,9 @@ if (true && window.fetch && window.history && history.pushState) {
 
            document.title = doc.querySelector('title').innerText;
 
-           // TODO FIXME scroll Pos
-           history.pushState({scrollPos: 1337}, null, target.href);
+           history.pushState({scrollY: 0}, null, target.href);
+           console.log("pushState", 0)
+           window.scrollTo(0, 0);
 
            // TODO FIXME redirect sites contain no content!!!!
            document.getElementById('loader').classList.remove('show');
