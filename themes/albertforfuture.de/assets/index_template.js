@@ -39,6 +39,9 @@ function subscribeUser() {
 }
 
 function downloadAllArticles() {
+  if (localStorage.getItem('offline') === 'v6') {
+    return;
+  }
   window.caches.open('v6').then(function(cache) {
       cache.addAll([
         {{- range .context.Site.Pages -}}
@@ -46,7 +49,7 @@ function downloadAllArticles() {
         {{- end -}}
       ]);
   }).then(event => {
-    // TODO if it didn't work the first time, try again sometime later?
+    localStorage.setItem('offline', 'v6');
     document.getElementById('toast-offline').classList.remove('d-none');
     new bootstrap.Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
     document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
@@ -61,6 +64,7 @@ if ('serviceWorker' in navigator) {
   console.log("service worker supported")
   navigator.serviceWorker.register('/sw.js', {scope: '{{ .context.Site.BaseURL }}'})
   .then((reg) => {
+    downloadAllArticles();
     window.serviceWorkerRegistration = reg;
 
     if (reg.installing) {
@@ -69,7 +73,7 @@ if ('serviceWorker' in navigator) {
           'A "statechange" has occured: ', this.state
         );
         if (this.state === 'activated') {
-          downloadAllArticles();
+
         }
       });
     }
