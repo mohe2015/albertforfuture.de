@@ -18,15 +18,13 @@ $theme-colors: (
 
 $body-bg: #005439;
 $body-color: #fff;
-$card-color: $body-color;
-$card-bg: $body-bg;
 
 $link-color: #26df1f;
-$link-decoration: underline;
 
 $blue:    #0d6efd !default;
 $primary:       $blue !default;
 $pagination-color: $primary;
+$pagination-hover-color: $primary;
 
 $navbar-padding-y: $spacer * 1;
 $navbar-padding-x: $spacer;
@@ -81,12 +79,6 @@ $navbar-brand-font-size: $font-size-base * 2;
   
   .logo, svg {
     height: 2em;
-  }
-  
-  /* footer magic http://localhost:9001/docs/4.3/examples/sticky-footer-navbar/ */
-  
-  main > .container {
-    padding: 0 0 0;
   }
   
   #loader {
