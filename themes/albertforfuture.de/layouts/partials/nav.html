@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-success">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-custom-navbar-green">
     <div class="container-fluid">
       {{ $logo_svg := resources.Get "logo.svg" | fingerprint }}
       <a class="navbar-brand" href="{{ .Site.BaseURL }}"><img src="{{ $logo_svg.Permalink }}" alt="AfF" class="logo"></a>
