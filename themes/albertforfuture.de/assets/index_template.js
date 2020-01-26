@@ -40,6 +40,7 @@ function subscribeUser() {
 
 function downloadAllArticles() {
   if (localStorage.getItem('offline') === 'v6') {
+    console.log("articles already downloaded");
     return;
   }
   window.caches.open('v6').then(function(cache) {
@@ -63,17 +64,23 @@ function downloadAllArticles() {
 if ('serviceWorker' in navigator) {
   console.log("service worker supported")
   navigator.serviceWorker.register('/sw.js', {scope: '{{ .context.Site.BaseURL }}'})
-  .then((reg) => {
-    downloadAllArticles();
-    window.serviceWorkerRegistration = reg;
+  .then((registration) => {
+    window.serviceWorkerRegistration = registration;
 
-    if (reg.installing) {
-      reg.installing.addEventListener('statechange', function() {
+    console.log(registration);
+
+    if (registration.active && registration.active.state === 'activated') {
+      console.log(registration.active);
+      downloadAllArticles();
+    }
+
+    if (registration.installing) {
+      registration.installing.addEventListener('statechange', function() {
         console.log('[controllerchange][statechange] ' +
           'A "statechange" has occured: ', this.state
         );
         if (this.state === 'activated') {
-
+          downloadAllArticles();
         }
       });
     }
@@ -95,7 +102,7 @@ if ('serviceWorker' in navigator) {
 
     // TODO show notification bell
 
-    console.log('Registration succeeded. Scope is ' + reg.scope);
+    console.log('Registration succeeded. Scope is ' + registration.scope);
   }).catch((error) => {
     console.log('Registration failed with ' + error);
   });

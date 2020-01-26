@@ -29,6 +29,8 @@ $navbar-padding-y: $spacer;
 $navbar-padding-x: $spacer;
 $navbar-brand-font-size: $font-size-base * 2;
 
+$toast-color: black;
+
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins";
