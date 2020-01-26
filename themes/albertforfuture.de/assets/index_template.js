@@ -39,7 +39,7 @@ function subscribeUser() {
 }
 
 function downloadAllArticles() {
-  window.caches.open('v1').then(function(cache) {
+  window.caches.open('v6').then(function(cache) {
       cache.addAll([
         {{- range .context.Site.Pages -}}
           "{{- .RelPermalink -}}",

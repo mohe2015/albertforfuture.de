@@ -3,10 +3,10 @@ var dict = {
   {{ $page := . }}
   {{ if .Paginator }}
     {{ range .Paginator.Pagers }}
-      "{{ .URL }}": "{{ .URL }}rawhtml.html?{{ sha256 $page.Plain }}",
+      "{{ .URL }}": "{{ .URL }}rawhtml.html?v6{{ sha256 $page.Plain }}",
     {{ end }}
   {{ else }}
-    "{{ .RelPermalink }}": "{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?{{ sha256 .Plain }}",
+    "{{ .RelPermalink }}": "{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?v6{{ sha256 .Plain }}",
   {{ end }}
 {{ end }}
 }
@@ -15,7 +15,7 @@ self.addEventListener('install', (event) => {
   console.log('install');
   self.skipWaiting();
   event.waitUntil(
-    caches.open('v2').then((cache) => {
+    caches.open('v6').then((cache) => {
       return cache.addAll([
         '{{ (resources.Get "custom.scss" | toCSS | minify | fingerprint).RelPermalink }}',
         '{{ (resources.Get "logo.svg" | fingerprint).RelPermalink }}',
@@ -30,8 +30,8 @@ self.addEventListener('install', (event) => {
         {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | fingerprint -}}
         '{{- $manifest.RelPermalink -}}',
 
-        '/shell/?v=v2{{ sha256 (.Site.GetPage "/shell").Plain }}', // TODO FIXME this needs to be changed when updating stylesheets
-        '{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?v2{{ sha256 .Plain }}{{ end }}'
+        '/shell/?v=v6{{ sha256 (.Site.GetPage "/shell").Plain }}', // TODO FIXME this needs to be changed when updating stylesheets
+        '{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?v6{{ sha256 .Plain }}{{ end }}'
       ]);
     })
   );
@@ -55,17 +55,17 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       // cache then network
       Promise.all([
-        caches.match('{{ .Site.BaseURL }}shell/?v=v2{{ sha256 (.Site.GetPage "/shell").Plain }}').then(function(response) {
+        caches.match('{{ .Site.BaseURL }}shell/?v=v6{{ sha256 (.Site.GetPage "/shell").Plain }}').then(function(response) {
           return response.text();
         }),
         caches.match(dict[pathname]).then((resp) => {
           return resp || fetch(dict[pathname]).then((response) => {
-            return caches.open('v2').then((cache) => {
+            return caches.open('v6').then((cache) => {
               cache.put(dict[pathname], response.clone());
               return response;
             });
           }).catch((error) => {
-            return caches.match('{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?v2{{ sha256 .Plain }}{{ end }}').then(function(response) {
+            return caches.match('{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?v6{{ sha256 .Plain }}{{ end }}').then(function(response) {
               return response;
             });
           });
@@ -86,7 +86,7 @@ self.addEventListener('fetch', (event) => {
       // cache then network
       caches.match(event.request).then((resp) => {
         return resp || fetch(event.request).then((response) => {
-          return caches.open('v2').then((cache) => {
+          return caches.open('v6').then((cache) => {
             cache.put(event.request, response.clone());
             return response;
           });
