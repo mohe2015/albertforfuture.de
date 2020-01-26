@@ -15,7 +15,7 @@ self.addEventListener('install', (event) => {
   console.log('install');
   self.skipWaiting();
   event.waitUntil(
-    caches.open('v1').then((cache) => {
+    caches.open('v2').then((cache) => {
       return cache.addAll([
         '{{ (resources.Get "custom.scss" | toCSS | minify | fingerprint).RelPermalink }}',
         '{{ (resources.Get "logo.svg" | fingerprint).RelPermalink }}',
@@ -60,7 +60,7 @@ self.addEventListener('fetch', (event) => {
         }),
         caches.match(dict[pathname]).then((resp) => {
           return resp || fetch(dict[pathname]).then((response) => {
-            return caches.open('v1').then((cache) => {
+            return caches.open('v2').then((cache) => {
               cache.put(dict[pathname], response.clone());
               return response;
             });
@@ -86,7 +86,7 @@ self.addEventListener('fetch', (event) => {
       // cache then network
       caches.match(event.request).then((resp) => {
         return resp || fetch(event.request).then((response) => {
-          return caches.open('v1').then((cache) => {
+          return caches.open('v2').then((cache) => {
             cache.put(event.request, response.clone());
             return response;
           });
