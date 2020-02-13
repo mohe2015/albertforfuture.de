@@ -1,5 +1,0 @@
-[outputFormats]
-  [outputFormats.RawHTML]
-    name = "RawHTML"
-    baseName = "rawhtml"
-    mediaType = "text/html"

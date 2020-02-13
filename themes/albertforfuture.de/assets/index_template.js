@@ -39,12 +39,12 @@ function subscribeUser() {
 }
 
 function downloadAllArticles() {
-  if (localStorage.getItem('offline') === 'v6') {
+  if (localStorage.getItem('offline') === '{{ .context.Site.Params.offlineVersion }}') {
     console.log("articles already downloaded");
     return;
   }
   setTimeout(function() {
-    window.caches.open('v6').then(function(cache) {
+    window.caches.open('{{ .context.Site.Params.offlineVersion }}').then(function(cache) {
       cache.addAll([
         {{- range .context.Site.Pages -}}
           {{ $page := . }}
@@ -58,21 +58,21 @@ function downloadAllArticles() {
         {{ end }}
       ]);
     }).then(event => {
-      localStorage.setItem('offline', 'v6');
+      localStorage.setItem('offline', '{{ .context.Site.Params.offlineVersion }}');
       document.getElementById('toast-offline').classList.remove('d-none');
       new bootstrap.Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
       document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
         document.getElementById('toast-offline').remove();
       })
     }).catch(error => {
-      console.log("Fehler beim Offline gehen!");
+      console.log("Fehler beim Offline gehen!", error);
     });
   }, 10000);
 }
 
 if ('serviceWorker' in navigator) {
   console.log("service worker supported")
-  navigator.serviceWorker.register('/sw.js', {scope: '{{ .context.Site.BaseURL }}'})
+  navigator.serviceWorker.register('/sw.min.js', {scope: '{{ .context.Site.BaseURL }}'})
   .then((registration) => {
     window.serviceWorkerRegistration = registration;
 
@@ -137,7 +137,7 @@ function text(response) {
   return response.text()
 }
 
-
+/*
 if (true && window.fetch && window.history && history.pushState) {
   window.addEventListener('scroll', function(e) {
     console.log("scroll", window.scrollY)
@@ -207,3 +207,4 @@ if (true && window.fetch && window.history && history.pushState) {
      }
   });
 }
+*/

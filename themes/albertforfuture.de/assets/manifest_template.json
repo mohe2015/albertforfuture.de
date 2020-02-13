@@ -3,7 +3,7 @@
   "name": "Albert for Future",
   "icons": [
     {
-      "src": "{{ (resources.Get "logo.svg" | fingerprint).Permalink }}",
+      "src": "{{ (resources.Get "logo.svg" | minify | fingerprint).Permalink }}",
       "type": "image/svg+xml",
       "sizes": "512x512"
     },

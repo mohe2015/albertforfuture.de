@@ -1,13 +1,6 @@
-{{ $bootstrapPolyfill := resources.Get "bootstrap/js/dist/dom/polyfill.js" | fingerprint }}
-{{ $bootstrapData := resources.Get "bootstrap/js/dist/dom/data.js" | fingerprint }}
-{{ $bootstrapManipulator := resources.Get "bootstrap/js/dist/dom/manipulator.js" | fingerprint }}
-{{ $bootstrapEventHandler := resources.Get "bootstrap/js/dist/dom/event-handler.js" | fingerprint }}
-{{ $bootstrapSelectorEngine := resources.Get "bootstrap/js/dist/dom/selector-engine.js" | fingerprint }}
-{{ $bootstrapCollapse := resources.Get "bootstrap/js/dist/collapse.js" | fingerprint }}
-{{ $bootstrapToast := resources.Get "bootstrap/js/dist/toast.js" | fingerprint }}
-
+{{ $bootstrap := resources.Get "bootstrap/dist/js/bootstrap.js" | fingerprint }}
 {{ $indexTemplate := resources.Get "index_template.js" }}
 {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | fingerprint }}
+{{ $js := slice $bootstrap $index | resources.Concat "bundle.js" | minify | fingerprint }}
 
-{{ $js := slice $bootstrapPolyfill $bootstrapData $bootstrapManipulator $bootstrapEventHandler $bootstrapSelectorEngine $bootstrapCollapse $bootstrapToast $index | resources.Concat "bundle.js" | fingerprint }}
-<script src="{{ $js.Permalink }}"></script>
+<script src="{{ $js.RelPermalink }}"></script>
