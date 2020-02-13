@@ -137,7 +137,7 @@ function text(response) {
   return response.text()
 }
 
-
+/*
 if (true && window.fetch && window.history && history.pushState) {
   window.addEventListener('scroll', function(e) {
     console.log("scroll", window.scrollY)
@@ -207,3 +207,4 @@ if (true && window.fetch && window.history && history.pushState) {
      }
   });
 }
+*/

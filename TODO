@@ -1,17 +1,16 @@
 DATENSCHUTZERKLÄRUNG
 
-OFFLINE notification color
-
-delete old caches
-
 maybe make navbar able to open without javascript?
-
-combine index.js and bootstrap.js
-
-only include necessarry js
-
-grep FIXME
-grep TODO
 
 TODO push notifications for new articles
 TODO notification bell
+
+
+
+NEW approach:
+
+no service worker: just load the page maybe get a 403 (with like 1 hour cache time or more), resources with hash infinite
+with service worker: download all pages, just redownload all of them if cache timeout - no special handling
+
+
+MAYBE dont use pushstate because it is buggy
