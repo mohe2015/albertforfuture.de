@@ -65,7 +65,7 @@ function downloadAllArticles() {
         document.getElementById('toast-offline').remove();
       })
     }).catch(error => {
-      console.log("Fehler beim Offline gehen!");
+      console.log("Fehler beim Offline gehen!", error);
     });
   }, 10000);
 }

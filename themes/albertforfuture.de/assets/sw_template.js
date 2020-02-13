@@ -6,6 +6,13 @@ self.addEventListener('install', (event) => {
       return cache.addAll([
         '{{ (resources.Get "custom.scss" | toCSS | fingerprint).RelPermalink }}',
         '{{ (resources.Get "logo.svg" | fingerprint).RelPermalink }}',
+        
+        {{ $bootstrap := resources.Get "bootstrap/dist/js/bootstrap.js" | fingerprint }}
+        {{ $indexTemplate := resources.Get "index_template.js" }}
+        {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | fingerprint }}
+        {{ $js := slice $bootstrap $index | resources.Concat "bundle.js" | fingerprint }}
+
+        '{{ $js.RelPermalink }}',
 
         '/sw.js',
 
@@ -33,13 +40,13 @@ self.addEventListener('fetch', (event) => {
   var pathname = new URL(event.request.url).pathname;
   event.respondWith(
     // cache then network // TODO update cache (use service worker update?)
-    caches.match(event.request).then((resp) => {
-      return resp || fetch(event.request).then((response) => {
-        return caches.open('v6').then((cache) => {
+    caches.match(event.request).then(cacheResponse => {
+      return cacheResponse || fetch(event.request).then(response => {
+        return caches.open('v6').then(cache => {
           cache.put(event.request, response.clone());
           return response;
         });
-      }).catch((error) => {
+      }).catch(error => {
         return caches.match('/offline/').then(function(response) {
           return response;
         });
