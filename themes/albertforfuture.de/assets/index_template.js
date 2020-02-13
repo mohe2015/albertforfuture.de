@@ -72,7 +72,7 @@ function downloadAllArticles() {
 
 if ('serviceWorker' in navigator) {
   console.log("service worker supported")
-  navigator.serviceWorker.register('/sw.js', {scope: '{{ .context.Site.BaseURL }}'})
+  navigator.serviceWorker.register('/sw.min.js', {scope: '{{ .context.Site.BaseURL }}'})
   .then((registration) => {
     window.serviceWorkerRegistration = registration;
 

@@ -23,7 +23,7 @@ server {
 	add_header Cache-Control public always;
 	http2_push_preload on;
 
-	location = /sw.js {
+	location = /sw.min.js {
 		expires 6h;
 	}
 
