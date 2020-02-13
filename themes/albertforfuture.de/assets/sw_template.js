@@ -1,16 +1,3 @@
-var dict = {
-{{ range .Site.Pages }}
-  {{ $page := . }}
-  {{ if .Paginator }}
-    {{ range .Paginator.Pagers }}
-      "{{ .URL }}": "{{ .URL }}rawhtml.html?v6{{ sha256 $page.Plain }}",
-    {{ end }}
-  {{ else }}
-    "{{ .RelPermalink }}": "{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?v6{{ sha256 .Plain }}",
-  {{ end }}
-{{ end }}
-}
-
 self.addEventListener('install', (event) => {
   console.log('install');
   self.skipWaiting();
@@ -30,8 +17,7 @@ self.addEventListener('install', (event) => {
         {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | fingerprint -}}
         '{{- $manifest.RelPermalink -}}',
 
-        '/shell/?v=v6{{ sha256 (.Site.GetPage "/shell").Plain }}', // TODO FIXME this needs to be changed when updating stylesheets
-        '{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?v6{{ sha256 .Plain }}{{ end }}'
+        '/offline/',
       ]);
     })
   );
@@ -42,60 +28,25 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-function renderTemplate (template, data) {
-  return template
-    .replace(/<body[^>]*>((.|[\n\r])*)<\/body>/im, data)
-    .replace("(title)", /<h1.*?>(.*)<\/h1>/.exec(data)[1]);
-}
-
 // TODO custom 404 page
 self.addEventListener('fetch', (event) => {
   var pathname = new URL(event.request.url).pathname;
-  if (dict[pathname]) {
-    event.respondWith(
-      // cache then network
-      Promise.all([
-        caches.match('/shell/?v=v6{{ sha256 (.Site.GetPage "/shell").Plain }}').then(function(response) {
-          return response.text();
-        }),
-        caches.match(dict[pathname]).then((resp) => {
-          return resp || fetch(dict[pathname]).then((response) => {
-            return caches.open('v6').then((cache) => {
-              cache.put(dict[pathname], response.clone());
-              return response;
-            });
-          }).catch((error) => {
-            return caches.match('{{ with (.Site.GetPage "/offline") }}{{ ((.OutputFormats.Get "RawHTML").RelPermalink) }}?v6{{ sha256 .Plain }}{{ end }}').then(function(response) {
-              return response;
-            });
-          });
-        }).then(e => e.text())
-      ]).then(function(responses) {
-        var template = responses[0];
-        var data = responses[1];
-
-        return new Response(renderTemplate(template, data), {
-          headers: {
-            'Content-Type': 'text/html'
-          }
+  event.respondWith(
+    // cache then network // TODO update cache (use service worker update?)
+    caches.match(event.request).then((resp) => {
+      return resp || fetch(event.request).then((response) => {
+        return caches.open('v6').then((cache) => {
+          cache.put(event.request, response.clone());
+          return response;
         });
-      })
-    );
-  } else {
-    event.respondWith(
-      // cache then network
-      caches.match(event.request).then((resp) => {
-        return resp || fetch(event.request).then((response) => {
-          return caches.open('v6').then((cache) => {
-            cache.put(event.request, response.clone());
-            return response;
-          });
+      }).catch((error) => {
+        return caches.match('/offline/').then(function(response) {
+          return response;
         });
-      })
-    );
-  }
+      });
+    })
+  )
 });
-
 
 self.addEventListener('push', function(event) {
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);

@@ -8,8 +8,8 @@ pluralizeListTitles = false
 canonifyURLs = true
 
 [outputs]
-  page = ["HTML", "RawHTML"]
-  home = ["HTML", "RSS", "RawHTML"]
-  section = ["HTML", "RSS", "RawHTML"]
-  taxonomyTerm = ["HTML", "RawHTML"]
-  taxonomy = ["HTML", "RSS", "RawHTML"]
+  page = ["HTML"]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML"]
+  taxonomy = ["HTML", "RSS"]

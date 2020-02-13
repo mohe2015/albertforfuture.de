@@ -12,5 +12,4 @@ NEW approach:
 no service worker: just load the page maybe get a 403 (with like 1 hour cache time or more), resources with hash infinite
 with service worker: download all pages, just redownload all of them if cache timeout - no special handling
 
-
 MAYBE dont use pushstate because it is buggy
