@@ -7,6 +7,9 @@ sectionPagesMenu = "main"
 pluralizeListTitles = false
 canonifyURLs = true
 
+[params]
+  offlineVersion = "v6"
+
 [outputs]
   page = ["HTML"]
   home = ["HTML", "RSS"]

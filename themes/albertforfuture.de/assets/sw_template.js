@@ -2,7 +2,7 @@ self.addEventListener('install', (event) => {
   console.log('install');
   self.skipWaiting();
   event.waitUntil(
-    caches.open('v6').then((cache) => {
+    caches.open('{{ .Site.Params.offlineVersion }}').then((cache) => {
       return cache.addAll([
         '{{ (resources.Get "custom.scss" | toCSS | fingerprint).RelPermalink }}',
         '{{ (resources.Get "logo.svg" | fingerprint).RelPermalink }}',
@@ -42,7 +42,7 @@ self.addEventListener('fetch', (event) => {
     // cache then network // TODO update cache (use service worker update?)
     caches.match(event.request).then(cacheResponse => {
       return cacheResponse || fetch(event.request).then(response => {
-        return caches.open('v6').then(cache => {
+        return caches.open('{{ .Site.Params.offlineVersion }}').then(cache => {
           cache.put(event.request, response.clone());
           return response;
         });

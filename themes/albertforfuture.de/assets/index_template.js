@@ -39,12 +39,12 @@ function subscribeUser() {
 }
 
 function downloadAllArticles() {
-  if (localStorage.getItem('offline') === 'v6') {
+  if (localStorage.getItem('offline') === '{{ .context.Site.Params.offlineVersion }}') {
     console.log("articles already downloaded");
     return;
   }
   setTimeout(function() {
-    window.caches.open('v6').then(function(cache) {
+    window.caches.open('{{ .context.Site.Params.offlineVersion }}').then(function(cache) {
       cache.addAll([
         {{- range .context.Site.Pages -}}
           {{ $page := . }}
@@ -58,7 +58,7 @@ function downloadAllArticles() {
         {{ end }}
       ]);
     }).then(event => {
-      localStorage.setItem('offline', 'v6');
+      localStorage.setItem('offline', '{{ .context.Site.Params.offlineVersion }}');
       document.getElementById('toast-offline').classList.remove('d-none');
       new bootstrap.Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
       document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
