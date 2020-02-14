@@ -70,7 +70,7 @@ function downloadAllArticles() {
   }, 10000);
 }
 
-if ('serviceWorker' in navigator) {
+if (false && 'serviceWorker' in navigator) {
   console.log("service worker supported")
   navigator.serviceWorker.register('/sw.min.js', {scope: '{{ .context.Site.BaseURL }}'})
   .then((registration) => {

@@ -1,8 +1,12 @@
 DATENSCHUTZERKLÄRUNG
 
+TODO NAVBAR CSS ONLY
+
 TODO push notifications for new articles
 TODO delete old caches
 TODO update http2 push files
+
+TODO accesibility
 
 FIXME BLOCKING: henne ei problem - index.js updates pages that include old index.js
 SIMPLEFIX: JUST let service worker download all articles (BAD SOLUTION)

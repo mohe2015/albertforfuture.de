@@ -3,4 +3,4 @@
 {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | fingerprint }}
 {{ $js := slice $bootstrap $index | resources.Concat "bundle.js" | minify | fingerprint }}
 
-<script src="{{ $js.RelPermalink }}"></script>
+<!--<script src="{{ $js.RelPermalink }}"></script>-->
