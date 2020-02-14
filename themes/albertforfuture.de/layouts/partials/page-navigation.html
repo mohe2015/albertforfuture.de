@@ -1,19 +1,21 @@
 {{ $paginator := .Paginator }}
 {{ $page := .Page }}
 {{ if gt .Paginator.TotalPages 1 }}
-<nav aria-label="Page navigation">
+<nav role="navigation" aria-label="Seitennavigation">
     <ul class="pagination justify-content-center">
 
       <li class="page-item{{ if not .Paginator.HasPrev }} disabled{{ end }}">
-        <a class="page-link" tabindex="-1"{{ if .Paginator.HasPrev }} href="{{ .RelPermalink }}{{ if not (eq 1 .Paginator.Prev.PageNumber) }}page/{{ .Paginator.Prev.PageNumber }}/{{ end }}" aria-disabled="true"{{ end }}>Zurück</a>
+        <a class="page-link" aria-label="Vorherige Seite" {{ if not .Paginator.HasPrev }}tabindex="-1" aria-disabled="true"{{ else }}href="{{ .Paginator.Prev.URL }}"{{end}}>Zurück</a>
       </li>
 
       {{ range .Paginator.Pagers }}
-        <li class="page-item{{ if eq . $paginator }} active{{ end }}"><a class="page-link" href="{{ $page.RelPermalink }}{{ if not (eq 1 .PageNumber) }}page/{{ .PageNumber }}/{{ end }}">{{ .PageNumber }}</a></li>
+        <li class="page-item{{ if eq . $paginator }} active" aria-current="page"{{ else }}"{{ end }}>
+          <a class="page-link" aria-label="Seite {{ .PageNumber }}" href="{{ .URL }}" {{ if eq . $paginator }}aria-current="true"{{ end }}>{{ .PageNumber }}</a>
+        </li>
       {{ end }}
 
       <li class="page-item{{ if not .Paginator.HasNext }} disabled{{ end }}">
-        <a class="page-link" tabindex="-1"{{ if .Paginator.HasNext }} href="{{ .RelPermalink }}{{ if not (eq 1 .Paginator.Next.PageNumber) }}page/{{ .Paginator.Next.PageNumber }}/{{ end }}" aria-disabled="true"{{ end }}>Vor</a>
+        <a class="page-link" aria-label="Nächste Seite" {{ if not .Paginator.HasNext }}tabindex="-1" aria-disabled="true"{{ else }}href="{{ .Paginator.Next.URL }}"{{end}}>Vor</a>
       </li>
     </ul>
   </nav>
