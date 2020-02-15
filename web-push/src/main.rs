@@ -14,6 +14,7 @@ use argparse::{ArgumentParser, Store, StoreOption};
 use std::{fs::File, io::Read};
 use web_push::*;
 
+// https://github.com/diesel-rs/diesel/tree/master/examples/sqlite/getting_started_step_3
 pub fn establish_connection() -> SqliteConnection {
     dotenv().ok();
 
