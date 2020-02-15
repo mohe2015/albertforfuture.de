@@ -2,7 +2,7 @@ baseURL = "https://mohe2015.github.io/albertforfuture.de/"
 languageCode = "de-DE"
 title = "Albert for Future"
 theme = "albertforfuture.de"
-Paginate = 10
+Paginate = 100
 sectionPagesMenu = "main"
 pluralizeListTitles = false
 
