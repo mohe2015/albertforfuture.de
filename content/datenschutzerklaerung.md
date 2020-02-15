@@ -104,11 +104,11 @@ möglich.
 Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website
 ist:
 
-Moritz Hedtke 
-Anne-Frank-Straße 10 
+Moritz Hedtke  
+Anne-Frank-Straße 10  
 64354 Reinheim
 
-Telefon: +49 (0) 6162 2918 
+Telefon: +49 (0) 6162 2918  
 E-Mail: Moritz.Hedtke@t-online.de
 
 Verantwortliche Stelle ist die natürliche oder juristische Person, die
