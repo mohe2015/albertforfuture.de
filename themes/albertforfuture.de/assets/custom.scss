@@ -7,29 +7,70 @@
 
 // Configuration
 
+// copy pasta start
 $spacer: 1rem;
 $font-size-base: 1rem;
 
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$blue:    #0d6efd !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #d63384 !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #28a745 !default;
+$teal:    #20c997 !default;
+$cyan:    #17a2b8 !default;
+
+$primary:       $blue !default;
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
 $theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark,
+// copy pasta end
   "custom-navbar-green": #4c6d46,
   "custom-background-green": #005439
 );
 
-$body-bg: #005439;
-$body-color: #fff;
+$body-bg: #005439; // override
+$body-color: #fff; // override
 
-$link-color: #26df1f;
+$link-color: #26df1f; // override
 
-$blue:    #0d6efd !default;
-$primary:       $blue !default;
-$pagination-color: $primary;
-$pagination-hover-color: $primary;
+$pagination-color: $primary; // override
+$pagination-hover-color: $primary; // override (bad?)
 
-$navbar-padding-y: $spacer;
-$navbar-padding-x: $spacer;
-$navbar-brand-font-size: $font-size-base * 2;
+$navbar-padding-y: $spacer; // override
+$navbar-padding-x: $spacer; // override
+$navbar-brand-font-size: $font-size-base * 2; // override
 
-$toast-color: black;
+$toast-color: $black; // override
+$toast-background-color: $white; // override
 
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
@@ -61,17 +102,10 @@ $toast-color: black;
 
 @media screen {
   body {
-    overflow-y: scroll;
+    overflow-y: scroll; // don't make the page jump between navigations (on desktop)
   }
 }
 
 .logo, svg {
-  height: 2em;
-}
-
-#loader {
-  position: fixed;
-  z-index: 1031;
-  top: 50%;
-  left: 50%;
+  height: 2em; // big logo
 }
