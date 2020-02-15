@@ -2,6 +2,8 @@ use argparse::{ArgumentParser, Store, StoreOption};
 use std::{fs::File, io::Read};
 use web_push::*;
 
+// BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     let mut subscription_info_file = String::new();
