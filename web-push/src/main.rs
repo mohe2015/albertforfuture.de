@@ -14,6 +14,8 @@ use argparse::{ArgumentParser, Store, StoreOption};
 use std::{fs::File, io::Read};
 use web_push::*;
 
+use warp::Filter;
+
 // https://github.com/diesel-rs/diesel/tree/master/examples/sqlite/getting_started_step_3
 pub fn establish_connection() -> SqliteConnection {
     dotenv().ok();
@@ -23,7 +25,21 @@ pub fn establish_connection() -> SqliteConnection {
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
+    // GET /hello/warp => 200 OK with body "Hello, warp!"
+    let hello = warp::path!("hello" / String)
+        .map(|name| format!("Hello, {}!", name));
+
+    warp::serve(hello)
+        .tls()
+        .cert_path("../../../localhost.pem")
+        .key_path("../../../localhost-key.pem")
+        .run(([127, 0, 0, 1], 3030))
+        .await;
+}
+
+fn main1() {
     use schema::subscribers;
 
     let connection = establish_connection();
@@ -53,7 +69,7 @@ fn main() {
 // BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=
 
 #[tokio::main]
-async fn main1() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
+async fn main2() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     let mut subscription_info_file = String::new();
     let mut gcm_api_key: Option<String> = None;
     let mut vapid_private_key: Option<String> = None;
