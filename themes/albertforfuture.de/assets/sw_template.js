@@ -11,14 +11,9 @@ self.addEventListener('install', (event) => {
         {{ $indexTemplate := resources.Get "index_template.js" }}
         {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) }}
         {{ $js := slice $bootstrap $index | resources.Concat "bundle.js" | minify }}
-
         '{{ $js.RelPermalink }}',
 
-        '/sw.min.js',
-
-        {{- $indexTemplate := resources.Get "index_template.js" -}}
-        {{- $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | minify -}}
-        '{{- $index.RelPermalink -}}',
+        '{{ .Site.BaseURL }}sw.min.js',
 
         {{- $manifestTemplate := resources.Get "manifest_template.json" -}}
         {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | minify -}}
