@@ -8,8 +8,8 @@ edition = "2018"
 
 # https://github.com/pimeys/rust-web-push
 [dependencies]
-web-push = "0.6.0"
+web-push = "0.7.2"
 base64 = "0.11.0"
 argparse = "0.2.2"
-tokio = { version = "0.2.4", features = ["rt-threaded", "macros"] }
-serde_json = "1.0.44"
+tokio = { version = "0.2.11", features = ["rt-threaded", "macros"] }
+serde_json = "1.0.48"
