@@ -6,8 +6,6 @@ categories: []
 tags: []
 ---
 
-# Datenschutzerklärung
-
 ## 1\. Datenschutz auf einen Blick
 
 ### Allgemeine Hinweise
