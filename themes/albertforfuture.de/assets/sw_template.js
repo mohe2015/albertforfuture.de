@@ -33,13 +33,23 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', event => {
   console.log('activate_');
   self.clients.claim();
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.filter(function(cacheName) {
+          return cacheName !== '{{ .Site.Params.offlineVersion }}';
+        }).map(function(cacheName) {
+          return caches.delete(cacheName);
+        })
+      );
+    })
+  );
 });
 
 // TODO custom 404 page
 self.addEventListener('fetch', (event) => {
   var pathname = new URL(event.request.url).pathname;
   event.respondWith(
-    // cache then network // TODO update cache (use service worker update?)
     caches.match(event.request).then(cacheResponse => {
       return cacheResponse || fetch(event.request).then(response => {
         return caches.open('{{ .Site.Params.offlineVersion }}').then(cache => {

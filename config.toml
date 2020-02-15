@@ -8,7 +8,7 @@ pluralizeListTitles = false
 canonifyURLs = true
 
 [params]
-  offlineVersion = "v7"
+  offlineVersion = "v8"
 
 [outputs]
   page = ["HTML"]
