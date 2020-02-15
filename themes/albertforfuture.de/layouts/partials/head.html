@@ -6,32 +6,33 @@
 
   <title>{{ block "title" . }}{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}{{ end }}</title>
 
-  {{ $style := resources.Get "custom.scss" | toCSS | minify | fingerprint }}
+  {{ $style := resources.Get "custom.scss" | toCSS | minify }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
 
   {{ with .OutputFormats.Get "rss" -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
   {{ end -}}
 
-  {{ $logo_svg := resources.Get "logo.svg" | minify | fingerprint }}
+  {{ $logo_svg := resources.Get "logo.svg" | minify }}
   <link rel="icon" type="image/svg+xml" href="{{ $logo_svg.Permalink }}" sizes="any">
 
   <link rel="apple-touch-icon" type="image/svg+xml" sizes="any" href="{{ $logo_svg.Permalink }}">
 
   {{ $manifestTemplate := resources.Get "manifest_template.json" }}
-  {{ $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | minify | fingerprint }}
+  {{ $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | minify }}
   <link rel="manifest" href="{{ $manifest.Permalink }}">
 
-  {{- $indexTemplate := resources.Get "index_template.js" -}}
-  {{- $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | minify | fingerprint -}}
-  {{- substr $index.Permalink 0 0 -}}
+  {{ $bootstrap := resources.Get "bootstrap/dist/js/bootstrap.js" }}
+  {{ $indexTemplate := resources.Get "index_template.js" }}
+  {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) }}
+  {{ $js := slice $bootstrap $index | resources.Concat "bundle.js" | minify }}
 
   {{- $serviceWorkerTemplate := resources.Get "sw_template.js" -}}
   {{- $serviceWorker := $serviceWorkerTemplate | resources.ExecuteAsTemplate "sw.js" . | minify -}}
   {{- substr $serviceWorker.Permalink 0 0 -}}
 
   {{- $nginxMapTemplate := resources.Get "nginx_map_template.conf" -}}
-  {{- $nginxMap := $nginxMapTemplate | resources.ExecuteAsTemplate "nginx_map.conf" (dict "context" . "style" $style "logo" $logo_svg "javascript" $index "serviceWorker" $serviceWorker "manifest" $manifest) -}}
+  {{- $nginxMap := $nginxMapTemplate | resources.ExecuteAsTemplate "nginx_map.conf" (dict "context" . "style" $style "logo" $logo_svg "javascript" $js "serviceWorker" $serviceWorker "manifest" $manifest) -}}
   {{- substr $nginxMap.Permalink 0 0 -}}
 
   {{- $nginxTemplate := resources.Get "nginx_template.conf" -}}

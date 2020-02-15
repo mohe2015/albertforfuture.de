@@ -2,13 +2,8 @@ DATENSCHUTZERKLÄRUNG
 
 TODO push notifications for new articles
 TODO delete old caches
+
 TODO update http2 push files
-
-FIXME BLOCKING: henne ei problem - index.js updates pages that include old index.js
-SIMPLEFIX: JUST let service worker download all articles (BAD SOLUTION)
-OTHERFIX: ALSO CACHE index.js and also update it on service worker update: GOOD IDEA as we are offline anyways so this shouldn't hurt that much
-
-no service worker: just load the page maybe get a 304 not modified (with like 1 hour cache time or more), resources with hash infinite
 
 with service worker: download all pages, just redownload all of them if cache timeout - no special handling
 TODO later optimize that it creates diff and only updates necessary pages (using file hash if possible?, by storing etag responses?)

@@ -4,24 +4,24 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('{{ .Site.Params.offlineVersion }}').then((cache) => {
       return cache.addAll([
-        '{{ (resources.Get "custom.scss" | toCSS | minify | fingerprint).RelPermalink }}',
-        '{{ (resources.Get "logo.svg" | minify | fingerprint).RelPermalink }}',
+        '{{ (resources.Get "custom.scss" | toCSS | minify).RelPermalink }}',
+        '{{ (resources.Get "logo.svg" | minify).RelPermalink }}',
         
-        {{ $bootstrap := resources.Get "bootstrap/dist/js/bootstrap.js" | fingerprint }}
+        {{ $bootstrap := resources.Get "bootstrap/dist/js/bootstrap.js" }}
         {{ $indexTemplate := resources.Get "index_template.js" }}
-        {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | fingerprint }}
-        {{ $js := slice $bootstrap $index | resources.Concat "bundle.js" | minify | fingerprint }}
+        {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) }}
+        {{ $js := slice $bootstrap $index | resources.Concat "bundle.js" | minify }}
 
         '{{ $js.RelPermalink }}',
 
         '/sw.min.js',
 
         {{- $indexTemplate := resources.Get "index_template.js" -}}
-        {{- $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | minify | fingerprint -}}
+        {{- $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) | minify -}}
         '{{- $index.RelPermalink -}}',
 
         {{- $manifestTemplate := resources.Get "manifest_template.json" -}}
-        {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | minify | fingerprint -}}
+        {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | minify -}}
         '{{- $manifest.RelPermalink -}}',
 
         '/offline/',
@@ -61,7 +61,7 @@ self.addEventListener('push', function(event) {
   const title = 'Push Codelab';
   const options = {
     body: 'Yay it works.',
-    icon: '{{ (resources.Get "logo.svg" | minify | fingerprint).Permalink }}',
+    icon: '{{ (resources.Get "logo.svg" | minify).Permalink }}',
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
