@@ -27,15 +27,12 @@ fn main() {
 
     let connection = establish_connection();
     let results = subscribers::table
-        .filter(subscribers::endpoint.eq("a"))
         .limit(5)
         .load::<Subscriber>(&connection)
         .expect("Error loading posts");
 
     println!("Displaying {} subscribers", results.len());
     for subscribers in results {
-        println!("{}", subscribers.endpoint);
-        println!("----------\n");
         println!("{}", subscribers.endpoint);
     }
 }
