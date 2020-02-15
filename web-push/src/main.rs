@@ -26,10 +26,22 @@ fn main() {
     use schema::subscribers;
 
     let connection = establish_connection();
+
+    let new_subscriber = NewSubscriber {
+        endpoint: "a",
+        key_p256dh: "b",
+        key_auth: "c"
+    };
+
+    diesel::insert_into(subscribers::table)
+        .values(&new_subscriber)
+        .execute(&connection)
+        .expect("Error saving new subscriber");
+
     let results = subscribers::table
         .limit(5)
         .load::<Subscriber>(&connection)
-        .expect("Error loading posts");
+        .expect("Error loading subscribers");
 
     println!("Displaying {} subscribers", results.len());
     for subscribers in results {
