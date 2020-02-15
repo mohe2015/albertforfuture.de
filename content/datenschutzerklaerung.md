@@ -104,12 +104,12 @@ möglich.
 Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website
 ist:
 
-Beispielfirma  
-Musterweg 10  
-90210 Musterstadt
+Moritz Hedtke 
+Anne-Frank-Straße 10 
+64354 Reinheim
 
-Telefon: +49 (0) 123 44 55 66  
-E-Mail: info@beispielfirma.de
+Telefon: +49 (0) 6162 2918 
+E-Mail: Moritz.Hedtke@t-online.de
 
 Verantwortliche Stelle ist die natürliche oder juristische Person, die
 allein oder gemeinsam mit anderen über die Zwecke und Mittel der
