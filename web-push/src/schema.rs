@@ -1,6 +1,6 @@
 table! {
     subscribers (id) {
-        id -> Nullable<Integer>,
+        id -> Integer,
         endpoint -> Text,
         key_p256dh -> Text,
         key_auth -> Text,

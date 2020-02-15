@@ -1,11 +1,49 @@
+#[macro_use]
+extern crate diesel;
+extern crate dotenv;
+
+pub mod models;
+pub mod schema;
+
+use diesel::prelude::*;
+use dotenv::dotenv;
+use std::env;
+use self::models::*;
+
 use argparse::{ArgumentParser, Store, StoreOption};
 use std::{fs::File, io::Read};
 use web_push::*;
 
+pub fn establish_connection() -> SqliteConnection {
+    dotenv().ok();
+
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    SqliteConnection::establish(&database_url)
+        .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
+}
+
+fn main() {
+    use schema::subscribers;
+
+    let connection = establish_connection();
+    let results = subscribers::table
+        .filter(subscribers::endpoint.eq("a"))
+        .limit(5)
+        .load::<Subscriber>(&connection)
+        .expect("Error loading posts");
+
+    println!("Displaying {} subscribers", results.len());
+    for subscribers in results {
+        println!("{}", subscribers.endpoint);
+        println!("----------\n");
+        println!("{}", subscribers.endpoint);
+    }
+}
+
 // BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
+async fn main1() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     let mut subscription_info_file = String::new();
     let mut gcm_api_key: Option<String> = None;
     let mut vapid_private_key: Option<String> = None;
