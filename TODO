@@ -5,7 +5,6 @@ TODO delete old caches
 TODO update http2 push files
 
 FIXME BLOCKING: henne ei problem - index.js updates pages that include old index.js
-SIMPLEFIX: JUST let service worker download all articles (BAD SOLUTION)
 OTHERFIX: ALSO CACHE index.js and also update it on service worker update: GOOD IDEA as we are offline anyways so this shouldn't hurt that much
 
 no service worker: just load the page maybe get a 304 not modified (with like 1 hour cache time or more), resources with hash infinite

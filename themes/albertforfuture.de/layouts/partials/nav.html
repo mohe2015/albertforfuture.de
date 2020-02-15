@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-dark bg-custom-navbar-green">
     <div class="container-fluid">
-      {{ $logo_svg := resources.Get "logo.svg" | minify | fingerprint }}
+      {{ $logo_svg := resources.Get "logo.svg" | minify }}
       <a class="navbar-brand" href="{{ .Site.BaseURL }}"><img src="{{ $logo_svg.Permalink }}" alt="Albert for Future Logo" class="logo"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
