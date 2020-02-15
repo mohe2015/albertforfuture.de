@@ -1,24 +1,16 @@
 <h1 class="text-center">{{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }}</h1>
 
-A
+<!-- https://github.com/gohugoio/hugo/issues/6836 There can only be one paginator per Page, and it is created lazily
+Maybe another template for something else already generated that paginator
 
-{{ range .Pages }}
-  {{ .Type }}
-{{ end }}
+yes as 
+-->
 
-B
-
-{{ range (where .Data.Pages "Type" "article") }}
+{{ $pages := where .Site.RegularPages "Type" "article" }}
+{{ $pages }}<!-- TODO FIXE how is this 8 pages -->
+{{ $paginator := .Paginate $pages }}
+{{ $paginator.Pages }}<!-- AND THIS 12 pages? -->
+{{ range $paginator.Pages }}<!-- Maybe .Pages shadows global pages -->
     {{ .Type }}
-{{ end }}
-
-C
-
-{{ $paginator := .Paginate (where .Data.Pages "Type" "article") }}
-{{ range $paginator.Pages }}
     {{ partial "preview.html" . }}
 {{ end }}
-
-D
-
-{{ partial "page-navigation.html" (dict "Paginator" $paginator) }}
