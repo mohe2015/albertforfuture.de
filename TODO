@@ -1,6 +1,0 @@
-DATENSCHUTZERKLÄRUNG
-
-TODO push notifications for new articles
-TODO delete old caches
-
-with service worker: download all pages, just redownload all of them if cache timeout - no special handling
