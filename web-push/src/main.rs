@@ -43,9 +43,24 @@ pub struct SubscriberJson {
     pub keys: SubscriberKeysJson
 }
 
+// TODO FIXME implement unsubscribe
 pub async fn subscribe(subscriber: SubscriberJson) -> Result<impl warp::Reply, Infallible> {
-    println!("{}", subscriber.endpoint);
+    println!("{} {} {}", subscriber.endpoint, subscriber.keys.p256dh, subscriber.keys.auth);
     
+    let connection = establish_connection();
+
+    // FIXME TODO remove duplicates
+    let new_subscriber = NewSubscriber {
+        endpoint: &subscriber.endpoint,
+        key_p256dh: &subscriber.keys.p256dh,
+        key_auth: &subscriber.keys.auth
+    };
+
+    diesel::insert_into(subscribers::table)
+        .values(&new_subscriber)
+        .execute(&connection)
+        .expect("Error saving new subscriber");
+
     Ok(StatusCode::CREATED)
 }
 
@@ -75,17 +90,6 @@ async fn main() {
 fn main1() {
 
     let connection = establish_connection();
-
-    let new_subscriber = NewSubscriber {
-        endpoint: "a",
-        key_p256dh: "b",
-        key_auth: "c"
-    };
-
-    diesel::insert_into(subscribers::table)
-        .values(&new_subscriber)
-        .execute(&connection)
-        .expect("Error saving new subscriber");
 
     let results = subscribers::table
         .limit(5)
