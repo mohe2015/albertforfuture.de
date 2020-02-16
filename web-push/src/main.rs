@@ -15,6 +15,10 @@ use std::{fs::File, io::Read};
 use web_push::*;
 
 use warp::Filter;
+use std::convert::Infallible;
+use warp::http::StatusCode;
+
+use schema::subscribers;
 
 // https://github.com/diesel-rs/diesel/tree/master/examples/sqlite/getting_started_step_3
 pub fn establish_connection() -> SqliteConnection {
@@ -25,11 +29,29 @@ pub fn establish_connection() -> SqliteConnection {
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 
+use serde_derive::{Deserialize, Serialize};
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct SubscriberJson {
+    pub endpoint: String,
+    pub key_p256dh: String,
+    pub key_auth: String
+}
+
+pub async fn subscribe(subscriber: SubscriberJson) -> Result<impl warp::Reply, Infallible> {
+    print!("{}", subscriber.endpoint);
+    
+    Ok(StatusCode::CREATED)
+}
+
 #[tokio::main]
 async fn main() {
     // GET /hello/warp => 200 OK with body "Hello, warp!"
-    let hello = warp::path!("hello" / String)
-        .map(|name| format!("Hello, {}!", name));
+    let hello = warp::path!("v1" / "push")
+        .and(warp::post())
+        .and(warp::body::content_length_limit(1024 * 16))
+        .and(warp::body::json())
+        .and_then(subscribe);
 
     warp::serve(hello)
         .tls()
@@ -40,7 +62,6 @@ async fn main() {
 }
 
 fn main1() {
-    use schema::subscribers;
 
     let connection = establish_connection();
 
