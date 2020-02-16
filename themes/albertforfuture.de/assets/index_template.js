@@ -46,6 +46,7 @@ function downloadAllArticles() {
   setTimeout(function() {
     window.caches.open('{{ .context.Site.Params.offlineVersion }}').then(function(cache) {
       cache.addAll([
+        /* this is really buggy - if this is executed before index.html template it will override the paginator as it is lazily generated */
         {{- range .context.Site.Pages -}}
           {{ $page := . }}
           {{ if .Paginator }}

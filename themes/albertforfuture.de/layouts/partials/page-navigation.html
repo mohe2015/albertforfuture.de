@@ -1,4 +1,4 @@
-{{ $paginator := .Paginator }}<!-- partials/index.html uses $paginator so this may be buggy -->
+{{ $paginator := .Paginator }}
 {{ $page := .Page }}
 {{ if gt .Paginator.TotalPages 1 }}
 <nav role="navigation" aria-label="Seitennavigation">
