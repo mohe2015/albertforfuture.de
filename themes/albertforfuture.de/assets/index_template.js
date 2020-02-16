@@ -1,5 +1,3 @@
-const applicationServerPublicKey = 'BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=';
-
 // https://developers.google.com/web/fundamentals/codelabs/push-notifications
 // https://codelabs.developers.google.com/codelabs/pwa-integrating-push/index.html?index=..%2F..dev-pwa-training#0
 
@@ -10,6 +8,7 @@ let swRegistration = null;
 
 const notifyButton = document.querySelector('.js-notify-btn');
 const pushButton = document.querySelector('.js-push-btn');
+const applicationServerPublicKey = 'BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=';
 
 if (!('Notification' in window)) {
   console.log('Notifications not supported in this browser');
@@ -70,8 +69,6 @@ function initializeUI() {
     updateBtn();
   });
 }
-
-const applicationServerPublicKey = 'YOUR_VAPID_PUBLIC_KEY';
 
 function subscribeUser() {
   const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
