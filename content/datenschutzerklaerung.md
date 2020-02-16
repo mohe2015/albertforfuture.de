@@ -6,7 +6,7 @@ categories: []
 tags: []
 ---
 
-## 1. Datenschutz auf einen Blick
+## 1\. Datenschutz auf einen Blick
 
 ### Allgemeine Hinweise
 
@@ -31,11 +31,11 @@ Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese
 mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein
 Kontaktformular eingeben.
 
-Andere Daten werden automatisch beim Besuch der Website durch unsere
-IT-Systeme erfasst. Das sind vor allem technische Daten (z. B.
-Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die
-Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website
-betreten.
+Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch
+der Website durch unsere IT-Systeme erfasst. Das sind vor allem
+technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des
+Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald
+Sie diese Website betreten.
 
 **Wofür nutzen wir Ihre Daten?**
 
@@ -48,17 +48,38 @@ Nutzerverhaltens verwendet werden.
 Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft,
 Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu
 erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung
-dieser Daten zu verlangen. Hierzu sowie zu weiteren Fragen zum Thema
-Datenschutz können Sie sich jederzeit unter der im Impressum angegebenen
-Adresse an uns wenden. Des Weiteren steht Ihnen ein Beschwerderecht bei
-der zuständigen Aufsichtsbehörde zu.
+dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur
+Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit
+für die Zukunft widerrufen. Außerdem haben Sie das Recht, unter
+bestimmten Umständen die Einschränkung der Verarbeitung Ihrer
+personenbezogenen Daten zu verlangen. Des Weiteren steht Ihnen ein
+Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.
 
-Außerdem haben Sie das Recht, unter bestimmten Umständen die
-Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu
-verlangen. Details hierzu entnehmen Sie der Datenschutzerklärung unter
-„Recht auf Einschränkung der Verarbeitung“.
+Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich
+jederzeit unter der im Impressum angegebenen Adresse an uns wenden.
 
-## 3. Allgemeine Hinweise und Pflichtinformationen
+## 2\. Hosting und Content Delivery Networks (CDN)
+
+### Externes Hosting
+
+Diese Website wird bei einem externen Dienstleister gehostet (Hoster).
+Die personenbezogenen Daten, die auf dieser Website erfasst werden,
+werden auf den Servern des Hosters gespeichert. Hierbei kann es sich v.
+a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten,
+Vertragsdaten, Kontaktdaten, Namen, Webseitenzugriffe und sonstige
+Daten, die über eine Website generiert werden, handeln.
+
+Der Einsatz des Hosters erfolgt zum Zwecke der Vertragserfüllung
+gegenüber unseren potenziellen und bestehenden Kunden (Art. 6 Abs. 1
+lit. b DSGVO) und im Interesse einer sicheren, schnellen und effizienten
+Bereitstellung unseres Online-Angebots durch einen professionellen
+Anbieter (Art. 6 Abs. 1 lit. f DSGVO).
+
+Unser Hoster wird Ihre Daten nur insoweit verarbeiten, wie dies zur
+Erfüllung seiner Leistungspflichten erforderlich ist und unsere
+Weisungen in Bezug auf diese Daten befolgen.
+
+## 3\. Allgemeine Hinweise und Pflichtinformationen
 
 ### Datenschutz
 
@@ -83,11 +104,11 @@ möglich.
 Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website
 ist:
 
-Moritz Hedtke\
-Anne-Frank-Straße 10\
+Moritz Hedtke  
+Anne-Frank-Straße 10  
 64354 Reinheim
 
-Telefon: 06162 2918\
+Telefon: +49 (0) 6162 2918  
 E-Mail: Moritz.Hedtke@t-online.de
 
 Verantwortliche Stelle ist die natürliche oder juristische Person, die
@@ -174,20 +195,20 @@ personenbezogenen Daten zu verlangen. Hierzu können Sie sich jederzeit
 unter der im Impressum angegebenen Adresse an uns wenden. Das Recht auf
 Einschränkung der Verarbeitung besteht in folgenden Fällen:
 
--   Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten
+  - Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten
     personenbezogenen Daten bestreiten, benötigen wir in der Regel Zeit,
     um dies zu überprüfen. Für die Dauer der Prüfung haben Sie das
     Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen
     Daten zu verlangen.
--   Wenn die Verarbeitung Ihrer personenbezogenen Daten unrechtmäßig
+  - Wenn die Verarbeitung Ihrer personenbezogenen Daten unrechtmäßig
     geschah/geschieht, können Sie statt der Löschung die Einschränkung
     der Datenverarbeitung verlangen.
--   Wenn wir Ihre personenbezogenen Daten nicht mehr benötigen, Sie sie
+  - Wenn wir Ihre personenbezogenen Daten nicht mehr benötigen, Sie sie
     jedoch zur Ausübung, Verteidigung oder Geltendmachung von
     Rechtsansprüchen benötigen, haben Sie das Recht, statt der Löschung
     die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu
     verlangen.
--   Wenn Sie einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt
+  - Wenn Sie einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt
     haben, muss eine Abwägung zwischen Ihren und unseren Interessen
     vorgenommen werden. Solange noch nicht feststeht, wessen Interessen
     überwiegen, haben Sie das Recht, die Einschränkung der Verarbeitung
@@ -198,5 +219,78 @@ haben, dürfen diese Daten – von ihrer Speicherung abgesehen – nur mit
 Ihrer Einwilligung oder zur Geltendmachung, Ausübung oder Verteidigung
 von Rechtsansprüchen oder zum Schutz der Rechte einer anderen
 natürlichen oder juristischen Person oder aus Gründen eines wichtigen
-öffentlichen Interesses der Europäischen Union oder eines Mitgliedstaats
-verarbeitet werden.
+öffentlichen Interesses der Europäischen Union oder eines
+Mitgliedstaats verarbeitet werden.
+
+## 4\. Datenerfassung auf dieser Website
+
+### Cookies
+
+Unsere Internetseiten verwenden so genannte „Cookies“. Cookies sind
+kleine Textdateien und richten auf Ihrem Endgerät keinen Schaden an. Sie
+werden entweder vorübergehend für die Dauer einer Sitzung
+(Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät
+gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch
+gelöscht. Permanente Cookies bleiben auf Ihrem Endgerät gespeichert bis
+Sie diese selbst löschen oder eine automatische Lösung durch Ihren
+Webbrowser erfolgt.
+
+Teilweise können auch Cookies von Drittunternehmen auf Ihrem Endgerät
+gespeichert werden, wenn Sie unsere Seite betreten
+(Third-Party-Cookies). Diese ermöglichen uns oder Ihnen die Nutzung
+bestimmter Dienstleistungen des Drittunternehmens (z.B. Cookies zur
+Abwicklung von Zahlungsdienstleistungen).
+
+Cookies haben verschiedene Funktionen. Zahlreiche Cookies sind technisch
+notwendig, da bestimmte Webseitenfunktionen ohne diese nicht
+funktionieren würden (z.B. die Warenkorbfunktion oder die Anzeige von
+Videos). Andere Cookies dienen dazu das Nutzerverhalten auszuwerten oder
+Werbung anzuzeigen.
+
+Cookies, die zur Durchführung des elektronischen Kommunikationsvorgangs
+(notwendige Cookies) oder zur Bereitstellung bestimmter, von Ihnen
+erwünschter Funktionen (funktionale Cookies, z. B. für die
+Warenkorbfunktion) oder zur Optimierung der Webseite (z.B. Cookies zur
+Messung des Webpublikums) erforderlich sind, werden auf Grundlage von
+Art. 6 Abs. 1 lit. f DSGVO gespeichert, sofern keine andere
+Rechtsgrundlage angegeben wird. Der Websitebetreiber hat ein
+berechtigtes Interesse an der Speicherung von Cookies zur technisch
+fehlerfreien und optimierten Bereitstellung seiner Dienste. Sofern eine
+Einwilligung zur Speicherung von Cookies abgefragt wurde, erfolgt die
+Speicherung der betreffenden Cookies ausschließlich auf Grundlage dieser
+Einwilligung (Art. 6 Abs. 1 lit. a DSGVO); die Einwilligung ist
+jederzeit widerrufbar.
+
+Sie können Ihren Browser so einstellen, dass Sie über das Setzen von
+Cookies informiert werden und Cookies nur im Einzelfall erlauben, die
+Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie
+das automatische Löschen der Cookies beim Schließen des Browsers
+aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalität
+dieser Website eingeschränkt sein.
+
+Soweit Cookies von Drittunternehmen oder zu Analysezwecken eingesetzt
+werden, werden wir Sie hierüber im Rahmen dieser Datenschutzerklärung
+gesondert informieren und ggf. eine Einwilligung abfragen.
+
+### Server-Log-Dateien
+
+Der Provider der Seiten erhebt und speichert automatisch Informationen
+in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns
+übermittelt. Dies sind:
+
+  - Browsertyp und Browserversion
+  - verwendetes Betriebssystem
+  - Referrer URL
+  - Hostname des zugreifenden Rechners
+  - Uhrzeit der Serveranfrage
+  - IP-Adresse
+
+Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht
+vorgenommen.
+
+Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit.
+f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse an der
+technisch fehlerfreien Darstellung und der Optimierung seiner Website –
+hierzu müssen die Server-Log-Files erfasst werden.
+
+Quelle: <https://www.e-recht24.de/muster-datenschutzerklaerung.html>

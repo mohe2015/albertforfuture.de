@@ -1,14 +1,13 @@
-baseURL = "https://beta.albertforfuture.de/"
+baseURL = "https://mohe2015.github.io/albertforfuture.de/"
 languageCode = "de-DE"
 title = "Albert for Future"
 theme = "albertforfuture.de"
-Paginate = 3
+Paginate = 10
 sectionPagesMenu = "main"
 pluralizeListTitles = false
-canonifyURLs = true
 
 [params]
-  offlineVersion = "v7"
+  offlineVersion = "v9"
 
 [outputs]
   page = ["HTML"]

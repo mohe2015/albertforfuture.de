@@ -46,7 +46,12 @@ function downloadAllArticles() {
   setTimeout(function() {
     window.caches.open('{{ .context.Site.Params.offlineVersion }}').then(function(cache) {
       cache.addAll([
+        /* this is really buggy - if this is executed before index.html template it will override the paginator as it is lazily generated */
         {{- range .context.Site.Pages -}}
+          {{ if .IsHome }}
+          /* this is a REALLY UGLY HACK */
+          {{ $paginator := .Paginate (where .Pages "Type" "article") }}
+          {{ end }}
           {{ $page := . }}
           {{ if .Paginator }}
             {{ range .Paginator.Pagers }}
@@ -72,7 +77,7 @@ function downloadAllArticles() {
 
 if (false && 'serviceWorker' in navigator) {
   console.log("service worker supported")
-  navigator.serviceWorker.register('/sw.min.js', {scope: '{{ .context.Site.BaseURL }}'})
+  navigator.serviceWorker.register('{{ .context.Site.BaseURL }}sw.min.js', {scope: '{{ .context.Site.BaseURL }}'})
   .then((registration) => {
     window.serviceWorkerRegistration = registration;
 
