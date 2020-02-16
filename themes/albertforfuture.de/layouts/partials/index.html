@@ -1,8 +1,0 @@
-<h1 class="text-center">{{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }}</h1>
-
-{{ $paginator := .Paginate (where .Pages "Type" "article") }}
-{{ range .Paginator.Pages }}
-{{ partial "preview.html" . }}
-{{ end }}
-
-{{ partial "page-navigation.html" . }}

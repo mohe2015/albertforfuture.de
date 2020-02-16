@@ -1,5 +1,12 @@
 {{- define "main" }}
 
-{{ partial "index.html" . }}
+<h1 class="text-center">{{ .Site.Title }}</h1>
+
+{{ $paginator := .Paginate (where .Pages "Type" "article") }}
+{{ range .Paginator.Pages }}
+    {{ partial "preview.html" . }}
+{{ end }}
+
+{{ partial "page-navigation.html" . }}
 
 {{- end }}
