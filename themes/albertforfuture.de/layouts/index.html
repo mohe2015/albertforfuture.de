@@ -1,5 +1,20 @@
 {{- define "main" }}
 
-{{ partial "index.html" . }}
+<h1 class="text-center">{{ if .IsHome }} {{ .Site.Title }} {{ else }} {{ .Title }} {{ end }}</h1>
+
+<!-- https://github.com/gohugoio/hugo/issues/6836 There can only be one paginator per Page, and it is created lazily
+Maybe another template for something else already generated that paginator
+
+yes as 
+-->
+a
+{{ $pages := where .Site.RegularPages "Type" "article" }}
+{{ $pages }}<!-- TODO FIXE how is this 8 pages -->
+{{ $paginator := .Paginate $pages }}
+{{ $paginator.Pages }}<!-- AND THIS 12 pages? -->
+{{ range $paginator.Pages }}<!-- Maybe .Pages shadows global pages -->
+    {{ .Type }}
+    {{ partial "preview.html" . }}
+{{ end }}
 
 {{- end }}
