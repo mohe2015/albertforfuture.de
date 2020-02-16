@@ -90,6 +90,20 @@ function updateSubscriptionOnServer(subscription) {
   } else {
     console.log("remove subscription");
   }
+
+  fetch("https://" + location.hostname + ":3030/v1/push", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(subscription)
+  }).then(response => {
+    console.log("Updated!");
+  }).catch(error => {
+    if (subscription) {
+      alert("Fehler beim Aktivieren der Push-Benachrichtigungen: " + error);
+    }
+  })
 }
 
 function updateBtn() {

@@ -32,31 +32,42 @@ pub fn establish_connection() -> SqliteConnection {
 use serde_derive::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct SubscriberKeysJson {
+    pub p256dh: String,
+    pub auth: String
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct SubscriberJson {
     pub endpoint: String,
-    pub key_p256dh: String,
-    pub key_auth: String
+    pub keys: SubscriberKeysJson
 }
 
 pub async fn subscribe(subscriber: SubscriberJson) -> Result<impl warp::Reply, Infallible> {
-    print!("{}", subscriber.endpoint);
+    println!("{}", subscriber.endpoint);
     
     Ok(StatusCode::CREATED)
 }
 
 #[tokio::main]
 async fn main() {
-    // GET /hello/warp => 200 OK with body "Hello, warp!"
+    
+    let cors = warp::cors()
+        .allow_any_origin()
+        .allow_headers(vec!["Content-Type"])
+        .allow_methods(vec!["POST", "OPTIONS"]);
+
     let hello = warp::path!("v1" / "push")
         .and(warp::post())
         .and(warp::body::content_length_limit(1024 * 16))
         .and(warp::body::json())
-        .and_then(subscribe);
+        .and_then(subscribe)
+        .with(cors);
 
     warp::serve(hello)
         .tls()
-        .cert_path("../../../localhost.pem")
-        .key_path("../../../localhost-key.pem")
+        .cert_path("../../localhost.pem")
+        .key_path("../../localhost-key.pem")
         .run(([127, 0, 0, 1], 3030))
         .await;
 }
