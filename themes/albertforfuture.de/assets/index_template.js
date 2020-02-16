@@ -1,6 +1,7 @@
-const applicationServerPublicKey = 'BACf2AL3ElM5rFuFoXZz7j6-lpaI5h2L5BvZWMPzQxDCKNEw5GYlu7Luf3xRyD33QgkkyBYSLy5xKM7H_pzdCCI=';
+const applicationServerPublicKey = 'BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=';
 
 // https://developers.google.com/web/fundamentals/codelabs/push-notifications
+// https://codelabs.developers.google.com/codelabs/pwa-integrating-push/index.html?index=..%2F..dev-pwa-training#0
 
 function urlB64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
