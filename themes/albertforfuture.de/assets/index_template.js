@@ -3,6 +3,154 @@ const applicationServerPublicKey = 'BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9d
 // https://developers.google.com/web/fundamentals/codelabs/push-notifications
 // https://codelabs.developers.google.com/codelabs/pwa-integrating-push/index.html?index=..%2F..dev-pwa-training#0
 
+'use strict';
+
+let isSubscribed = false;
+let swRegistration = null;
+
+const notifyButton = document.querySelector('.js-notify-btn');
+const pushButton = document.querySelector('.js-push-btn');
+
+if (!('Notification' in window)) {
+  console.log('Notifications not supported in this browser');
+  return;
+}
+
+Notification.requestPermission(status => {
+  console.log('Notification permission status:', status);
+});
+
+function displayNotification() {
+  if (Notification.permission == 'granted') {
+    navigator.serviceWorker.getRegistration().then(reg => {
+      const options = {
+        body: 'First notification!',
+        tag: 'id1',
+        icon: 'images/notification-flat.png',
+        vibrate: [100, 50, 100],
+        data: {
+          dateOfArrival: Date.now(),
+          primaryKey: 1
+        },
+        actions: [
+          {action: 'explore', title: 'Go to the site',
+            icon: 'images/checkmark.png'},
+          {action: 'close', title: 'Close the notification',
+            icon: 'images/xmark.png'},
+        ]
+      };
+      reg.showNotification('Hello world!', options);
+    });
+  }
+}
+
+function initializeUI() {
+  pushButton.addEventListener('click', () => {
+    pushButton.disabled = true;
+    if (isSubscribed) {
+      unsubscribeUser();
+    } else {
+      subscribeUser();
+    }
+  });
+
+  // Set the initial subscription value
+  swRegistration.pushManager.getSubscription()
+  .then(subscription => {
+    isSubscribed = (subscription !== null);
+
+    updateSubscriptionOnServer(subscription);
+
+    if (isSubscribed) {
+      console.log('User IS subscribed.');
+    } else {
+      console.log('User is NOT subscribed.');
+    }
+
+    updateBtn();
+  });
+}
+
+const applicationServerPublicKey = 'YOUR_VAPID_PUBLIC_KEY';
+
+function subscribeUser() {
+  const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+  swRegistration.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: applicationServerKey
+  })
+  .then(subscription => {
+    console.log('User is subscribed:', subscription);
+
+    updateSubscriptionOnServer(subscription);
+
+    isSubscribed = true;
+
+    updateBtn();
+  })
+  .catch(err => {
+    if (Notification.permission === 'denied') {
+      console.warn('Permission for notifications was denied');
+    } else {
+      console.error('Failed to subscribe the user: ', err);
+    }
+    updateBtn();
+  });
+}
+
+function unsubscribeUser() {
+  swRegistration.pushManager.getSubscription()
+  .then(subscription => {
+    if (subscription) {
+      return subscription.unsubscribe();
+    }
+  })
+  .catch(err => {
+    console.log('Error unsubscribing', err);
+  })
+  .then(() => {
+    updateSubscriptionOnServer(null);
+
+    console.log('User is unsubscribed');
+    isSubscribed = false;
+
+    updateBtn();
+  });
+}
+
+function updateSubscriptionOnServer(subscription) {
+  // Here's where you would send the subscription to the application server
+
+  const subscriptionJson = document.querySelector('.js-subscription-json');
+  const endpointURL = document.querySelector('.js-endpoint-url');
+  const subAndEndpoint = document.querySelector('.js-sub-endpoint');
+
+  if (subscription) {
+    subscriptionJson.textContent = JSON.stringify(subscription);
+    endpointURL.textContent = subscription.endpoint;
+    subAndEndpoint.style.display = 'block';
+  } else {
+    subAndEndpoint.style.display = 'none';
+  }
+}
+
+function updateBtn() {
+  if (Notification.permission === 'denied') {
+    pushButton.textContent = 'Push Messaging Blocked';
+    pushButton.disabled = true;
+    updateSubscriptionOnServer(null);
+    return;
+  }
+
+  if (isSubscribed) {
+    pushButton.textContent = 'Disable Push Messaging';
+  } else {
+    pushButton.textContent = 'Enable Push Messaging';
+  }
+
+  pushButton.disabled = false;
+}
+
 function urlB64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
   const base64 = (base64String + padding)
@@ -18,25 +166,63 @@ function urlB64ToUint8Array(base64String) {
   return outputArray;
 }
 
-function subscribeUser() {
-  const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-  window.serviceWorkerRegistration.pushManager.subscribe({
-    userVisibleOnly: true,
-    applicationServerKey: applicationServerKey
-  })
-  .then(function(subscription) {
-    console.log(JSON.stringify(subscription));
+notifyButton.addEventListener('click', () => {
+  displayNotification();
+});
 
-    //updateSubscriptionOnServer(subscription);
 
-    isSubscribed = true;
 
-    //updateBtn();
-  })
-  .catch(function(err) {
-    console.log('Failed to subscribe the user: ', err);
-    //updateBtn();
+
+
+
+
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    console.log('Service Worker and Push is supported');
+
+    navigator.serviceWorker.register('{{ .context.Site.BaseURL }}sw.min.js', {scope: '{{ .context.Site.BaseURL }}'})
+    .then(swReg => {
+      console.log('Service Worker is registered', swReg);
+
+      swRegistration = swReg;
+
+      initializeUI();
+
+      if (swRegistration.active && swRegistration.active.state === 'activated') {
+        console.log(swRegistration.active);
+        downloadAllArticles();
+      }
+      if (swRegistration.installing) {
+        swRegistration.installing.addEventListener('statechange', function() {
+          console.log('[controllerchange][statechange] ' +
+            'A "statechange" has occured: ', this.state
+          );
+          if (this.state === 'activated') {
+            downloadAllArticles();
+          }
+        });
+      }
+    })
+    .catch(err => {
+      console.error('Service Worker Error', err);
+    });
   });
+} else {
+  console.warn('Push messaging is not supported');
+  pushButton.textContent = 'Push Not Supported';
+}
+
+function status(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(new Error(response.statusText))
+  }
+}
+
+function text(response) {
+  return response.text()
 }
 
 function downloadAllArticles() {
@@ -74,73 +260,6 @@ function downloadAllArticles() {
       console.log("Fehler beim Offline gehen!", error);
     });
   }, 10000);
-}
-
-if ('serviceWorker' in navigator) {
-  console.log("service worker supported")
-  navigator.serviceWorker.register('{{ .context.Site.BaseURL }}sw.min.js', {scope: '{{ .context.Site.BaseURL }}'})
-  .then((registration) => {
-    window.serviceWorkerRegistration = registration;
-
-    console.log(registration);
-
-    if (registration.active && registration.active.state === 'activated') {
-      console.log(registration.active);
-      downloadAllArticles();
-    }
-
-    if (registration.installing) {
-      registration.installing.addEventListener('statechange', function() {
-        console.log('[controllerchange][statechange] ' +
-          'A "statechange" has occured: ', this.state
-        );
-        if (this.state === 'activated') {
-          downloadAllArticles();
-        }
-      });
-    }
-
-    window.serviceWorkerRegistration.pushManager.getSubscription()
-    .then(function (subscription) {
-
-      isSubscribed = !(subscription === null);
-
-      if (isSubscribed) {
-        console.log('User IS subscribed.');
-      } else {
-        console.log('User is NOT subscribed.');
-      }
-      console.log(subscription);
-    });
-
-    //subscribeUser();
-
-    // TODO show notification bell
-
-    console.log('Registration succeeded. Scope is ' + registration.scope);
-  }).catch((error) => {
-    console.log('Registration failed with ' + error);
-  });
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    //e.prompt(); store e somewhere, use on user interaction
-  });
-
-  if ('PushManager' in window) {
-    console.log("push supported")
-  }
-}
-
-function status(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return Promise.resolve(response)
-  } else {
-    return Promise.reject(new Error(response.statusText))
-  }
-}
-
-function text(response) {
-  return response.text()
 }
 
 /*
