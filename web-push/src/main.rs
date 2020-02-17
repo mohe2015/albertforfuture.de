@@ -56,7 +56,7 @@ pub async fn subscribe(subscriber: SubscriberJson) -> Result<impl warp::Reply, I
         key_auth: &subscriber.keys.auth
     };
 
-    diesel::insert_into(subscribers::table)
+    diesel::insert_or_ignore_into(subscribers::table)
         .values(&new_subscriber)
         .execute(&connection)
         .expect("Error saving new subscriber");
