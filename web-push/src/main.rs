@@ -43,13 +43,11 @@ pub struct SubscriberJson {
     pub keys: SubscriberKeysJson
 }
 
-// TODO FIXME implement unsubscribe
 pub async fn subscribe(subscriber: SubscriberJson) -> Result<impl warp::Reply, Infallible> {
     println!("{} {} {}", subscriber.endpoint, subscriber.keys.p256dh, subscriber.keys.auth);
     
     let connection = establish_connection();
 
-    // FIXME TODO remove duplicates
     let new_subscriber = NewSubscriber {
         endpoint: &subscriber.endpoint,
         key_p256dh: &subscriber.keys.p256dh,
@@ -61,25 +59,38 @@ pub async fn subscribe(subscriber: SubscriberJson) -> Result<impl warp::Reply, I
         .execute(&connection)
         .expect("Error saving new subscriber");
 
-    Ok(StatusCode::CREATED)
+    Ok(StatusCode::OK)
+}
+
+
+pub async fn unsubscribe(subscriber: SubscriberJson) -> Result<impl warp::Reply, Infallible> {
+    println!("{} {} {}", subscriber.endpoint, subscriber.keys.p256dh, subscriber.keys.auth);
+    
+    let connection = establish_connection();
+
+    diesel::delete(subscribers::table.filter(subscribers::endpoint.eq(subscriber.endpoint))).execute(&connection).unwrap();
+
+    Ok(StatusCode::OK)
 }
 
 #[tokio::main]
 async fn main() {
-    
-    let cors = warp::cors()
-        .allow_any_origin()
-        .allow_headers(vec!["Content-Type"])
-        .allow_methods(vec!["POST", "OPTIONS"]);
 
-    let hello = warp::path!("api" / "v1" / "push")
+    let subscribe_path = warp::path!("api" / "v1" / "add_push")
         .and(warp::post())
         .and(warp::body::content_length_limit(1024 * 16))
         .and(warp::body::json())
-        .and_then(subscribe)
-        .with(cors);
+        .and_then(subscribe);
 
-    warp::serve(hello)
+    let unsubscribe_path = warp::path!("api" / "v1" / "remove_push")
+        .and(warp::post())
+        .and(warp::body::content_length_limit(1024 * 16))
+        .and(warp::body::json())
+        .and_then(unsubscribe);
+
+    let paths = subscribe_path.or(unsubscribe_path);
+
+    warp::serve(paths)
         .tls()
         .cert_path("../../localhost.pem")
         .key_path("../../localhost-key.pem")

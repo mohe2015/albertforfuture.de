@@ -24,6 +24,9 @@ function initializeUI() {
   .then(subscription => {
     isSubscribed = (subscription !== null);
 
+    // TODO this isn't really needed as long as subscribing is reliable
+    // although if the database fails this may recover it if the user opens the site again
+    // on the other hand it would save some data if this isn't done for every request.
     updateSubscriptionOnServer(subscription);
 
     if (isSubscribed) {
@@ -45,6 +48,8 @@ function subscribeUser() {
   .then(subscription => {
     console.log('User is subscribed:', subscription);
 
+    // TODO local storage should store whether this was successful as otherwise the user sees himself as subscribed
+    // but he actually isn't
     updateSubscriptionOnServer(subscription);
 
     isSubscribed = true;
@@ -72,7 +77,9 @@ function unsubscribeUser() {
     console.log('Error unsubscribing', err);
   })
   .then(() => {
-    updateSubscriptionOnServer(null);
+    // TODO this is most likely useless as the server will probably get an error response from the push server if the user unsubscribed
+    //updateSubscriptionOnServer(null);
+    // also it doesnt know whom to unsubscribe
 
     console.log('User is unsubscribed');
     isSubscribed = false;
@@ -85,33 +92,47 @@ function updateSubscriptionOnServer(subscription) {
   // Here's where you would send the subscription to the application server
 
   if (subscription) {
-    console.log(JSON.stringify(subscription));
-    console.log(subscription.endpoint);
+    fetch("/api/v1/add_push", {
+      method: 'POST',
+      mode: "same-origin",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(subscription)
+    }).then(response => {
+      console.log("Updated!");
+    }).catch(error => {
+      if (subscription) {
+        alert("Fehler beim Aktivieren der Push-Benachrichtigungen: " + error);
+      }
+    })
   } else {
-    console.log("remove subscription");
+    fetch("/api/v1/remove_push", {
+      method: 'POST',
+      mode: "same-origin",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(subscription)
+    }).then(response => {
+      console.log("Updated!");
+    }).catch(error => {
+      if (subscription) {
+        alert("Fehler beim Aktivieren der Push-Benachrichtigungen: " + error);
+      }
+    })
   }
 
-  fetch("/api/v1/push", {
-    method: 'POST',
-    mode: "same-origin",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(subscription)
-  }).then(response => {
-    console.log("Updated!");
-  }).catch(error => {
-    if (subscription) {
-      alert("Fehler beim Aktivieren der Push-Benachrichtigungen: " + error);
-    }
-  })
+  
 }
 
 function updateBtn() {
   if (Notification.permission === 'denied') {
     pushButton.textContent = 'Push Messaging Blocked';
     pushButton.disabled = true;
-    updateSubscriptionOnServer(null);
+    // TODO this is most likely useless as the server will probably get an error response from the push server if the user unsubscribed
+    // also it doesnt know whom to unsubscribe
+    // updateSubscriptionOnServer(null);
     return;
   }
 
