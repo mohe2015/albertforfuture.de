@@ -19,7 +19,7 @@ self.addEventListener('install', (event) => {
         {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | minify -}}
         '{{- $manifest.RelPermalink -}}',
 
-        '/offline/',
+        '{{ .Site.BaseURL }}/offline/',
       ]);
     })
   );
@@ -60,24 +60,81 @@ self.addEventListener('fetch', (event) => {
   )
 });
 
-self.addEventListener('push', function(event) {
-  console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+// https://codelabs.developers.google.com/codelabs/pwa-integrating-push/index.html?index=..%2F..dev-pwa-training#0
 
-  const title = 'Push Codelab';
-  const options = {
-    body: 'Yay it works.',
-    icon: '{{ (resources.Get "logo.svg" | minify).Permalink }}',
-  };
+self.addEventListener('notificationclose', event => {
+  const notification = event.notification;
+  const primaryKey = notification.data.primaryKey;
 
-  event.waitUntil(self.registration.showNotification(title, options));
+  console.log('Closed notification: ' + primaryKey);
 });
 
-self.addEventListener('notificationclick', function(event) {
-  console.log('[Service Worker] Notification click Received.');
+self.addEventListener('notificationclick', event => {
+  const notification = event.notification;
+  const primaryKey = notification.data.primaryKey;
+  const action = event.action;
 
-  event.notification.close();
+  if (action === 'close') {
+    notification.close();
+  } else {
+    event.waitUntil(
+      clients.matchAll().then(clis => {
+        const client = clis.find(c => {
+          return c.visibilityState === 'visible';
+        });
+        if (client !== undefined) {
+          client.navigate('samples/page' + primaryKey + '.html');
+          client.focus();
+        } else {
+          // there are no visible windows. Open one.
+          clients.openWindow('samples/page' + primaryKey + '.html');
+          notification.close();
+        }
+      })
+    );
+  }
 
+  self.registration.getNotifications().then(notifications => {
+    notifications.forEach(notification => {
+      notification.close();
+    });
+  });
+});
+
+self.addEventListener('push', event => {
+  let body;
+
+  if (event.data) {
+    body = event.data.text();
+  } else {
+    body = 'Default body';
+  }
+
+  const options = {
+    body: body,
+    icon: 'images/notification-flat.png',
+    vibrate: [100, 50, 100],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: 1
+    },
+    actions: [
+      {action: 'explore', title: 'Go to the site',
+        icon: 'images/checkmark.png'},
+      {action: 'close', title: 'Close the notification',
+        icon: 'images/xmark.png'},
+    ]
+  };
   event.waitUntil(
-    clients.openWindow('https://developers.google.com/web/')
+    clients.matchAll().then(c => {
+      console.log(c);
+      if (c.length === 0) {
+        // Show notification
+        self.registration.showNotification('Push Notification', options);
+      } else {
+        // Send a message to the page to update the UI
+        console.log('Application is already open!');
+      }
+    })
   );
 });

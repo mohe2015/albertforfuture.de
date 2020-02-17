@@ -11,8 +11,10 @@ edition = "2018"
 web-push = "0.7"
 base64 = "0.11"
 argparse = "0.2"
-tokio = { version = "0.2", features = ["rt-threaded", "macros"] }
+tokio = { version = "0.2", features = ["full"] }
 serde_json = "1.0"
 warp = { version = "0.2", features = ["tls"] }
 diesel = { version = "1.4", features = ["sqlite"] }
 dotenv = "0.15.0"
+serde = "1.0.104"
+serde_derive = "1.0.104"
