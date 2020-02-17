@@ -91,8 +91,9 @@ function updateSubscriptionOnServer(subscription) {
     console.log("remove subscription");
   }
 
-  fetch("https://" + location.hostname + ":3030/v1/push", {
+  fetch("/api/v1/push", {
     method: 'POST',
+    mode: "same-origin",
     headers: {
       'Content-Type': 'application/json'
     },

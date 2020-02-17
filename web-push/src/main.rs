@@ -72,7 +72,7 @@ async fn main() {
         .allow_headers(vec!["Content-Type"])
         .allow_methods(vec!["POST", "OPTIONS"]);
 
-    let hello = warp::path!("v1" / "push")
+    let hello = warp::path!("api" / "v1" / "push")
         .and(warp::post())
         .and(warp::body::content_length_limit(1024 * 16))
         .and(warp::body::json())
