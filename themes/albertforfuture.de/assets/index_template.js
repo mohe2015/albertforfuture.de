@@ -1,6 +1,148 @@
-const applicationServerPublicKey = 'BACf2AL3ElM5rFuFoXZz7j6-lpaI5h2L5BvZWMPzQxDCKNEw5GYlu7Luf3xRyD33QgkkyBYSLy5xKM7H_pzdCCI=';
-
 // https://developers.google.com/web/fundamentals/codelabs/push-notifications
+// https://codelabs.developers.google.com/codelabs/pwa-integrating-push/index.html?index=..%2F..dev-pwa-training#0
+
+'use strict';
+
+let isSubscribed = false;
+let swRegistration = null;
+
+const pushButton = document.querySelector('.js-push-btn');
+const applicationServerPublicKey = 'BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=';
+
+function initializeUI() {
+  pushButton.addEventListener('click', () => {
+    pushButton.disabled = true;
+    if (isSubscribed) {
+      unsubscribeUser();
+    } else {
+      subscribeUser();
+    }
+  });
+
+  // Set the initial subscription value
+  swRegistration.pushManager.getSubscription()
+  .then(subscription => {
+    isSubscribed = (subscription !== null);
+
+    if (isSubscribed) {
+      // TODO this isn't really needed as long as subscribing is reliable
+      // although if the database fails this may recover it if the user opens the site again
+      // on the other hand it would save some data if this isn't done for every request.
+      updateSubscriptionOnServer(subscription);
+      console.log('User IS subscribed.');
+    } else {
+      console.log('User is NOT subscribed.');
+    }
+
+    updateBtn();
+  });
+}
+
+function subscribeUser() {
+  const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+  swRegistration.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: applicationServerKey
+  })
+  .then(subscription => {
+    console.log('User is subscribed:', subscription);
+
+    // TODO local storage should store whether this was successful as otherwise the user sees himself as subscribed
+    // but he actually isn't
+    updateSubscriptionOnServer(subscription);
+
+    isSubscribed = true;
+
+    updateBtn();
+  })
+  .catch(err => {
+    if (Notification.permission === 'denied') {
+      console.warn('Permission for notifications was denied');
+    } else {
+      console.error('Failed to subscribe the user: ', err);
+    }
+    updateBtn();
+  });
+}
+
+function unsubscribeUser() {
+  swRegistration.pushManager.getSubscription()
+  .then(subscription => {
+    if (subscription) {
+      return subscription.unsubscribe();
+    }
+  })
+  .catch(err => {
+    console.log('Error unsubscribing', err);
+  })
+  .then(() => {
+    // TODO this is most likely useless as the server will probably get an error response from the push server if the user unsubscribed
+    //updateSubscriptionOnServer(null);
+    // also it doesnt know whom to unsubscribe
+
+    console.log('User is unsubscribed');
+    isSubscribed = false;
+
+    updateBtn();
+  });
+}
+
+function updateSubscriptionOnServer(subscription) {
+  // Here's where you would send the subscription to the application server
+
+  if (subscription) {
+    fetch("/api/v1/add_push", {
+      method: 'POST',
+      mode: "same-origin",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(subscription)
+    }).then(response => {
+      console.log("Updated!");
+    }).catch(error => {
+      if (subscription) {
+        alert("Fehler beim Aktivieren der Push-Benachrichtigungen: " + error);
+      }
+    })
+  } else {
+    fetch("/api/v1/remove_push", {
+      method: 'POST',
+      mode: "same-origin",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(subscription)
+    }).then(response => {
+      console.log("Updated!");
+    }).catch(error => {
+      if (subscription) {
+        alert("Fehler beim Aktivieren der Push-Benachrichtigungen: " + error);
+      }
+    })
+  }
+
+  
+}
+
+function updateBtn() {
+  if (Notification.permission === 'denied') {
+    pushButton.textContent = 'Push Messaging Blocked';
+    pushButton.disabled = true;
+    // TODO this is most likely useless as the server will probably get an error response from the push server if the user unsubscribed
+    // also it doesnt know whom to unsubscribe
+    // updateSubscriptionOnServer(null);
+    return;
+  }
+
+  if (isSubscribed) {
+    pushButton.textContent = 'Disable Push Messaging';
+  } else {
+    pushButton.textContent = 'Enable Push Messaging';
+  }
+
+  pushButton.disabled = false;
+}
 
 function urlB64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -17,25 +159,64 @@ function urlB64ToUint8Array(base64String) {
   return outputArray;
 }
 
-function subscribeUser() {
-  const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-  window.serviceWorkerRegistration.pushManager.subscribe({
-    userVisibleOnly: true,
-    applicationServerKey: applicationServerKey
-  })
-  .then(function(subscription) {
-    console.log(JSON.stringify(subscription));
 
-    //updateSubscriptionOnServer(subscription);
 
-    isSubscribed = true;
 
-    //updateBtn();
-  })
-  .catch(function(err) {
-    console.log('Failed to subscribe the user: ', err);
-    //updateBtn();
+
+
+
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    console.log('Service Worker and Push is supported');
+
+    navigator.serviceWorker.register('{{ .context.Site.BaseURL }}sw.min.js', {scope: '{{ .context.Site.BaseURL }}'})
+    .then(swReg => {
+      console.log('Service Worker is registered', swReg);
+
+      swRegistration = swReg;
+
+      if ('Notification' in window) {
+        initializeUI();
+      } else {
+        console.warn('Push messaging is not supported');
+        pushButton.textContent = 'Push Not Supported';
+      }
+
+      if (swRegistration.active && swRegistration.active.state === 'activated') {
+        console.log(swRegistration.active);
+        downloadAllArticles();
+      }
+      if (swRegistration.installing) {
+        swRegistration.installing.addEventListener('statechange', function() {
+          console.log('[controllerchange][statechange] ' +
+            'A "statechange" has occured: ', this.state
+          );
+          if (this.state === 'activated') {
+            downloadAllArticles();
+          }
+        });
+      }
+    })
+    .catch(err => {
+      console.error('Service Worker Error', err);
+    });
   });
+} else {
+  console.warn('Service worker is not supported');
+  pushButton.textContent = 'Push Not Supported';
+}
+
+function status(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(new Error(response.statusText))
+  }
+}
+
+function text(response) {
+  return response.text()
 }
 
 function downloadAllArticles() {
