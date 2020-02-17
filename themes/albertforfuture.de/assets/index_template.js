@@ -24,12 +24,11 @@ function initializeUI() {
   .then(subscription => {
     isSubscribed = (subscription !== null);
 
-    // TODO this isn't really needed as long as subscribing is reliable
-    // although if the database fails this may recover it if the user opens the site again
-    // on the other hand it would save some data if this isn't done for every request.
-    updateSubscriptionOnServer(subscription);
-
     if (isSubscribed) {
+      // TODO this isn't really needed as long as subscribing is reliable
+      // although if the database fails this may recover it if the user opens the site again
+      // on the other hand it would save some data if this isn't done for every request.
+      updateSubscriptionOnServer(subscription);
       console.log('User IS subscribed.');
     } else {
       console.log('User is NOT subscribed.');

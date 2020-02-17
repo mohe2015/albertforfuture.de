@@ -14,7 +14,6 @@ use std::{fs::File};
 use web_push::*;
 
 use warp::Filter;
-use std::convert::Infallible;
 use warp::http::StatusCode;
 
 use schema::subscribers;
@@ -84,7 +83,7 @@ async fn main() {
         .run(([127, 0, 0, 1], 3030))
         .await;
 }
-
+/*
 fn main1() {
 
     let connection = establish_connection();
@@ -98,7 +97,7 @@ fn main1() {
     for subscribers in results {
         println!("{}", subscribers.endpoint);
     }
-}
+}*/
 
 // BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=
 
@@ -113,6 +112,6 @@ async fn send_notification(subscription: &SubscriptionInfo) -> std::result::Resu
     builder.set_vapid_signature(signature);
     let client = WebPushClient::new();
     let built = builder.build().unwrap();
-    let response = client.send(built).await;
+    let _response = client.send(built).await;
     Ok(())
 }
