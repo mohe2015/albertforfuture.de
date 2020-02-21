@@ -2,3 +2,4 @@ web-push/target
 public
 *.pem
 **/_gen
+node_modules/

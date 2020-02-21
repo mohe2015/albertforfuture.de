@@ -1,0 +1,26 @@
+{
+  "name": "albertforfuture.de",
+  "version": "1.0.0",
+  "description": "Future source code for website https://albertforfuture.de",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohe2015/albertforfuture.de.git"
+  },
+  "keywords": [
+    "albertforfuture.de"
+  ],
+  "author": "mohe2015 <Moritz.Hedtke@t-online.de>",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mohe2015/albertforfuture.de/issues"
+  },
+  "homepage": "https://github.com/mohe2015/albertforfuture.de#readme"
+}
