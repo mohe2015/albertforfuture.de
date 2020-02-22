@@ -7,7 +7,7 @@ self.addEventListener('install', (event) => {
         '{{ (resources.Get "custom.scss" | toCSS | minify).RelPermalink }}',
         '{{ (resources.Get "logo.svg" | minify).RelPermalink }}',
         
-        '{{ .Site.BaseURL }}/index.js',
+        '{{ .Site.BaseURL }}/bundle.js',
 
         '{{ .Site.BaseURL }}sw.min.js',
 
