@@ -1,4 +1,4 @@
-{{ $indexTemplate := resources.Get "index_template.js" }}
-{{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) }}
+{{ $bundleTemplate := resources.Get "bundle.js" }}
+{{ $bundle := $bundleTemplate | resources.ExecuteAsTemplate "bundle.js" (dict "context" .) }}
 
-<script type="module" src="{{ $index.RelPermalink }}"></script>
+<script type="module" src="{{ $bundle.RelPermalink }}"></script>
