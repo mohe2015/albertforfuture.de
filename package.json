@@ -4,10 +4,12 @@
   "description": "Future source code for website https://albertforfuture.de",
   "main": "index.js",
   "dependencies": {
-    "bootstrap": "git+https://github.com/twbs/bootstrap.git"
+    "bootstrap": "git+https://github.com/twbs/bootstrap.git",
+    "popper.js": "^1.16.1"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-strip": "^1.3.2",
     "rollup": "^1.31.1"
   },
   "scripts": {

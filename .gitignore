@@ -3,3 +3,4 @@ public
 *.pem
 **/_gen
 node_modules/
+bundle.js

@@ -1,4 +1,5 @@
-import '{{ (resources.Get "bootstrap/js/index.esm.js" | minify).RelPermalink }}';
+import 'bootstrap/js/src/collapse';
+import 'bootstrap/js/src/toast'
 
 // https://developers.google.com/web/fundamentals/codelabs/push-notifications
 // https://codelabs.developers.google.com/codelabs/pwa-integrating-push/index.html?index=..%2F..dev-pwa-training#0
@@ -230,20 +231,7 @@ function downloadAllArticles() {
     window.caches.open('{{ .context.Site.Params.offlineVersion }}').then(function(cache) {
       cache.addAll([
         /* this is really buggy - if this is executed before index.html template it will override the paginator as it is lazily generated */
-        {{- range .context.Site.Pages -}}
-          {{ if .IsHome }}
-          /* this is a REALLY UGLY HACK */
-          {{ $paginator := .Paginate (where .Pages "Type" "article") }}
-          {{ end }}
-          {{ $page := . }}
-          {{ if .Paginator }}
-            {{ range .Paginator.Pagers }}
-              "{{- .URL -}}",
-            {{ end }}
-          {{ else }}
-            "{{- .RelPermalink -}}",
-          {{ end }}
-        {{ end }}
+        /* TODO FIXME ADD BACK REMOVED CODE!!! */
       ]);
     }).then(event => {
       localStorage.setItem('offline', '{{ .context.Site.Params.offlineVersion }}');
