@@ -16,8 +16,12 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+
     "build:rollup": "rollup -c --environment BUILD:dev",
-    "build:css": "yarn run purgecss --config purgecss.config.js",
+    "build:hugo": "hugo",
+    "build:css": "purgecss --config purgecss.config.js --output public",
+    "build": "npm-run-all build:rollup build:hugo build:css",
+
     "dev:rollup": "rollup --watch -c --environment BUILD:dev",
     "dev:hugo": "hugo server",
     "dev": "npm-run-all --parallel dev:rollup dev:hugo"

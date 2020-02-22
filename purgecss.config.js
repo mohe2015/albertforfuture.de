@@ -1,4 +1,4 @@
 module.exports = {
-    content: ['**/*.js', 'public/**/*.html', 'public/*.html'],
-    css: ['css/app.css']
+    content: ['public/bundle.js', 'public/**/*.html', 'public/*.html'],
+    css: ['public/custom.min.css']
 };
