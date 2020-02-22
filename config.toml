@@ -20,6 +20,3 @@ pluralizeListTitles = false
   [[module.mounts]]
     source = "node_modules"
     target = "assets"
-  [[module.mounts]]
-    source = "node_modules"
-    target = "static"
