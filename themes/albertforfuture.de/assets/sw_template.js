@@ -7,7 +7,7 @@ self.addEventListener('install', (event) => {
         '{{ (resources.Get "custom.scss" | toCSS | minify).RelPermalink }}',
         '{{ (resources.Get "logo.svg" | minify).RelPermalink }}',
         
-        {{ $bootstrap := resources.Get "node_modules/bootstrap/dist/js/bootstrap.js" }}
+        {{ $bootstrap := resources.Get "bootstrap/dist/js/bootstrap.js" }}
         {{ $indexTemplate := resources.Get "index_template.js" }}
         {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) }}
         {{ $js := slice $bootstrap $index | resources.Concat "bundle.js" | minify }}
