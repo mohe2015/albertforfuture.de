@@ -6,9 +6,13 @@
   "dependencies": {
     "bootstrap": "git+https://github.com/twbs/bootstrap.git"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "rollup": "^1.31.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "rollup -c --environment BUILD:dev"
   },
   "repository": {
     "type": "git",
@@ -22,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/mohe2015/albertforfuture.de/issues"
   },
-  "homepage": "https://github.com/mohe2015/albertforfuture.de#readme"
+  "homepage": "https://github.com/mohe2015/albertforfuture.de#readme",
+  "peerDependencies": {
+    "popper.js": "^1.16.1"
+  }
 }
