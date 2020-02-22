@@ -1,3 +1,5 @@
+import '{{ (resources.Get "bootstrap/js/index.esm.js" | minify).RelPermalink }}';
+
 // https://developers.google.com/web/fundamentals/codelabs/push-notifications
 // https://codelabs.developers.google.com/codelabs/pwa-integrating-push/index.html?index=..%2F..dev-pwa-training#0
 
