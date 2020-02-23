@@ -18,10 +18,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:js": "rollup -c --environment BUILD:prod",
-    "build:website": "hugo --baseURL http://localhost:8000/",
+    "build:website": "hugo --minify --baseURL http://localhost/",
     "build:css": "purgecss --config purgecss.config.js --output public",
     "build:minify-js": "terser --compress --mangle --comments \"/^!/\" --output public/bundle.js public/bundle.js",
-    "build": "npm-run-all build:js build:website build:css build:minify-js",
+    "build": "npm-run-all build:website build:js build:minify-js build:css",
     "dev:js": "rollup --watch -c --environment BUILD:dev",
     "dev:website": "hugo server --renderToDisk --baseURL http://localhost/",
     "dev": "npm-run-all --parallel dev:js dev:website"
