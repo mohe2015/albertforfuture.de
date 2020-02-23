@@ -8,7 +8,7 @@ self.addEventListener('install', (event) => {
         '{{ (resources.Get "logo.svg" | minify).RelPermalink }}',
         
         
-        '{{ .Site.BaseURL }}/{{ if eq hugo.Environment "production" }}bundle.js{{ else }}index.js{{ end }}',
+        '{{ .Site.BaseURL }}/bundle.js',
 
         '{{ .Site.BaseURL }}sw.min.js',
 

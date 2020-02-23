@@ -1,4 +1,4 @@
-{{ $bundleTemplate := resources.Get (cond (eq hugo.Environment "production") "bundle.js" "index.js") }}
-{{ $bundle := $bundleTemplate | resources.ExecuteAsTemplate (cond (eq hugo.Environment "production") "bundle.js" "index.js") (dict "context" .) }}
+{{ $bundleTemplate := resources.Get "bundle.js" }}
+{{ $bundle := $bundleTemplate | resources.ExecuteAsTemplate "bundle.js" (dict "context" .) }}
 
 <script type="module" src="{{ $bundle.RelPermalink }}"></script>
