@@ -8,7 +8,7 @@ self.addEventListener('install', (event) => {
         '{{ (resources.Get "logo.svg" | minify).RelPermalink }}',
         
         
-        '{{ .Site.BaseURL }}/bundle.js',
+        '{{ .Site.BaseURL }}bundle.js',
 
         '{{ .Site.BaseURL }}sw.min.js',
 
