@@ -1,3 +1,6 @@
+import 'bootstrap/js/src/collapse';
+import Toast from 'bootstrap/js/src/toast'
+
 // https://developers.google.com/web/fundamentals/codelabs/push-notifications
 // https://codelabs.developers.google.com/codelabs/pwa-integrating-push/index.html?index=..%2F..dev-pwa-training#0
 
@@ -246,7 +249,7 @@ function downloadAllArticles() {
     }).then(event => {
       localStorage.setItem('offline', '{{ .context.Site.Params.offlineVersion }}');
       document.getElementById('toast-offline').classList.remove('d-none');
-      new bootstrap.Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
+      new Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
       document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
         document.getElementById('toast-offline').remove();
       })

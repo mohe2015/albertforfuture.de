@@ -15,3 +15,8 @@ pluralizeListTitles = false
   section = ["HTML", "RSS"]
   taxonomyTerm = ["HTML"]
   taxonomy = ["HTML", "RSS"]
+
+[module]
+  [[module.mounts]]
+    source = "node_modules"
+    target = "assets"

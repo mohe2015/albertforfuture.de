@@ -1,6 +1,6 @@
-{{ $bootstrap := resources.Get "bootstrap/dist/js/bootstrap.js" }}
 {{ $indexTemplate := resources.Get "index_template.js" }}
 {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" (dict "context" .) }}
-{{ $js := slice $bootstrap $index | resources.Concat "bundle.js" | minify }}
 
-<script src="{{ $js.RelPermalink }}"></script>
+{{- substr $index.Permalink 0 0 -}}
+
+<script src="{{ .Site.BaseURL }}bundle.js"></script>
