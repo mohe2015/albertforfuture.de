@@ -23,7 +23,7 @@
     "build:minify-js": "terser --compress --mangle --comments \"/^!/\" --output public/bundle.js public/bundle.js",
     "build": "npm-run-all build:js build:website build:css build:minify-js",
     "dev:js": "rollup --watch -c --environment BUILD:dev",
-    "dev:website": "hugo server --baseURL http://localhost/",
+    "dev:website": "hugo server --renderToDisk --baseURL http://localhost/",
     "dev": "npm-run-all --parallel dev:js dev:website"
   },
   "repository": {

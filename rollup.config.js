@@ -1,10 +1,9 @@
 import resolve from '@rollup/plugin-node-resolve';
 
 export default {
-    input: 'themes/albertforfuture.de/assets/index.js',
+    input: 'public/index.js',
     output: {
-      file: 'themes/albertforfuture.de/assets/bundle.js',
-      format: 'esm'
+      file: 'public/bundle.js'
     },
     plugins: [
       resolve()
