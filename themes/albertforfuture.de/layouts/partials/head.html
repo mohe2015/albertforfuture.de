@@ -26,4 +26,8 @@
   {{- $serviceWorker := $serviceWorkerTemplate | resources.ExecuteAsTemplate "sw.js" . | minify -}}
   {{- substr $serviceWorker.Permalink 0 0 -}}
 
+  {{- $nginxMapTemplate := resources.Get "nginx_map_template.conf" -}}
+  {{- $nginxMap := $nginxMapTemplate | resources.ExecuteAsTemplate "nginx_map.conf" (dict "context" . "style" $style "logo" $logo_svg "serviceWorker" $serviceWorker "manifest" $manifest) -}}
+  {{- substr $nginxMap.Permalink 0 0 -}}
+
 </head>
