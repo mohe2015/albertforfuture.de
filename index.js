@@ -173,7 +173,7 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     console.log('Service Worker and Push is supported');
 
-    navigator.serviceWorker.register('http://localhost/sw.min.js', {scope: 'http://localhost/'})
+    navigator.serviceWorker.register('https://mohe2015.github.io/albertforfuture.de/sw.min.js', {scope: 'https://mohe2015.github.io/albertforfuture.de/'})
     .then(swReg => {
       console.log('Service Worker is registered', swReg);
 
@@ -237,180 +237,180 @@ function downloadAllArticles() {
           
           
             
-              "/",
+              "/albertforfuture.de/",
             
           
         
           
           
             
-              "/tags/bohemian-browser-ballett/",
+              "/albertforfuture.de/tags/bohemian-browser-ballett/",
             
           
         
           
           
             
-              "/categories/",
+              "/albertforfuture.de/categories/",
             
           
         
           
           
-            "/kohlrabi/",
+            "/albertforfuture.de/kohlrabi/",
           
         
           
           
-            "/ecosia/",
-          
-        
-          
-          
-            
-              "/categories/empfehlungen/",
-            
+            "/albertforfuture.de/ecosia/",
           
         
           
           
             
-              "/tags/greta-thunberg/",
-            
-          
-        
-          
-          
-            "/rede-greta-thunberg/",
-          
-        
-          
-          
-            
-              "/tags/kosmetik/",
+              "/albertforfuture.de/categories/empfehlungen/",
             
           
         
           
           
             
-              "/categories/lebensmittelverschwendung/",
+              "/albertforfuture.de/tags/greta-thunberg/",
+            
+          
+        
+          
+          
+            "/albertforfuture.de/rede-greta-thunberg/",
+          
+        
+          
+          
+            
+              "/albertforfuture.de/tags/kosmetik/",
             
           
         
           
           
             
-              "/tags/meer/",
-            
-          
-        
-          
-          
-            "/protokoll/2019-11-19/",
-          
-        
-          
-          
-            "/protokoll/2019-10-24/",
-          
-        
-          
-          
-            
-              "/categories/mensa-talk/",
-            
-          
-        
-          
-          
-            "/mikroplastik-in-kosmetik/",
-          
-        
-          
-          
-            
-              "/categories/plastik/",
+              "/albertforfuture.de/categories/lebensmittelverschwendung/",
             
           
         
           
           
             
-              "/categories/politik/",
+              "/albertforfuture.de/tags/meer/",
+            
+          
+        
+          
+          
+            "/albertforfuture.de/protokoll/2019-11-19/",
+          
+        
+          
+          
+            "/albertforfuture.de/protokoll/2019-10-24/",
+          
+        
+          
+          
+            
+              "/albertforfuture.de/categories/mensa-talk/",
+            
+          
+        
+          
+          
+            "/albertforfuture.de/mikroplastik-in-kosmetik/",
+          
+        
+          
+          
+            
+              "/albertforfuture.de/categories/plastik/",
             
           
         
           
           
             
-              "/protokoll/",
+              "/albertforfuture.de/categories/politik/",
             
           
         
           
           
             
-              "/categories/protokoll/",
-            
-          
-        
-          
-          
-            "/protokoll/2019-12-03/",
-          
-        
-          
-          
-            
-              "/tags/satire/",
+              "/albertforfuture.de/protokoll/",
             
           
         
           
           
             
-              "/tags/suchmaschine/",
+              "/albertforfuture.de/categories/protokoll/",
+            
+          
+        
+          
+          
+            "/albertforfuture.de/protokoll/2019-12-03/",
+          
+        
+          
+          
+            
+              "/albertforfuture.de/tags/satire/",
             
           
         
           
           
             
-              "/tags/",
+              "/albertforfuture.de/tags/suchmaschine/",
             
           
         
           
           
-            "/plastik-im-meer/",
-          
-        
-          
-          
             
-              "/categories/aktuelles/",
+              "/albertforfuture.de/tags/",
             
           
         
           
           
-            "/datenschutzerklaerung/",
+            "/albertforfuture.de/plastik-im-meer/",
           
         
           
           
-            "/offline/",
+            
+              "/albertforfuture.de/categories/aktuelles/",
+            
           
         
           
           
-            "/impressum/",
+            "/albertforfuture.de/datenschutzerklaerung/",
           
         
           
           
-            "/infos/",
+            "/albertforfuture.de/offline/",
+          
+        
+          
+          
+            "/albertforfuture.de/impressum/",
+          
+        
+          
+          
+            "/albertforfuture.de/infos/",
           
         
       ]);
