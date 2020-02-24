@@ -47,7 +47,7 @@ pub async fn subscribe(subscriber: SubscriptionInfo) -> Result<impl warp::Reply,
         .first::<Subscriber>(&connection)
         .expect("Error loading subscribers");
 
-    let result = send_notification(&subscriber, "Push-Benachrichtigungen aktiviert!").await;
+    let result = send_notification(&subscriber, r#"{"text":"Push-Benachrichtigungen aktiviert!", "url": "/"}"#).await;
 
     println!("{:?}", result);
 

@@ -28,7 +28,7 @@ async fn main() {
       }
     };
 
-    let result = send_notification(&a, "Ein neuer Artikel ist online!").await;
+    let result = send_notification(&a, r#"{"text": "Ein neuer Artikel ist online!", "url": "/"}"#).await;
 
     //return match result {
     //    Ok(_) => Ok(StatusCode::OK),

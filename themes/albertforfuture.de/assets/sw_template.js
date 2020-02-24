@@ -61,16 +61,13 @@ self.addEventListener('fetch', (event) => {
 
 self.addEventListener('notificationclose', event => {
   const notification = event.notification;
-  console.log(event.notification)
-  const primaryKey = notification.data.primaryKey;
-
-  console.log('Closed notification: ' + primaryKey);
+  console.log('notificationclose', event.notification)
 });
 
 self.addEventListener('notificationclick', event => {
   const notification = event.notification;
-  console.log(event.notification)
-  const primaryKey = notification.data.primaryKey;
+  console.log('notificationclick', event.notification)
+  const data = notification.data;
   const action = event.action;
 
   if (action === 'close') {
@@ -78,15 +75,16 @@ self.addEventListener('notificationclick', event => {
   } else {
     event.waitUntil(
       clients.matchAll().then(clis => {
+        console.log('clients', clis)
         const client = clis.find(c => {
           return c.visibilityState === 'visible';
         });
         if (client !== undefined) {
-          client.navigate('/?' + primaryKey);
+          client.navigate(data.url);
           client.focus();
         } else {
           // there are no visible windows. Open one.
-          clients.openWindow('/?' + primaryKey);
+          clients.openWindow(data.url);
           notification.close();
         }
       })
@@ -104,26 +102,28 @@ self.addEventListener('push', event => {
   let body;
 
   if (event.data) {
-    body = event.data.text();
+    body = event.data.json();
   } else {
-    body = 'Default body';
+    body = {
+      text: 'albertforfuture.de wurde aktualisiert!',
+      url: '/'
+    }
   }
-  console.log(body)
+  console.log('push', body)
 
   const options = {
-    body: body,
+    body: body.text,
     icon: '{{ .Site.BaseURL }}logo.min.svg',
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
-    }
+    lang: 'de-DE',
+    // badge, actions
+    data: body
   };
   event.waitUntil(
     clients.matchAll().then(c => {
       console.log(c);
       //if (c.length === 0) {
         // Show notification
-        self.registration.showNotification('Push Notification', options);
+        self.registration.showNotification('albertforfuture.de', options);
       //} else {
         // Send a message to the page to update the UI
       //  console.log('Application is already open!');
