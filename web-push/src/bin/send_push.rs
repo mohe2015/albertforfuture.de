@@ -23,12 +23,19 @@ async fn main() {
   let connection = establish_connection();
 
   let results = subscribers::table
-      .limit(5)
       .load::<Subscriber>(&connection)
       .expect("Error loading subscribers");
 
   println!("Displaying {} subscribers", results.len());
   for subscriber in results {
-    let _test = send_notification(&subscriber).await;
+    let a = SubscriptionInfo {
+      endpoint: subscriber.endpoint,
+      keys: SubscriptionKeys {
+        p256dh: subscriber.key_p256dh,
+        auth: subscriber.key_auth
+      }
+    };
+
+    let _test = send_notification(&a).await;
   }
 }

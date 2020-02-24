@@ -38,12 +38,17 @@ pub async fn subscribe(subscriber: SubscriptionInfo) -> Result<impl warp::Reply,
         key_auth: &subscriber.keys.auth
     };
 
-    let _test = send_notification(&subscriber).await;
-
     diesel::insert_or_ignore_into(subscribers::table)
         .values(&new_subscriber)
         .execute(&connection)
         .expect("Error saving new subscriber");
+
+    let _result = subscribers::table
+        .filter(subscribers::endpoint.eq(&subscriber.endpoint))
+        .first::<Subscriber>(&connection)
+        .expect("Error loading subscribers");
+
+    let _test = send_notification(&subscriber).await;
 
     Ok(StatusCode::OK)
 }
