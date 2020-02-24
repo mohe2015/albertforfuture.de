@@ -224,12 +224,12 @@ function text(response) {
 }
 
 function downloadAllArticles() {
-  if (localStorage.getItem('offline') === 'v10') {
+  if (localStorage.getItem('offline') === 'v11') {
     console.log("articles already downloaded");
     return;
   }
   setTimeout(function() {
-    window.caches.open('v10').then(function(cache) {
+    window.caches.open('v11').then(function(cache) {
       cache.addAll([
         /* this is really buggy - if this is executed before index.html template it will override the paginator as it is lazily generated */
           /* this is a REALLY UGLY HACK */
@@ -416,7 +416,7 @@ function downloadAllArticles() {
         
       ]);
     }).then(event => {
-      localStorage.setItem('offline', 'v10');
+      localStorage.setItem('offline', 'v11');
       document.getElementById('toast-offline').classList.remove('d-none');
       new Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
       document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
