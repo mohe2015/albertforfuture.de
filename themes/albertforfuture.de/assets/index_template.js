@@ -91,7 +91,6 @@ function unsubscribeUser() {
 
 function updateSubscriptionOnServer(subscription) {
   // Here's where you would send the subscription to the application server
-  // TODO only send subscription once?
 
   if (subscription) {
     fetch("/api/v1/add_push", {
@@ -101,12 +100,12 @@ function updateSubscriptionOnServer(subscription) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(subscription)
-    })
-    .then(status)
-    .then(response => {
+    }).then(response => {
       console.log("Updated!");
     }).catch(error => {
-      alert("Fehler beim Aktivieren der Push-Benachrichtigungen: " + error);
+      if (subscription) {
+        alert("Fehler beim Aktivieren der Push-Benachrichtigungen: " + error);
+      }
     })
   } else {
     fetch("/api/v1/remove_push", {
