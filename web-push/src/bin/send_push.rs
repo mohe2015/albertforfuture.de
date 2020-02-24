@@ -1,20 +1,12 @@
-#[macro_use]
 extern crate diesel;
 extern crate dotenv;
 
 use diesel::prelude::*;
-use dotenv::dotenv;
-use std::env;
 use push::models::*;
 
-use std::{fs::File};
 use web_push::*;
 
-use warp::Filter;
-use warp::http::StatusCode;
-
 use push::schema::subscribers;
-
 use push::establish_connection;
 use push::send_notification;
 
@@ -36,6 +28,6 @@ async fn main() {
       }
     };
 
-    let _test = send_notification(&a).await;
+    let _test = send_notification(&a, "Ein neuer Artikel ist online!").await;
   }
 }

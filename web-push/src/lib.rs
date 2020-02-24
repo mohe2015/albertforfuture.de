@@ -13,7 +13,6 @@ use self::models::*;
 use std::{fs::File};
 use web_push::*;
 
-use warp::Filter;
 use warp::http::StatusCode;
 
 use self::schema::subscribers;
@@ -48,7 +47,7 @@ pub async fn subscribe(subscriber: SubscriptionInfo) -> Result<impl warp::Reply,
         .first::<Subscriber>(&connection)
         .expect("Error loading subscribers");
 
-    let _test = send_notification(&subscriber).await;
+    let _test = send_notification(&subscriber, "Push-Benachrichtigungen aktiviert!").await;
 
     Ok(StatusCode::OK)
 }
@@ -66,9 +65,10 @@ pub async fn unsubscribe(subscriber: SubscriptionInfo) -> Result<impl warp::Repl
 
 // BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=
 
-pub async fn send_notification(subscription: &SubscriptionInfo) -> std::result::Result<(), Box<dyn std::error::Error>> {
+pub async fn send_notification(subscription: &SubscriptionInfo, payload: &str) -> std::result::Result<(), Box<dyn std::error::Error>> {
     let mut builder = WebPushMessageBuilder::new(&subscription).unwrap();
-    builder.set_payload(ContentEncoding::AesGcm, "test".as_bytes());
+    builder.set_ttl(5184000);
+    builder.set_payload(ContentEncoding::AesGcm, payload.as_bytes());
     builder.set_gcm_key("BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=");
     let file = File::open("./private_key.pem").unwrap();
     let mut sig_builder = VapidSignatureBuilder::from_pem(file, &subscription).unwrap();
