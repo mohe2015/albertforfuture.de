@@ -1,4 +1,3 @@
-import 'bootstrap/js/src/collapse';
 import Toast from 'bootstrap/js/src/toast'
 
 // https://developers.google.com/web/fundamentals/codelabs/push-notifications
