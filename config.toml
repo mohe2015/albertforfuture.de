@@ -7,7 +7,7 @@ sectionPagesMenu = "main"
 pluralizeListTitles = false
 
 [params]
-  offlineVersion = "v10"
+  offlineVersion = "v11"
 
 [outputs]
   page = ["HTML"]

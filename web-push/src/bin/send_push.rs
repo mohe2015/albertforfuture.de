@@ -28,6 +28,8 @@ async fn main() {
       }
     };
 
-    let _test = send_notification(&a, "Ein neuer Artikel ist online!").await;
+    let result = send_notification(&a, "Ein neuer Artikel ist online!").await;
+
+    println!("{:?}", result);
   }
 }

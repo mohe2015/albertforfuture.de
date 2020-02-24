@@ -47,8 +47,15 @@ pub async fn subscribe(subscriber: SubscriptionInfo) -> Result<impl warp::Reply,
         .first::<Subscriber>(&connection)
         .expect("Error loading subscribers");
 
-    let _test = send_notification(&subscriber, "Push-Benachrichtigungen aktiviert!").await;
+    let result = send_notification(&subscriber, "Push-Benachrichtigungen aktiviert!").await;
 
+    println!("{:?}", result);
+
+    //return match result {
+    //    Ok(_) => Ok(StatusCode::OK),
+    //    Err(EndpointNotValid)
+    //    Err(_) => Ok(StatusCode::NotFound),
+    //}
     Ok(StatusCode::OK)
 }
 
@@ -65,7 +72,7 @@ pub async fn unsubscribe(subscriber: SubscriptionInfo) -> Result<impl warp::Repl
 
 // BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=
 
-pub async fn send_notification(subscription: &SubscriptionInfo, payload: &str) -> std::result::Result<(), Box<dyn std::error::Error>> {
+pub async fn send_notification(subscription: &SubscriptionInfo, payload: &str) -> std::result::Result<(), web_push::WebPushError> {
     let mut builder = WebPushMessageBuilder::new(&subscription).unwrap();
     builder.set_ttl(5184000);
     builder.set_payload(ContentEncoding::AesGcm, payload.as_bytes());
@@ -77,6 +84,6 @@ pub async fn send_notification(subscription: &SubscriptionInfo, payload: &str) -
     builder.set_vapid_signature(signature);
     let client = WebPushClient::new();
     let built = builder.build().unwrap();
-    let _response = client.send(built).await;
-    Ok(())
+    let response = client.send(built).await;
+    return response
 }

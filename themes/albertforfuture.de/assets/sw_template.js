@@ -61,6 +61,7 @@ self.addEventListener('fetch', (event) => {
 
 self.addEventListener('notificationclose', event => {
   const notification = event.notification;
+  console.log(event.notification)
   const primaryKey = notification.data.primaryKey;
 
   console.log('Closed notification: ' + primaryKey);
@@ -68,6 +69,7 @@ self.addEventListener('notificationclose', event => {
 
 self.addEventListener('notificationclick', event => {
   const notification = event.notification;
+  console.log(event.notification)
   const primaryKey = notification.data.primaryKey;
   const action = event.action;
 
@@ -80,11 +82,11 @@ self.addEventListener('notificationclick', event => {
           return c.visibilityState === 'visible';
         });
         if (client !== undefined) {
-          client.navigate('samples/page' + primaryKey + '.html');
+          client.navigate('/?' + primaryKey);
           client.focus();
         } else {
           // there are no visible windows. Open one.
-          clients.openWindow('samples/page' + primaryKey + '.html');
+          clients.openWindow('/?' + primaryKey);
           notification.close();
         }
       })
@@ -106,32 +108,26 @@ self.addEventListener('push', event => {
   } else {
     body = 'Default body';
   }
+  console.log(body)
 
   const options = {
     body: body,
-    icon: 'images/notification-flat.png',
-    vibrate: [100, 50, 100],
+    icon: '{{ .Site.BaseURL }}logo.min.svg',
     data: {
       dateOfArrival: Date.now(),
       primaryKey: 1
-    },
-    actions: [
-      {action: 'explore', title: 'Go to the site',
-        icon: 'images/checkmark.png'},
-      {action: 'close', title: 'Close the notification',
-        icon: 'images/xmark.png'},
-    ]
+    }
   };
   event.waitUntil(
     clients.matchAll().then(c => {
       console.log(c);
-      if (c.length === 0) {
+      //if (c.length === 0) {
         // Show notification
         self.registration.showNotification('Push Notification', options);
-      } else {
+      //} else {
         // Send a message to the page to update the UI
-        console.log('Application is already open!');
-      }
+      //  console.log('Application is already open!');
+      //}
     })
   );
 });
