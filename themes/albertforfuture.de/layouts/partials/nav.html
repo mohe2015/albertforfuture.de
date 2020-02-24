@@ -1,27 +1,23 @@
 <header>
-  <nav class="navbar navbar-expand navbar-dark bg-custom-navbar-green">
-    <div class="container-fluid">
-      {{ $logo_svg := resources.Get "logo.svg" | minify }}
-      <a class="navbar-brand" href="{{ .Site.BaseURL }}"><img src="{{ $logo_svg.Permalink }}" alt="Albert for Future Logo" class="logo"></a>
-    
-      <div class="navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a href="{{ .Site.BaseURL }}" class="nav-link {{if .IsHome }} active{{end}}" title="Startseite">Startseite</a>
-          </li>
-          {{- $currentPage := . -}}
-          {{- range .Site.Menus.main -}}
-          <li class="nav-item">
-            <a class="nav-link {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{end}}" href="{{ .URL }}" title="{{ .Title }}">
-              {{- .Name -}}
-            </a>
-          </li>
-          {{- end -}}
-          <li class="nav-item d-none">
-            <button disabled class="js-push-btn">P</button><br><br>
-          </li>
-        </ul>
-      </div>
-    </div>
+  <nav class="py-3 pl-4 navbar-dark bg-custom-navbar-green" style="flex-wrap: wrap">
+    {{ $logo_svg := resources.Get "logo.svg" | minify }}
+    <a class="navbar-brand pl-2" href="{{ .Site.BaseURL }}"><img src="{{ $logo_svg.Permalink }}" alt="Albert for Future Logo" class="logo"></a>
+  
+    <ul class="navbar-nav mr-auto d-inline">
+      <li class="nav-item d-inline px-1">
+        <a href="{{ .Site.BaseURL }}" class="nav-link d-inline {{if .IsHome }} active{{end}}" title="Startseite">Startseite</a>
+      </li>
+      {{- $currentPage := . -}}
+      {{- range .Site.Menus.main -}}
+      <li class="nav-item d-inline px-1">
+        <a class="nav-link d-inline {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{end}}" href="{{ .URL }}" title="{{ .Title }}">
+          {{- .Name -}}
+        </a>
+      </li>
+      {{- end -}}
+      <li class="nav-item d-none">
+        <button disabled class="js-push-btn">P</button><br><br>
+      </li>
+    </ul>
   </nav>
 </header>
