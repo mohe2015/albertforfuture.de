@@ -18,12 +18,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:js": "rollup -c --environment BUILD:prod",
-    "build:website": "hugo --minify --baseURL https://mohe2015.github.io/albertforfuture.de/",
+    "build:website": "hugo --minify --baseURL $BASE_URL",
     "build:css": "purgecss --config purgecss.config.js --output public",
     "build:minify-js": "terser --compress --mangle --comments \"/^!/\" --output public/bundle.js public/bundle.js",
     "build": "npm-run-all build:website build:js build:minify-js build:css",
     "dev:js": "rollup --watch -c --environment BUILD:dev",
-    "dev:website": "hugo server --disableFastRender --renderToDisk --baseURL http://localhost/",
+    "dev:website": "hugo server --disableFastRender --renderToDisk --baseURL BASE_URL",
     "dev": "npm-run-all --parallel dev:js dev:website"
   },
   "repository": {

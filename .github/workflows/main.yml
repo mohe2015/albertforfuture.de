@@ -20,7 +20,7 @@ jobs:
           extended: true
 
       - name: Build
-        run: yarn && yarn build
+        run: yarn && BASE_URL=https://mohe2015.github.io/albertforfuture.de/ yarn build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
