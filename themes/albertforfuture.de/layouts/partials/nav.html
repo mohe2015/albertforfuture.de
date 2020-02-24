@@ -1,13 +1,10 @@
 <header>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-custom-navbar-green">
+  <nav class="navbar navbar-expand navbar-dark bg-custom-navbar-green">
     <div class="container-fluid">
       {{ $logo_svg := resources.Get "logo.svg" | minify }}
       <a class="navbar-brand" href="{{ .Site.BaseURL }}"><img src="{{ $logo_svg.Permalink }}" alt="Albert for Future Logo" class="logo"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+      <div class="navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a href="{{ .Site.BaseURL }}" class="nav-link {{if .IsHome }} active{{end}}" title="Startseite">Startseite</a>
@@ -20,8 +17,8 @@
             </a>
           </li>
           {{- end -}}
-          <li class="nav-item">
-            <button disabled class="js-push-btn">Enable Push Messaging</button><br><br>
+          <li class="nav-item d-none">
+            <button disabled class="js-push-btn">P</button><br><br>
           </li>
         </ul>
       </div>
