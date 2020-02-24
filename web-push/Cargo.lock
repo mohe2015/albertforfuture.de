@@ -989,6 +989,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "push"
+version = "0.1.0"
+dependencies = [
+ "argparse",
+ "base64 0.11.0",
+ "diesel",
+ "dotenv",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "tokio",
+ "warp",
+ "web-push",
+]
+
+[[package]]
 name = "quick-error"
 version = "1.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1724,22 +1740,6 @@ dependencies = [
  "syn",
  "wasm-bindgen-backend",
  "weedle",
-]
-
-[[package]]
-name = "web-push"
-version = "0.1.0"
-dependencies = [
- "argparse",
- "base64 0.11.0",
- "diesel",
- "dotenv",
- "serde",
- "serde_derive",
- "serde_json",
- "tokio",
- "warp",
- "web-push 0.7.2",
 ]
 
 [[package]]

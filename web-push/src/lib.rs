@@ -16,7 +16,7 @@ use web_push::*;
 use warp::Filter;
 use warp::http::StatusCode;
 
-use schema::subscribers;
+use self::schema::subscribers;
 
 // https://github.com/diesel-rs/diesel/tree/master/examples/sqlite/getting_started_step_3
 pub fn establish_connection() -> SqliteConnection {
@@ -59,49 +59,9 @@ pub async fn unsubscribe(subscriber: SubscriptionInfo) -> Result<impl warp::Repl
     Ok(StatusCode::OK)
 }
 
-#[tokio::main]
-async fn main() {
-
-    let subscribe_path = warp::path!("api" / "v1" / "add_push")
-        .and(warp::post())
-        .and(warp::body::content_length_limit(1024 * 16))
-        .and(warp::body::json())
-        .and_then(subscribe);
-
-    let unsubscribe_path = warp::path!("api" / "v1" / "remove_push")
-        .and(warp::post())
-        .and(warp::body::content_length_limit(1024 * 16))
-        .and(warp::body::json())
-        .and_then(unsubscribe);
-
-    let paths = subscribe_path.or(unsubscribe_path);
-
-    warp::serve(paths)
-        .tls()
-        .cert_path("../../localhost.pem")
-        .key_path("../../localhost-key.pem")
-        .run(([127, 0, 0, 1], 3030))
-        .await;
-}
-/*
-fn main1() {
-
-    let connection = establish_connection();
-
-    let results = subscribers::table
-        .limit(5)
-        .load::<Subscriber>(&connection)
-        .expect("Error loading subscribers");
-
-    println!("Displaying {} subscribers", results.len());
-    for subscribers in results {
-        println!("{}", subscribers.endpoint);
-    }
-}*/
-
 // BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=
 
-async fn send_notification(subscription: &SubscriptionInfo) -> std::result::Result<(), Box<dyn std::error::Error>> {
+pub async fn send_notification(subscription: &SubscriptionInfo) -> std::result::Result<(), Box<dyn std::error::Error>> {
     let mut builder = WebPushMessageBuilder::new(&subscription).unwrap();
     builder.set_payload(ContentEncoding::AesGcm, "test".as_bytes());
     builder.set_gcm_key("BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=");

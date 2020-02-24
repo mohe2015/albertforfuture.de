@@ -1,5 +1,5 @@
 [package]
-name = "web-push"
+name = "push"
 version = "0.1.0"
 authors = ["mohe2015 <mohe2015@users.noreply.github.com>"]
 edition = "2018"
