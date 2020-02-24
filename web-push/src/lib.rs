@@ -51,11 +51,7 @@ pub async fn subscribe(subscriber: SubscriptionInfo) -> Result<impl warp::Reply,
 
     println!("{:?}", result);
 
-    //return match result {
-    //    Ok(_) => Ok(StatusCode::OK),
-    //    Err(EndpointNotValid)
-    //    Err(_) => Ok(StatusCode::NotFound),
-    //}
+    
     Ok(StatusCode::OK)
 }
 

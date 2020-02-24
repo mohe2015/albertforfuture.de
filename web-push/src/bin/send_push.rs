@@ -30,6 +30,18 @@ async fn main() {
 
     let result = send_notification(&a, "Ein neuer Artikel ist online!").await;
 
+    //return match result {
+    //    Ok(_) => Ok(StatusCode::OK),
+    //    Err(EndpointNotValid)
+    //    Err(_) => Ok(StatusCode::NotFound),
+    //}
+
     println!("{:?}", result);
+
+    if let Err(web_push::WebPushError::EndpointNotValid) = result {
+      println!("Invalid endpoint, deleting!");
+
+      diesel::delete(subscribers::table.filter(subscribers::endpoint.eq(&a.endpoint))).execute(&connection).unwrap();
+    }
   }
 }
