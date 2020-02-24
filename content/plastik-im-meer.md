@@ -7,7 +7,7 @@ categories: ["Plastik"]
 tags: ["Meer"]
 ---
 
-**Aktuell**
+Aktuell
 -----------
 
 Pro Jahr landen rund 10 Millionen Tonnen Plastikmüll im Meer. Das Meer
@@ -17,7 +17,7 @@ auf jedem Quadratkilometer Meeresoberfläche bis zu 18.000 Plastikteile
 unterschiedlichster Größe. Allerdings befinden sich 90% des Plastikmülls
 am Meeresboden.
 
-**Deutschland**
+Deutschland
 ---------------
 
 Deutschland ist seit Jahren Rekordhalter in der Produktion von
@@ -27,14 +27,14 @@ Plastiktütenkonsum liegt bei 4.500 Stück pro Minute und die Politik
 trägt mit ihrem Klimapäckchen auch nicht groß dazu bei, um das zu
 reduzieren.
 
-**EU**
+EU
 ------
 
 EU-weit landen bis zu 500.000 Tonnen Plastikmüll in den Ozeanen. Die
 EU-Kommission möchte daher mit einem Verbot für bestimmte Einwegprodukte
 gegen die Plastikflut vorgehen.
 
-**Herkunft**
+Herkunft
 ------------
 
 Diese Unsummen an Plastik kommen meist von Schifffahrten und
@@ -43,7 +43,7 @@ durch Wind über Bäche und Flüsse ins Meer gespült wird. Oft wird der
 Plastikmüll aber auch einfach ins Meer gekippt, anstatt recycelt zu
 werden.
 
-**Folgen**
+Folgen
 ----------
 
 Wenn wir so weitermachen wie bisher, wird 2050 mehr Plastik im Meer
@@ -56,7 +56,7 @@ die Klimakrise, die auch uns schadet. Außerdem nehmen z.B. Fische
 kleinste Plastikteilchen beim Essen auf, die somit auch auf unserem
 Teller landen.
 
-**Was kannst du tun?**
+Was kannst du tun?
 ----------------------
 
 -   Stoff statt Plastiktüten
@@ -70,7 +70,7 @@ Teller landen.
     gibt oft Obst und Gemüse unverpackt und regional beim Markt oder
     Unverpackt-Laden.
 
-**Quellen**
+Quellen
 -----------
 
 https://www.instagram.com/p/B5p4LQbilyi
