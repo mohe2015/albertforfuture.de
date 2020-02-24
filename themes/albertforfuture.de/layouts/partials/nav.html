@@ -3,7 +3,7 @@
     {{ $logo_svg := resources.Get "logo.svg" | minify }}
     <a class="navbar-brand pl-2" href="{{ .Site.BaseURL }}"><img src="{{ $logo_svg.Permalink }}" alt="Albert for Future Logo" class="logo"></a>
   
-    <ul class="navbar-nav mr-auto d-inline">
+    <ul class="navbar-nav mr-auto d-inline-block">
       <li class="nav-item d-inline px-1">
         <a href="{{ .Site.BaseURL }}" class="nav-link d-inline {{if .IsHome }} active{{end}}" title="Startseite">Startseite</a>
       </li>
