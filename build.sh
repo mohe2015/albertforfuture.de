@@ -1,5 +1,10 @@
 #!/bin/sh
 
+echo npm install
+echo cargo install diesel_cli
+echo diesel setup
+echo diesel migration run
+
 set -ex
 git pull
 BASE_URL=https://rc.albertforfuture.de/ npm run build
