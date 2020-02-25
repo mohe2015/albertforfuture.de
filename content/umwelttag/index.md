@@ -6,13 +6,14 @@ type: article
 categories: ["Umwelttag"]
 tags: []
 ---
-# 1. Konzept des Tages:
+## 1. Konzept des Tages:
 
 Der wesentliche Grundgedanke dabei ist, dass die Schüler\*innen ein
 nachhaltiges Bewusstsein für ihre Umwelt entwickeln, d.h. dass dieser
 Umwelttag der bewusste und gemeinsame Start für kontinuierliches Lernen
 in den zusammengehörigen Themenkomplex **Umwelt-Natur-Soziales**
 darstellen soll.
+<!--more-->
 
  - Der Umwelttag findet am 30.04.2020 von der 1.-6. Stunde statt. Der
 Unterricht am Nachmittag erfolgt planmäßig.
@@ -47,7 +48,7 @@ individuelle Infos selbst: Thema, Kosten, Ort usw.
 
  - bei Fragen: Hess, Brand
 
-# 2. Ideensammlung
+## 2. Ideensammlung
 
 Wie versprochen, geben wir Euch gern einige Ideen mit. Diese sind nicht
 verbindlich, dienen als kreative Impulse, können auch teilweise
@@ -124,14 +125,18 @@ Schülern stammen und deshalb besonderes Gewicht haben:**
 
 - Globalisierung/Kolonialismus -\> Film unter Links
 
-# Links
+## Links
 
 http://naturschutzscheune.de/
+
 https://www.geo-naturpark.net/
+
 https://wir-tun-was-fuer-bienen.de/home.html
+
 https://www.youtube.com/watch?v=nJg0ElUCWTQ
+
 https://funkkolleg-ernaehrung.de/
 
-# Abrechnungsformular
+## Abrechnungsformular
 
 Sie können das [Abrechnungsformular](Abrechnungsformular.pdf) einfach herunterladen.
