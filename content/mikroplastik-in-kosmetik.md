@@ -13,7 +13,7 @@ unbekannt. Doch je mehr ich recherchierte, desto mehr schockierte es
 mich. Mit diesem Artikel versuche ich euch nicht nur aufzuklären,
 sondern auch Tipps zu geben, um Mikroplastik von nun an zu vermeiden
 oder zumindest zu reduzieren.
-
+<!--more-->
 Was ist Mikroplastik?
 ---------------------
 

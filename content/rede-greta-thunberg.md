@@ -8,7 +8,7 @@ tags: ["Greta Thunberg"]
 ---
 Hier die Rede von Greta Thunberg beim UN-Klimagipfel im Wortlaut:
 (23.09.2019)
-
+<!--more-->
 „Meine Botschaft ist, dass wir Euch beobachten! Das hier ist alles
 falsch, ich sollte hier nicht sein, ich sollte zurück in der Schule sein
 auf der anderen Seite des Ozeans - aber Ihr kommt immer noch zu uns

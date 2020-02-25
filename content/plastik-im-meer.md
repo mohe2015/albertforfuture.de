@@ -16,7 +16,7 @@ Umweltprogramm der Vereinten Nationen (UNEP) befinden sich inzwischen
 auf jedem Quadratkilometer Meeresoberfläche bis zu 18.000 Plastikteile
 unterschiedlichster Größe. Allerdings befinden sich 90% des Plastikmülls
 am Meeresboden.
-
+<!--more-->
 Deutschland
 ---------------
 

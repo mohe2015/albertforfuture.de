@@ -25,8 +25,8 @@ async fn main() {
 
     warp::serve(paths)
         .tls()
-        .cert_path("../../localhost.pem")
-        .key_path("../../localhost-key.pem")
+        .cert_path("/etc/letsencrypt/live/rc.albertforfuture.de/fullchain.pem")
+        .key_path("/etc/letsencrypt/live/rc.albertforfuture.de/privkey.pem")
         .run(([127, 0, 0, 1], 3030))
         .await;
 }
