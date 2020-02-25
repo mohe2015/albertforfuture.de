@@ -245,14 +245,26 @@ function downloadAllArticles() {
           
           
             
-              "/albertforfuture.de/tags/bohemian-browser-ballett/",
+              "/albertforfuture.de/categories/",
             
           
         
           
           
             
-              "/albertforfuture.de/categories/",
+              "/albertforfuture.de/categories/umwelttag/",
+            
+          
+        
+          
+          
+            "/albertforfuture.de/umwelttag/",
+          
+        
+          
+          
+            
+              "/albertforfuture.de/tags/bohemian-browser-ballett/",
             
           
         
