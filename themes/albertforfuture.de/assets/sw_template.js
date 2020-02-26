@@ -16,7 +16,7 @@ self.addEventListener('install', (event) => {
         {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | minify -}}
         '{{- $manifest.RelPermalink -}}',
 
-        '{{ .Site.BaseURL }}/offline/',
+        '{{ .Site.BaseURL }}offline/',
       ]);
     })
   );
