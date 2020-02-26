@@ -61,10 +61,14 @@ async function initializeUI() {
 
   pushButton.addEventListener('click', async () => {
     pushButton.disabled = true;
-    if (isSubscribed) {
-      await unsubscribeUser();
-    } else {
-      await subscribeUser();
+    try {
+      if (isSubscribed) {
+        await unsubscribeUser();
+      } else {
+        await subscribeUser();
+      }
+    } catch (error) {
+      console.log(error)
     }
     updateUI();
   });
@@ -121,12 +125,12 @@ function updateUI() {
 }
 
 async function downloadAllArticles() {
-  if (localStorage.getItem('offline') === 'v12') {
+  if (localStorage.getItem('offline') === 'v13') {
     console.log("articles already downloaded");
     return;
   }
   await sleep(10000)
-  let cache = await window.caches.open('v12')
+  let cache = await window.caches.open('v13')
   
   try {
     await Promise.all([
@@ -140,7 +144,7 @@ async function downloadAllArticles() {
       }
     }))
 
-    localStorage.setItem('offline', 'v12');
+    localStorage.setItem('offline', 'v13');
     document.getElementById('toast-offline').classList.remove('d-none');
     new Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
     document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
