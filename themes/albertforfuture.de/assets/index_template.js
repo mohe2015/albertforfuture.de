@@ -127,31 +127,43 @@ async function downloadAllArticles() {
   }
   await sleep(10000)
   let cache = await window.caches.open('{{ .context.Site.Params.offlineVersion }}')
-    
-  await cache.addAll([
-    /* this is really buggy - if this is executed before index.html template it will override the paginator as it is lazily generated */
-    {{- range .context.Site.Pages -}}
-      {{ if .IsHome }}
-      /* this is a REALLY UGLY HACK */
-      {{ $paginator := .Paginate (where .Pages "Type" "article") }}
-      {{ end }}
-      {{ $page := . }}
-      {{ if .Paginator }}
-        {{ range .Paginator.Pagers }}
-          "{{- .URL -}}",
-        {{ end }}
-      {{ else }}
-        "{{- .RelPermalink -}}",
-      {{ end }}
-    {{ end }}
-  ])
+  
+  try {
+    await Promise.all([
+      /* this is really buggy - if this is executed before index.html template it will override the paginator as it is lazily generated */
+      {{- range .context.Site.Pages -}}
+        {{- if .IsHome -}}
+        /* this is a REALLY UGLY HACK */
+        {{- $paginator := .Paginate (where .Pages "Type" "article") -}}
+        {{- end -}}
+        {{- $page := . -}}
+        {{- if .Paginator -}}
+          {{- range .Paginator.Pagers -}}
+            "{{- .URL -}}",
+          {{- end -}}
+        {{- else -}}
+          "{{- .RelPermalink -}}",
+        {{- end -}}
+      {{- end -}}
+    ].map(async url => {
+      let response = await fetch(url)
+      let responseText = await text(response.clone())
+      if (new URL(response.url).pathname !== url) {
+        throw new Error("offline")
+      } else {
+        await cache.put(url, response)
+      }
+    }))
 
-  localStorage.setItem('offline', '{{ .context.Site.Params.offlineVersion }}');
-  document.getElementById('toast-offline').classList.remove('d-none');
-  new Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
-  document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
-    document.getElementById('toast-offline').remove();
-  })
+    localStorage.setItem('offline', '{{ .context.Site.Params.offlineVersion }}');
+    document.getElementById('toast-offline').classList.remove('d-none');
+    new Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
+    document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
+      document.getElementById('toast-offline').remove();
+    })
+  } catch (error) {
+    console.log('failed to download articles', error)
+  }
 }
 
 async function main() {
