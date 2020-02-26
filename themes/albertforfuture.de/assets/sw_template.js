@@ -134,6 +134,7 @@ self.addEventListener('push', async event => {
   const options = {
     body: body.text,
     icon: '{{ .Site.BaseURL }}logo.png',
+    badge: '{{ .Site.BaseURL }}logo.png',
     lang: 'de-DE',
     // badge, actions
     data: body
