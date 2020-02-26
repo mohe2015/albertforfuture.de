@@ -121,217 +121,34 @@ function updateUI() {
 }
 
 async function downloadAllArticles() {
-  if (localStorage.getItem('offline') === 'v11') {
+  if (localStorage.getItem('offline') === 'v12') {
     console.log("articles already downloaded");
     return;
   }
   await sleep(10000)
-  let cache = await window.caches.open('v11')
-    
-  await cache.addAll([
-    /* this is really buggy - if this is executed before index.html template it will override the paginator as it is lazily generated */
-      /* this is a REALLY UGLY HACK */
-      
-      
-      
-      
-        
-          "/albertforfuture.de/",
-        
-      
-    
-      
-      
-        
-          "/albertforfuture.de/categories/",
-        
-      
-    
-      
-      
-        
-          "/albertforfuture.de/categories/umwelttag/",
-        
-      
-    
-      
-      
-        "/albertforfuture.de/umwelttag/",
-      
-    
-      
-      
-        
-          "/albertforfuture.de/tags/bohemian-browser-ballett/",
-        
-      
-    
-      
-      
-        "/albertforfuture.de/kohlrabi/",
-      
-    
-      
-      
-        "/albertforfuture.de/ecosia/",
-      
-    
-      
-      
-        
-          "/albertforfuture.de/categories/empfehlungen/",
-        
-      
-    
-      
-      
-        
-          "/albertforfuture.de/tags/greta-thunberg/",
-        
-      
-    
-      
-      
-        "/albertforfuture.de/rede-greta-thunberg/",
-      
-    
-      
-      
-        
-          "/albertforfuture.de/tags/kosmetik/",
-        
-      
-    
-      
-      
-        
-          "/albertforfuture.de/categories/lebensmittelverschwendung/",
-        
-      
-    
-      
-      
-        
-          "/albertforfuture.de/tags/meer/",
-        
-      
-    
-      
-      
-        "/albertforfuture.de/protokoll/2019-11-19/",
-      
-    
-      
-      
-        "/albertforfuture.de/protokoll/2019-10-24/",
-      
-    
-      
-      
-        
-          "/albertforfuture.de/categories/mensa-talk/",
-        
-      
-    
-      
-      
-        "/albertforfuture.de/mikroplastik-in-kosmetik/",
-      
-    
-      
-      
-        
-          "/albertforfuture.de/categories/plastik/",
-        
-      
-    
-      
-      
-        
-          "/albertforfuture.de/categories/politik/",
-        
-      
-    
-      
-      
-        
-          "/albertforfuture.de/protokoll/",
-        
-      
-    
-      
-      
-        
-          "/albertforfuture.de/categories/protokoll/",
-        
-      
-    
-      
-      
-        "/albertforfuture.de/protokoll/2019-12-03/",
-      
-    
-      
-      
-        
-          "/albertforfuture.de/tags/satire/",
-        
-      
-    
-      
-      
-        
-          "/albertforfuture.de/tags/suchmaschine/",
-        
-      
-    
-      
-      
-        
-          "/albertforfuture.de/tags/",
-        
-      
-    
-      
-      
-        "/albertforfuture.de/plastik-im-meer/",
-      
-    
-      
-      
-        
-          "/albertforfuture.de/categories/aktuelles/",
-        
-      
-    
-      
-      
-        "/albertforfuture.de/datenschutzerklaerung/",
-      
-    
-      
-      
-        "/albertforfuture.de/offline/",
-      
-    
-      
-      
-        "/albertforfuture.de/impressum/",
-      
-    
-      
-      
-        "/albertforfuture.de/infos/",
-      
-    
-  ])
+  let cache = await window.caches.open('v12')
+  
+  try {
+    await Promise.all([
+      /* this is really buggy - if this is executed before index.html template it will override the paginator as it is lazily generated *//* this is a REALLY UGLY HACK */"/albertforfuture.de/","/albertforfuture.de/categories/","/albertforfuture.de/categories/umwelttag/","/albertforfuture.de/umwelttag/","/albertforfuture.de/tags/bohemian-browser-ballett/","/albertforfuture.de/kohlrabi/","/albertforfuture.de/ecosia/","/albertforfuture.de/categories/empfehlungen/","/albertforfuture.de/tags/greta-thunberg/","/albertforfuture.de/rede-greta-thunberg/","/albertforfuture.de/tags/kosmetik/","/albertforfuture.de/categories/lebensmittelverschwendung/","/albertforfuture.de/tags/meer/","/albertforfuture.de/protokoll/2019-11-19/","/albertforfuture.de/protokoll/2019-10-24/","/albertforfuture.de/categories/mensa-talk/","/albertforfuture.de/mikroplastik-in-kosmetik/","/albertforfuture.de/categories/plastik/","/albertforfuture.de/categories/politik/","/albertforfuture.de/protokoll/","/albertforfuture.de/categories/protokoll/","/albertforfuture.de/protokoll/2019-12-03/","/albertforfuture.de/tags/satire/","/albertforfuture.de/tags/suchmaschine/","/albertforfuture.de/tags/","/albertforfuture.de/plastik-im-meer/","/albertforfuture.de/categories/aktuelles/","/albertforfuture.de/datenschutzerklaerung/","/albertforfuture.de/offline/","/albertforfuture.de/impressum/","/albertforfuture.de/infos/",].map(async url => {
+      let response = await fetch(url)
+      let responseText = await text(response.clone())
+      if (new URL(response.url).pathname !== url) {
+        throw new Error("offline")
+      } else {
+        await cache.put(url, response)
+      }
+    }))
 
-  localStorage.setItem('offline', 'v11');
-  document.getElementById('toast-offline').classList.remove('d-none');
-  new Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
-  document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
-    document.getElementById('toast-offline').remove();
-  })
+    localStorage.setItem('offline', 'v12');
+    document.getElementById('toast-offline').classList.remove('d-none');
+    new Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
+    document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
+      document.getElementById('toast-offline').remove();
+    })
+  } catch (error) {
+    console.log('failed to download articles', error)
+  }
 }
 
 async function main() {
