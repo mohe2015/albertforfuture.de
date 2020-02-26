@@ -61,10 +61,14 @@ async function initializeUI() {
 
   pushButton.addEventListener('click', async () => {
     pushButton.disabled = true;
-    if (isSubscribed) {
-      await unsubscribeUser();
-    } else {
-      await subscribeUser();
+    try {
+      if (isSubscribed) {
+        await unsubscribeUser();
+      } else {
+        await subscribeUser();
+      }
+    } catch (error) {
+      console.log(error)
     }
     updateUI();
   });

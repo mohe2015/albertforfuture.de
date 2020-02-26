@@ -10,8 +10,14 @@ use push::schema::subscribers;
 use push::establish_connection;
 use push::send_notification;
 
+use std::env;
+
 #[tokio::main]
 async fn main() {
+  let args: Vec<String> = env::args().collect();
+
+  // r#"{"text": "Ein neuer Artikel ist online!", "url": "/"}"#
+
   let connection = establish_connection();
 
   let results = subscribers::table
@@ -28,7 +34,7 @@ async fn main() {
       }
     };
 
-    let result = send_notification(&a, r#"{"text": "Ein neuer Artikel ist online!", "url": "/"}"#).await;
+    let result = send_notification(&a, &args[1]).await;
 
     //return match result {
     //    Ok(_) => Ok(StatusCode::OK),

@@ -71,19 +71,18 @@ async function notificationclick(event) {
     return c.visibilityState === 'visible';
   });
   if (client !== undefined) {
-    client.navigate(data.url);
+    client.navigate(event.notification.data.url);
     client.focus();
   } else {
     // there are no visible windows. Open one.
-    clients.openWindow(data.url);
-    notification.close();
+    clients.openWindow(event.notification.data.url);
+    event.notification.close();
   }
 }
 
 self.addEventListener('notificationclick', async event => {
   const notification = event.notification;
   console.log('notificationclick', event.notification)
-  const data = notification.data;
   const action = event.action;
 
   if (action === 'close') {
@@ -92,18 +91,24 @@ self.addEventListener('notificationclick', async event => {
     event.waitUntil(notificationclick(event));
   }
 
-  let notifications = self.registration.getNotifications()
+  let notifications = await self.registration.getNotifications()
   notifications.forEach(notification => {
     notification.close();
   });
 });
 
-async function push(event) {
-  let c = clients.matchAll()
-  console.log(c);
+async function push(event, options) {
+  try {
+    let response = await fetch(options.data.url)
+    console.log('push prefetched data: ', response)
+  } catch (error) {
+    console.log('we couldnt prefetch the article but still have to show a notification :(')
+  }
+  //let c = await clients.matchAll()
+  //console.log(c);
   //if (c.length === 0) {
     // Show notification
-    self.registration.showNotification('albertforfuture.de', options);
+  await self.registration.showNotification('albertforfuture.de', options);
   //} else {
     // Send a message to the page to update the UI
   //  console.log('Application is already open!');
@@ -130,5 +135,5 @@ self.addEventListener('push', async event => {
     // badge, actions
     data: body
   };
-  event.waitUntil(push(event));
+  event.waitUntil(push(event, options));
 });
