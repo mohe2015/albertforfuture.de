@@ -3,6 +3,7 @@ async function install() {
   return await cache.addAll([
     '{{ (resources.Get "custom.scss" | toCSS | minify).RelPermalink }}',
     '{{ (resources.Get "logo.svg" | minify).RelPermalink }}',
+    '{{ .Site.BaseURL }}logo.png', /*we need this shit only because chrome doesn't support svgs in notifications: https://bugs.chromium.org/p/chromium/issues/detail?id=478654 */
     '{{ .Site.BaseURL }}bundle.js',
     '{{ .Site.BaseURL }}sw.min.js',
     {{- $manifestTemplate := resources.Get "manifest_template.json" -}}
@@ -37,7 +38,9 @@ self.addEventListener('activate', event => {
 async function fetchOnline(event) {
   let response = await fetch(event.request)  
   let cache = await caches.open('{{ .Site.Params.offlineVersion }}')
-  await cache.put(event.request, response.clone())
+  if (event.request.method !== 'POST') {
+    await cache.put(event.request, response.clone())
+  }
   return response
 }
 
@@ -130,7 +133,7 @@ self.addEventListener('push', async event => {
 
   const options = {
     body: body.text,
-    icon: '{{ .Site.BaseURL }}logo.min.svg',
+    icon: '{{ .Site.BaseURL }}logo.png',
     lang: 'de-DE',
     // badge, actions
     data: body
