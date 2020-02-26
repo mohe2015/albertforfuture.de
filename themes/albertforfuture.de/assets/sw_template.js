@@ -1,60 +1,59 @@
-self.addEventListener('install', (event) => {
+async function install() {
+  let cache = await caches.open('{{ .Site.Params.offlineVersion }}')
+  return await cache.addAll([
+    '{{ (resources.Get "custom.scss" | toCSS | minify).RelPermalink }}',
+    '{{ (resources.Get "logo.svg" | minify).RelPermalink }}',
+    '{{ .Site.BaseURL }}bundle.js',
+    '{{ .Site.BaseURL }}sw.min.js',
+    {{- $manifestTemplate := resources.Get "manifest_template.json" -}}
+    {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | minify -}}
+    '{{- $manifest.RelPermalink -}}',
+    '{{ .Site.BaseURL }}offline/'
+  ])
+}
+
+self.addEventListener('install', async (event) => {
   console.log('install');
   self.skipWaiting();
-  event.waitUntil(
-    caches.open('{{ .Site.Params.offlineVersion }}').then((cache) => {
-      return cache.addAll([
-        '{{ (resources.Get "custom.scss" | toCSS | minify).RelPermalink }}',
-        '{{ (resources.Get "logo.svg" | minify).RelPermalink }}',
-        
-        
-        '{{ .Site.BaseURL }}bundle.js',
-
-        '{{ .Site.BaseURL }}sw.min.js',
-
-        {{- $manifestTemplate := resources.Get "manifest_template.json" -}}
-        {{- $manifest := $manifestTemplate | resources.ExecuteAsTemplate "manifest.json" . | minify -}}
-        '{{- $manifest.RelPermalink -}}',
-
-        '{{ .Site.BaseURL }}offline/',
-      ]);
-    })
-  );
+  event.waitUntil(install());
 });
+
+async function activate() {
+  let cacheNames = await caches.keys()
+    
+  await Promise.all(cacheNames.filter(cacheName => {
+    return cacheName !== '{{ .Site.Params.offlineVersion }}'
+  }).map(async cacheName => {
+    return await caches.delete(cacheName);
+  }))
+}
 
 self.addEventListener('activate', event => {
   console.log('activate_');
   self.clients.claim();
-  event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.filter(function(cacheName) {
-          return cacheName !== '{{ .Site.Params.offlineVersion }}';
-        }).map(function(cacheName) {
-          return caches.delete(cacheName);
-        })
-      );
-    })
-  );
+  event.waitUntil(activate());
 });
 
-// TODO custom 404 page
-self.addEventListener('fetch', (event) => {
+async function fetchOnline(event) {
+  let response = await fetch(event.request)  
+  let cache = await caches.open('{{ .Site.Params.offlineVersion }}')
+  await cache.put(event.request, response.clone())
+  return response
+}
+
+async function onfetch(event) {
   var pathname = new URL(event.request.url).pathname;
-  event.respondWith(
-    caches.match(event.request).then(cacheResponse => {
-      return cacheResponse || fetch(event.request).then(response => {
-        return caches.open('{{ .Site.Params.offlineVersion }}').then(cache => {
-          cache.put(event.request, response.clone());
-          return response;
-        });
-      }).catch(error => {
-        return caches.match('/offline/').then(function(response) {
-          return response;
-        });
-      });
-    })
-  )
+  try {
+    return await caches.match(event.request) || await fetchOnline(event)
+  } catch (error) {
+    console.log(error)
+    return await caches.match('/offline/')
+  }
+}
+
+// TODO custom 404 page
+self.addEventListener('fetch', event => {
+  event.respondWith(onfetch(event))
 });
 
 // https://codelabs.developers.google.com/codelabs/pwa-integrating-push/index.html?index=..%2F..dev-pwa-training#0
@@ -64,7 +63,24 @@ self.addEventListener('notificationclose', event => {
   console.log('notificationclose', event.notification)
 });
 
-self.addEventListener('notificationclick', event => {
+async function notificationclick(event) {
+  let clis = await clients.matchAll()
+      
+  console.log('clients', clis)
+  const client = clis.find(c => {
+    return c.visibilityState === 'visible';
+  });
+  if (client !== undefined) {
+    client.navigate(data.url);
+    client.focus();
+  } else {
+    // there are no visible windows. Open one.
+    clients.openWindow(data.url);
+    notification.close();
+  }
+}
+
+self.addEventListener('notificationclick', async event => {
   const notification = event.notification;
   console.log('notificationclick', event.notification)
   const data = notification.data;
@@ -73,32 +89,28 @@ self.addEventListener('notificationclick', event => {
   if (action === 'close') {
     notification.close();
   } else {
-    event.waitUntil(
-      clients.matchAll().then(clis => {
-        console.log('clients', clis)
-        const client = clis.find(c => {
-          return c.visibilityState === 'visible';
-        });
-        if (client !== undefined) {
-          client.navigate(data.url);
-          client.focus();
-        } else {
-          // there are no visible windows. Open one.
-          clients.openWindow(data.url);
-          notification.close();
-        }
-      })
-    );
+    event.waitUntil(notificationclick(event));
   }
 
-  self.registration.getNotifications().then(notifications => {
-    notifications.forEach(notification => {
-      notification.close();
-    });
+  let notifications = self.registration.getNotifications()
+  notifications.forEach(notification => {
+    notification.close();
   });
 });
 
-self.addEventListener('push', event => {
+async function push(event) {
+  let c = clients.matchAll()
+  console.log(c);
+  //if (c.length === 0) {
+    // Show notification
+    self.registration.showNotification('albertforfuture.de', options);
+  //} else {
+    // Send a message to the page to update the UI
+  //  console.log('Application is already open!');
+  //}
+}
+
+self.addEventListener('push', async event => {
   let body;
 
   if (event.data) {
@@ -118,16 +130,5 @@ self.addEventListener('push', event => {
     // badge, actions
     data: body
   };
-  event.waitUntil(
-    clients.matchAll().then(c => {
-      console.log(c);
-      //if (c.length === 0) {
-        // Show notification
-        self.registration.showNotification('albertforfuture.de', options);
-      //} else {
-        // Send a message to the page to update the UI
-      //  console.log('Application is already open!');
-      //}
-    })
-  );
+  event.waitUntil(push(event));
 });
