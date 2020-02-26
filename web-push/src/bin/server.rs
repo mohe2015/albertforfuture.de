@@ -4,7 +4,6 @@ extern crate dotenv;
 use warp::Filter;
 
 use push::subscribe;
-use push::unsubscribe;
 
 #[tokio::main]
 async fn main() {
@@ -15,15 +14,7 @@ async fn main() {
         .and(warp::body::json())
         .and_then(subscribe);
 
-    let unsubscribe_path = warp::path!("api" / "v1" / "remove_push")
-        .and(warp::post())
-        .and(warp::body::content_length_limit(1024 * 16))
-        .and(warp::body::json())
-        .and_then(unsubscribe);
-
-    let paths = subscribe_path.or(unsubscribe_path);
-
-    warp::serve(paths)
+    warp::serve(subscribe_path)
         .tls()
         .cert_path("../../localhost.pem")
         .key_path("../../localhost-key.pem")
