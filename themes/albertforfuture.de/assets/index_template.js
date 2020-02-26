@@ -20,20 +20,20 @@ function initializeUI() {
       subscribeUser();
     }
   });
+  
 
   // Set the initial subscription value
   swRegistration.pushManager.getSubscription()
   .then(subscription => {
     isSubscribed = (subscription !== null);
+    storedIsSubscribed = window.localStorage.getItem('isSubscribedOnServer') !== null;
 
-    if (isSubscribed) {
-      // TODO this isn't really needed as long as subscribing is reliable
-      // although if the database fails this may recover it if the user opens the site again
-      // on the other hand it would save some data if this isn't done for every request.
-      updateSubscriptionOnServer(subscription);
-      console.log('User IS subscribed.');
-    } else {
-      console.log('User is NOT subscribed.');
+    // isSubscribed and storedIsSubscribed is fine
+    if (isSubscribed && !storedIsSubscribed) {
+      unsubscribeUser();
+    } else if (!isSubscribed && storedIsSubscribed) {
+      window.localStorage.setItem('isSubscribedOnServer', "1")
+      console.log("FAIL, set as unsubscribed on server")
     }
 
     updateBtn();
@@ -49,17 +49,12 @@ function subscribeUser() {
   .then(subscription => {
     console.log('User is subscribed:', subscription);
 
-    // TODO local storage should store whether this was successful as otherwise the user sees himself as subscribed
-    // but he actually isn't
     updateSubscriptionOnServer(subscription);
 
-    isSubscribed = true;
-
-    updateBtn();
   })
   .catch(err => {
     if (Notification.permission === 'denied') {
-      console.warn('Permission for notifications was denied');
+      alert('Permission for notifications was denied');
     } else {
       console.error('Failed to subscribe the user: ', err);
     }
@@ -75,25 +70,17 @@ function unsubscribeUser() {
     }
   })
   .catch(err => {
-    console.log('Error unsubscribing', err);
+    alert('Error unsubscribing', err);
   })
   .then(() => {
-    // TODO this is most likely useless as the server will probably get an error response from the push server if the user unsubscribed
-    //updateSubscriptionOnServer(null);
-    // also it doesnt know whom to unsubscribe
-
-    console.log('User is unsubscribed');
     isSubscribed = false;
+    window.localStorage.removeItem('isSubscribedOnServer')
 
     updateBtn();
   });
 }
 
 function updateSubscriptionOnServer(subscription) {
-  // Here's where you would send the subscription to the application server
-  // TODO only send subscription once?
-
-  if (subscription) {
     fetch("/api/v1/add_push", {
       method: 'POST',
       mode: "same-origin",
@@ -104,38 +91,21 @@ function updateSubscriptionOnServer(subscription) {
     })
     .then(status)
     .then(response => {
-      console.log("Updated!");
+      isSubscribed = true;
+      window.localStorage.setItem('isSubscribedOnServer', "1");
+      updateBtn();
     }).catch(error => {
+      isSubscribed = false;
+      window.localStorage.removeItem('isSubscribedOnServer');
+      updateBtn();
       alert("Fehler beim Aktivieren der Push-Benachrichtigungen: " + error);
     })
-  } else {
-    fetch("/api/v1/remove_push", {
-      method: 'POST',
-      mode: "same-origin",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(subscription)
-    }).then(response => {
-      console.log("Updated!");
-    }).catch(error => {
-      if (subscription) {
-        alert("Fehler beim Aktivieren der Push-Benachrichtigungen: " + error);
-      }
-    })
-  }
-
-  
 }
 
 function updateBtn() {
   if (Notification.permission === 'denied') {
     pushButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 18.69L7.84 6.14 5.27 3.49 4 4.76l2.8 2.8v.01c-.52.99-.8 2.16-.8 3.42v5l-2 2v1h13.73l2 2L21 19.72l-1-1.03zM12 22c1.11 0 2-.89 2-2h-4c0 1.11.89 2 2 2zm6-7.32V11c0-3.08-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68c-.15.03-.29.08-.42.12-.1.03-.2.07-.3.11h-.01c-.01 0-.01 0-.02.01-.23.09-.46.2-.68.31 0 0-.01 0-.01.01L18 14.68z"/></svg>';
     pushButton.disabled = true;
-
-    // TODO this is most likely useless as the server will probably get an error response from the push server if the user unsubscribed
-    // also it doesnt know whom to unsubscribe
-    // updateSubscriptionOnServer(null);
     return;
   }
 
@@ -163,13 +133,6 @@ function urlB64ToUint8Array(base64String) {
   return outputArray;
 }
 
-
-
-
-
-
-
-
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     console.log('Service Worker and Push is supported');
@@ -184,7 +147,6 @@ if ('serviceWorker' in navigator) {
         initializeUI();
       } else {
         console.warn('Push messaging is not supported');
-        pushButton.textContent = 'Push Not Supported';
       }
 
       if (swRegistration.active && swRegistration.active.state === 'activated') {
@@ -208,7 +170,6 @@ if ('serviceWorker' in navigator) {
   });
 } else {
   console.warn('Service worker is not supported');
-  pushButton.textContent = 'Push Not Supported';
 }
 
 function status(response) {
