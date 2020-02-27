@@ -51,8 +51,7 @@ Falls Ihr hiervon etwas wählen wollt, tragt Euch am Besten ein, damit
 die Koordination leichter wird und die Themen ggf. etwas verteilt werden
 können. Ein eigenes Thema könnt Ihr einfach drunter schreiben.
 
-### 2.1. Gestaltungsideen, die ausschließlich von Schülerinnen und
-Schülern stammen und deshalb besonderes Gewicht haben:
+### 2.1. Gestaltungsideen, die ausschließlich von Schülerinnen und Schülern stammen und deshalb besonderes Gewicht haben:
 
 -   Pflege Atrium B-Gebäude
 -   Nisthilfen, Vogelhäuschen, Insektenhotels bauen, die anschließend
