@@ -79,7 +79,7 @@ Schülern stammen und deshalb besonderes Gewicht haben:
 -   Lernwerkstatt Geschichte: Umgang mit der Natur in der Vergangenheit
     und die heutigen Auswirkungen
 -   Talkrunden, Rollenspiele
--   Kunst, DS, Musik, Deutsch -\> z.B. texten und komponieren von
+-   Kunst, DS, Musik, Deutsch → z.B. texten und komponieren von
     Liedern
 -   Repaircafé
 -   Wiederaufnahme von Projekten aus der Projektwoche: Vogelbeobachtung,
@@ -88,7 +88,7 @@ Schülern stammen und deshalb besonderes Gewicht haben:
 -   Lernwerkstatt: nachhaltiges Reisen
 -   HR 2 Funkkolleg: Ernährung. Genuss, Gesundheit, Geschäft → Infos
     unter Links
--   Globalisierung/Kolonialismus -\> Film unter Links
+-   Globalisierung/Kolonialismus → Film unter Links
 -   Schulhofgestaltung: Spielort und Biodiversität (siehe Artikel)
 
 ## Links
