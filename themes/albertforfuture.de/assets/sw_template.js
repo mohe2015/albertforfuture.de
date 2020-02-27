@@ -2,8 +2,9 @@ async function install() {
   let cache = await caches.open('{{ .Site.Params.offlineVersion }}')
   return await cache.addAll([
     '{{ (resources.Get "custom.scss" | toCSS | minify).RelPermalink }}',
-    '{{ (resources.Get "logo.svg" | minify).RelPermalink }}',
-    '{{ .Site.BaseURL }}logo.png', /*we need this shit only because chrome doesn't support svgs in notifications: https://bugs.chromium.org/p/chromium/issues/detail?id=478654 */
+    '{{ (resources.Get "logo.svg" | minify).RelPermalink }}', /* TODO maybe? replace this although then quality is way lower */
+    '{{ (resources.Get "logo.png").Permalink }}', /*we need this shit only because chrome doesn't support svgs in notifications: https://bugs.chromium.org/p/chromium/issues/detail?id=478654 */
+    '{{ (resources.Get "logo_monochrome.png").Permalink }}', /*we need this shit only because chrome doesn't support svgs in notifications: https://bugs.chromium.org/p/chromium/issues/detail?id=478654 */
     '{{ .Site.BaseURL }}bundle.js',
     '{{ .Site.BaseURL }}sw.min.js',
     {{- $manifestTemplate := resources.Get "manifest_template.json" -}}
@@ -134,7 +135,7 @@ self.addEventListener('push', async event => {
   const options = {
     body: body.text,
     icon: '{{ .Site.BaseURL }}logo.png',
-    badge: '{{ .Site.BaseURL }}logo.png',
+    badge: '{{ .Site.BaseURL }}logo_monochrome.png',
     lang: 'de-DE',
     // badge, actions
     data: body
