@@ -7,7 +7,7 @@ categories: ["Umwelttag"]
 tags: []
 ---
 ## 1\. Konzept des Tages:
-A
+
 Der wesentliche Grundgedanke dabei ist, dass die Schüler\*innen ein
 nachhaltiges Bewusstsein für ihre Umwelt entwickeln, d.h. dass dieser
 Umwelttag der bewusste und gemeinsame Start für kontinuierliches Lernen
