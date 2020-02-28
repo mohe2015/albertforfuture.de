@@ -1,5 +1,6 @@
 web-push/target
 public
+public_fix_mtime
 *.pem
 **/_gen
 node_modules/
