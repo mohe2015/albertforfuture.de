@@ -72,6 +72,11 @@ $navbar-brand-font-size: $font-size-base * 2; // override
 $toast-color: $black; // override
 $toast-background-color: $white; // override
 
+// accessibility
+//$navbar-dark-color:                 rgba($white, .55) !default;
+//$navbar-dark-hover-color:           rgba($white, .75) !default;
+//$navbar-dark-active-color:          $white !default;
+
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins";
