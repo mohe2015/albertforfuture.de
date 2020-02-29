@@ -1,2 +1,2 @@
 # albertforfuture.de
-Future source code for website https://albertforfuture.de
+Source code for website https://albertforfuture.de
