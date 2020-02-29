@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "bootstrap": "git+https://github.com/twbs/bootstrap.git",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "web-push": "^3.4.3"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.1.1",

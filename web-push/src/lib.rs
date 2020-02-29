@@ -90,6 +90,7 @@ pub async fn send_notification(subscription: &SubscriptionInfo, payload: &str) -
     sig_builder.add_claim("sub", "mailto:Moritz.Hedtke@t-online.de");
     sig_builder.add_claim("SenderID", "249481998637");
     let signature = sig_builder.build().unwrap();
+    println!("{:?}", signature);
     builder.set_vapid_signature(signature);
     let client = WebPushClient::new();
     let built = builder.build().unwrap();
