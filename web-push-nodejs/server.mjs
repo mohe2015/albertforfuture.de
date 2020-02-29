@@ -2,7 +2,7 @@ import http from 'http'
 import { database, webpush } from './lib.mjs'
 
 async function main() {
-  let client = database()
+  let client = await database()
 
   const server = http.createServer((request, response) => {
     request.on('error', error => {
