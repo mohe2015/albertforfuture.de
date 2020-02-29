@@ -15,6 +15,10 @@ async function main() {
     console.log('missing text url key')
     return;
   }
+  if (jsonMessage.url.includes('.md')) {
+    console.log('url contains .md')
+    return;
+  }
   if (!jsonMessage.url.endsWith('/')) {
     console.log('url doesn\'t end in /')
     return;
