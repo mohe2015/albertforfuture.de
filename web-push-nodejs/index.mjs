@@ -4,8 +4,8 @@ import http from 'http';
 // VAPID keys should only be generated only once.
 const vapidKeys = webpush.generateVAPIDKeys();
 console.log(vapidKeys)
-
-//webpush.setGCMAPIKey(null);
+// https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications
+//webpush.setGCMAPIKey('AIzaSyAhOfKxIRwPy6vRRhJ6GvoK4Rqg5FZ9k48');
 webpush.setVapidDetails(
   'mailto:Moritz.Hedtke@t-online.de',
   // these seem to be right as it shows an error otherwise

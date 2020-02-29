@@ -17,9 +17,6 @@ async fn main() {
         .and_then(subscribe);
 
     warp::serve(subscribe_path)
-        .tls()
-        .cert_path("../../localhost.pem")
-        .key_path("../../localhost-key.pem")
         .run(([127, 0, 0, 1], 3030))
         .await;
 }

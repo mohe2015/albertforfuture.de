@@ -82,13 +82,11 @@ pub async fn unsubscribe(subscriber: SubscriptionInfo) -> Result<impl warp::Repl
 
 pub async fn send_notification(subscription: &SubscriptionInfo, payload: &str) -> std::result::Result<(), web_push::WebPushError> {
     let mut builder = WebPushMessageBuilder::new(&subscription).unwrap();
-    builder.set_ttl(5184000);
+    builder.set_ttl(60);
     builder.set_payload(ContentEncoding::AesGcm, payload.as_bytes());
-    builder.set_gcm_key("BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=");
     let file = File::open("./private_key.pem").unwrap();
     let mut sig_builder = VapidSignatureBuilder::from_pem(file, &subscription).unwrap();
     sig_builder.add_claim("sub", "mailto:Moritz.Hedtke@t-online.de");
-    sig_builder.add_claim("SenderID", "249481998637");
     let signature = sig_builder.build().unwrap();
     println!("{:?}", signature);
     builder.set_vapid_signature(signature);
