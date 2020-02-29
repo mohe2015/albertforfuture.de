@@ -17,6 +17,18 @@ use warp::http::StatusCode;
 
 use self::schema::subscribers;
 
+/*
+
+openssl ec -in private_key.pem -text
+echo "d2:62:cd:cd:73:d9:07:28:6b:e2:c1:da:11:38:c7:
+      be:12:11:79:73:ab:73:32:b3:bf:c7:02:2c:25:19:
+      8b:f4" | tr -d '\n: ' | xxd -r -p | base64 | tr '/+' '_-'|tr -d '\n='
+
+0mLNzXPZByhr4sHaETjHvhIReXOrczKzv8cCLCUZi_Q
+BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI
+
+*/
+
 // https://github.com/diesel-rs/diesel/tree/master/examples/sqlite/getting_started_step_3
 pub fn establish_connection() -> SqliteConnection {
     dotenv().ok();
@@ -75,7 +87,8 @@ pub async fn send_notification(subscription: &SubscriptionInfo, payload: &str) -
     builder.set_gcm_key("BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=");
     let file = File::open("./private_key.pem").unwrap();
     let mut sig_builder = VapidSignatureBuilder::from_pem(file, &subscription).unwrap();
-    sig_builder.add_claim("sub", "mailto:test@example.com");
+    sig_builder.add_claim("sub", "mailto:Moritz.Hedtke@t-online.de");
+    sig_builder.add_claim("SenderID", "249481998637");
     let signature = sig_builder.build().unwrap();
     builder.set_vapid_signature(signature);
     let client = WebPushClient::new();
