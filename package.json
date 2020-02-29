@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "bootstrap": "git+https://github.com/twbs/bootstrap.git",
+    "dotenv": "^8.2.0",
     "knex": "^0.20.10",
     "popper.js": "^1.16.1",
     "sqlite3": "^4.1.1",

@@ -1,16 +1,19 @@
 import knex from 'knex';
 import webpush from 'web-push';
+import dotenv from 'dotenv'
 
-// VAPID keys should only be generated only once.
-const vapidKeys = webpush.generateVAPIDKeys();
-//console.log(vapidKeys)
+dotenv.config()
+
+if (!process.env.PUBLIC_KEY || ! process.env.PRIVATE_KEY) {
+  const vapidKeys = webpush.generateVAPIDKeys();
+  console.log(`echo -e "PUBLIC_KEY=${vapidKeys.publicKey}\\nPRIVATE_KEY=${vapidKeys.privateKey}" >> .env`)
+  process.exit(1)
+}
 
 webpush.setVapidDetails(
   'mailto:Moritz.Hedtke@t-online.de',
-  'BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI',
-  '0mLNzXPZByhr4sHaETjHvhIReXOrczKzv8cCLCUZi_Q' // TODO FIXME REMOVE THIS
-  //vapidKeys.publicKey,
-  //vapidKeys.privateKey
+  process.env.PUBLIC_KEY,
+  process.env.PRIVATE_KEY
 );
 
 export { webpush };

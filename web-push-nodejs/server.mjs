@@ -1,5 +1,5 @@
 import http from 'http'
-import { database, webpush } from './lib'
+import { database, webpush } from './lib.mjs'
 
 async function main() {
   let client = database()
@@ -35,7 +35,7 @@ async function main() {
       } catch (error) {
         console.log(error)
         response.writeHead(500);
-        response.end(error);
+        response.end(error.toString());
       }
     })
   })
