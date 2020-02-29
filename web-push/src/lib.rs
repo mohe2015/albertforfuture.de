@@ -24,9 +24,6 @@ echo "d2:62:cd:cd:73:d9:07:28:6b:e2:c1:da:11:38:c7:
       be:12:11:79:73:ab:73:32:b3:bf:c7:02:2c:25:19:
       8b:f4" | tr -d '\n: ' | xxd -r -p | base64 | tr '/+' '_-'|tr -d '\n='
 
-0mLNzXPZByhr4sHaETjHvhIReXOrczKzv8cCLCUZi_Q
-BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI
-
 */
 
 // https://github.com/diesel-rs/diesel/tree/master/examples/sqlite/getting_started_step_3
@@ -77,8 +74,6 @@ pub async fn unsubscribe(subscriber: SubscriptionInfo) -> Result<impl warp::Repl
 
     Ok(StatusCode::OK)
 }
-
-// BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=
 
 pub async fn send_notification(subscription: &SubscriptionInfo, payload: &str) -> std::result::Result<(), web_push::WebPushError> {
     let mut builder = WebPushMessageBuilder::new(&subscription).unwrap();

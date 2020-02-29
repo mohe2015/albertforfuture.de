@@ -52,7 +52,7 @@ let isSubscribed = false;
 let swRegistration = null;
 
 const pushButton = document.querySelector('.js-push-btn');
-const applicationServerPublicKey = 'BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=';
+const applicationServerPublicKey = 'BKW52tOFGdez7z0hstMkTt1LTQk9RW9c_0NK-xvJ6bedD41nVSQy8dMSLjgElQ6h-VgjGFMo5wMYDtn4sg5L000';
 
 async function initializeUI() {
   if (!('PushManager' in window)) {
