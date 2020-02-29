@@ -99,6 +99,7 @@ async function subscribeUser() {
     await updateSubscriptionOnServer(subscription);
     window.localStorage.setItem('isSubscribedOnServer', '1')
   } catch (error) {
+    console.log(error)
     alert('Fehler beim Aktivieren der Push-Benachrichtingen! ' + error)
     await unsubscribeUser();
   }

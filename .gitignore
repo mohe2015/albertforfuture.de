@@ -6,3 +6,5 @@ public_fix_mtime
 node_modules/
 bundle.js
 *.db
+.env
+*.sqlite
