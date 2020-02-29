@@ -52,7 +52,7 @@ let isSubscribed = false;
 let swRegistration = null;
 
 const pushButton = document.querySelector('.js-push-btn');
-const applicationServerPublicKey = 'BAvD4b287z3xfU293G2JSKXybiHv-19mNhzlvQmmDk9drnsWhPpeSC6d9uCThC4y4abw4gjyxA8YX9Z7rk4PfvI=';
+const applicationServerPublicKey = 'BKW52tOFGdez7z0hstMkTt1LTQk9RW9c_0NK-xvJ6bedD41nVSQy8dMSLjgElQ6h-VgjGFMo5wMYDtn4sg5L000';
 
 async function initializeUI() {
   if (!('PushManager' in window)) {
@@ -99,6 +99,7 @@ async function subscribeUser() {
     await updateSubscriptionOnServer(subscription);
     window.localStorage.setItem('isSubscribedOnServer', '1')
   } catch (error) {
+    console.log(error)
     alert('Fehler beim Aktivieren der Push-Benachrichtingen! ' + error)
     await unsubscribeUser();
   }
@@ -125,12 +126,12 @@ function updateUI() {
 }
 
 async function downloadAllArticles() {
-  if (localStorage.getItem('offline') === 'v13') {
+  if (localStorage.getItem('offline') === 'v15') {
     console.log("articles already downloaded");
     return;
   }
   await sleep(10000)
-  let cache = await window.caches.open('v13')
+  let cache = await window.caches.open('v15')
   
   try {
     await Promise.all([
@@ -144,7 +145,7 @@ async function downloadAllArticles() {
       }
     }))
 
-    localStorage.setItem('offline', 'v13');
+    localStorage.setItem('offline', 'v15');
     document.getElementById('toast-offline').classList.remove('d-none');
     new Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
     document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
