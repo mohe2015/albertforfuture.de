@@ -1,5 +1,6 @@
 extern crate diesel;
 extern crate dotenv;
+extern crate pretty_env_logger;
 
 use diesel::prelude::*;
 use push::models::*;
@@ -14,6 +15,7 @@ use std::env;
 
 #[tokio::main]
 async fn main() {
+  pretty_env_logger::init();
   let args: Vec<String> = env::args().collect();
 
   // r#"{"text": "Ein neuer Artikel ist online!", "url": "/"}"#

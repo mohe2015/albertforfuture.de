@@ -1,5 +1,6 @@
 extern crate diesel;
 extern crate dotenv;
+extern crate pretty_env_logger;
 
 use warp::Filter;
 
@@ -7,6 +8,7 @@ use push::subscribe;
 
 #[tokio::main]
 async fn main() {
+    pretty_env_logger::init();
 
     let subscribe_path = warp::path!("api" / "v1" / "add_push")
         .and(warp::post())
