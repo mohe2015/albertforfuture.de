@@ -6,7 +6,7 @@
   "dependencies": {
     "bootstrap": "git+https://github.com/twbs/bootstrap.git",
     "dotenv": "^8.2.0",
-    "knex": "^0.20.12",
+    "knex": "^0.20.13",
     "popper.js": "^1.16.1",
     "sqlite3": "^4.1.1",
     "web-push": "^3.4.3"
