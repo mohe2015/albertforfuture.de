@@ -9,7 +9,7 @@
     "knex": "^0.21.1",
     "popper.js": "^1.16.1",
     "sqlite3": "^4.2.0",
-    "web-push": "^3.4.3"
+    "web-push": "^3.4.4"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.1.3",
