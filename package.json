@@ -4,7 +4,7 @@
   "description": "Future source code for website https://albertforfuture.de",
   "main": "index.js",
   "dependencies": {
-    "bootstrap": "git+https://github.com/twbs/bootstrap.git",
+    "bootstrap": "next",
     "dotenv": "^8.2.0",
     "knex": "^0.21.1",
     "popper.js": "^1.16.1",
