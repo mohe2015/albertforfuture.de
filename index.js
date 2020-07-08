@@ -52,7 +52,7 @@ let isSubscribed = false;
 let swRegistration = null;
 
 const pushButton = document.querySelector('.js-push-btn');
-const applicationServerPublicKey = 'BKW52tOFGdez7z0hstMkTt1LTQk9RW9c_0NK-xvJ6bedD41nVSQy8dMSLjgElQ6h-VgjGFMo5wMYDtn4sg5L000';
+const applicationServerPublicKey = 'BKVCw87fCQZgDtVcZKaA0jd7oSLUtjTNOXCNdR22xTuG2cu5GLbZDRtYmx7eStA1TLcCvy0W4XVBVdkqN7mKPdA';
 
 async function initializeUI() {
   if (!('PushManager' in window)) {
@@ -126,12 +126,12 @@ function updateUI() {
 }
 
 async function downloadAllArticles() {
-  if (localStorage.getItem('offline') === 'v27') {
+  if (localStorage.getItem('offline') === 'v28') {
     console.log("articles already downloaded");
     return;
   }
   await sleep(10000)
-  let cache = await window.caches.open('v27')
+  let cache = await window.caches.open('v28')
   
   try {
     await Promise.all([
@@ -145,7 +145,7 @@ async function downloadAllArticles() {
       }
     }))
 
-    localStorage.setItem('offline', 'v27');
+    localStorage.setItem('offline', 'v28');
     document.getElementById('toast-offline').classList.remove('d-none');
     new Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
     document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
