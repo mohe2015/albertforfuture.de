@@ -126,12 +126,12 @@ function updateUI() {
 }
 
 async function downloadAllArticles() {
-  if (localStorage.getItem('offline') === 'v28') {
+  if (localStorage.getItem('offline') === 'v29') {
     console.log("articles already downloaded");
     return;
   }
   await sleep(10000)
-  let cache = await window.caches.open('v28')
+  let cache = await window.caches.open('v29')
   
   try {
     await Promise.all([
@@ -145,7 +145,7 @@ async function downloadAllArticles() {
       }
     }))
 
-    localStorage.setItem('offline', 'v28');
+    localStorage.setItem('offline', 'v29');
     document.getElementById('toast-offline').classList.remove('d-none');
     new Toast(document.getElementById('toast-offline'), {delay: 5000}).show();
     document.getElementById('toast-offline').addEventListener('hidden.bs.toast', function () {
