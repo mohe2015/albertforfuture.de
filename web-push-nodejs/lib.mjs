@@ -25,7 +25,7 @@ export async function database() {
       filename: "./mydb.sqlite"
     },
     useNullAsDefault: false,
-    debug: false
+    debug: true
   });
 
   if (!(await client.schema.hasTable('subscriptions'))) {

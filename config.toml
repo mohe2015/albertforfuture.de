@@ -7,7 +7,7 @@ sectionPagesMenu = "main"
 pluralizeListTitles = false
 
 [params]
-  offlineVersion = "v28"
+  offlineVersion = "v29"
   serverPublicKey = "BKVCw87fCQZgDtVcZKaA0jd7oSLUtjTNOXCNdR22xTuG2cu5GLbZDRtYmx7eStA1TLcCvy0W4XVBVdkqN7mKPdA"
 
 [outputs]

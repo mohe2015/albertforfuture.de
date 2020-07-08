@@ -24,9 +24,18 @@ async function main() {
     return;
   }
 
+  console.log("before db");
+
   let client = await database()
 
+  console.log("after db");
+
   let subscriptions = await client('subscriptions').select('subscription')
+  
+  console.log("after query");
+
+  console.log(subscriptions);
+
   for (let subscriptionRow of subscriptions) {
     let subscription = subscriptionRow['subscription']
     let pushSubscription = JSON.parse(subscription)
@@ -34,7 +43,7 @@ async function main() {
     console.log(pushSubscription.endpoint)
 
     try {
-      await webpush.sendNotification(pushSubscription, JSON.stringify(message))
+      await webpush.sendNotification(pushSubscription, message)
     } catch (error) {
       console.log(error)
 
