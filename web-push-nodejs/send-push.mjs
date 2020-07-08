@@ -26,11 +26,11 @@ async function main() {
 
   console.log("before db");
 
-  let client = await database()
+  let db = await database()
 
   console.log("after db");
 
-  let subscriptions = await client('subscriptions').select('subscription')
+  let subscriptions = await db.all('SELECT subscription FROM subscriptions')
   
   console.log("after query");
 

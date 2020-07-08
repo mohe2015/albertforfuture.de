@@ -1,4 +1,5 @@
-import knex from 'knex';
+import sqlite3 from 'sqlite3'
+import { open } from 'sqlite'
 import webpush from 'web-push';
 import dotenv from 'dotenv'
 
@@ -19,20 +20,13 @@ webpush.setVapidDetails(
 export { webpush };
 
 export async function database() {
-  let client = knex({
-    client: 'sqlite3',
-    connection: {
-      filename: "./mydb.sqlite"
-    },
-    useNullAsDefault: false,
-    debug: true
-  });
+  sqlite3.verbose()
+  const db = await open({
+    filename: "./mydb.sqlite",
+    driver: sqlite3.Database,
+  })
 
-  if (!(await client.schema.hasTable('subscriptions'))) {
-    await client.schema.createTable('subscriptions', (table) => {
-      table.string('subscription')
-    })
-  }
+  await db.exec('CREATE TABLE subcriptions IF NOT EXISTS (subscription TEXT)') 
 
-  return client;
+  return db;
 }

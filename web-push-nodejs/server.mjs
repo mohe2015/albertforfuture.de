@@ -2,7 +2,8 @@ import http from 'http'
 import { database, webpush } from './lib.mjs'
 
 async function main() {
-  let client = await database()
+  let db = await database()
+  const stmt = await db.prepare('INSERT INTO subscriptions (subscription) VALUES ?')
 
   const server = http.createServer((request, response) => {
     request.on('error', error => {
@@ -27,9 +28,10 @@ async function main() {
             url: '/'
         }
         await webpush.sendNotification(pushSubscription, JSON.stringify(reply));
-        await client('subscriptions').insert({
-          subscription: body
-        })
+        
+        await stmt.bind({ 1: body })
+        await stmt.run()
+
         response.writeHead(200);
         response.end();
       } catch (error) {
