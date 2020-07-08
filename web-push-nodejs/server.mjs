@@ -3,7 +3,7 @@ import { database, webpush } from './lib.mjs'
 
 async function main() {
   let db = await database()
-  const stmt = await db.prepare('INSERT INTO subscriptions (subscription) VALUES ?')
+  const stmt = await db.prepare('INSERT INTO subscriptions (subscription) VALUES (?)')
 
   const server = http.createServer((request, response) => {
     request.on('error', error => {

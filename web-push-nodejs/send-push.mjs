@@ -55,7 +55,7 @@ async function main() {
       }
     }
   }
-  await client.destroy()
+  await db.close()
 }
 
 main()

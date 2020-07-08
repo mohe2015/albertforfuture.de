@@ -26,7 +26,7 @@ export async function database() {
     driver: sqlite3.Database,
   })
 
-  await db.exec('CREATE TABLE subcriptions IF NOT EXISTS (subscription TEXT)') 
+  await db.exec('CREATE TABLE IF NOT EXISTS subscriptions (subscription TEXT)') 
 
   return db;
 }
