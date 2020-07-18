@@ -6,7 +6,7 @@
   "dependencies": {
     "bootstrap": "next",
     "dotenv": "^8.2.0",
-    "knex": "^0.21.1",
+    "knex": "^0.21.2",
     "popper.js": "^1.16.1",
     "sqlite": "^4.0.11",
     "sqlite3": "^5.0.0",
